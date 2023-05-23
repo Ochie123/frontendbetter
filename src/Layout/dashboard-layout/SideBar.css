@@ -1,0 +1,26 @@
+.root {
+    display: 'flex';
+}
+.drawer {
+    width: '240';
+    flex-shrink: '0';
+  }
+.drawerPaper {
+    width: '240';
+  }
+.drawerContainer {
+    overflow: auto;
+}
+.link {
+    text-decoration:'none' ;
+    color: 'inherit';
+}
+.logoWithLink {
+    display: 'flex';
+    align-items: 'center';
+    text-decoration: 'none';
+    color: 'inherit',   
+}
+.nested {
+    padding-left: 4%;
+}

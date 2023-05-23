@@ -1,0 +1,114 @@
+html,
+body {
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  background: #eee;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+main {
+  margin: opx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lane {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 320px;
+  max-width: 400px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cards {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 3px 3px 10px rgba(0 0 0 / 0.1);
+  padding: 0px 0px;
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font-size: 1.1em;
+  text-align: left;
+  cursor: pointer;
+}
+
+.card-header-new {
+  margin-left: 26px;
+}
+
+.card-expand {
+  transform: rotate(-0.25turn);
+}
+
+.card-expanded {
+  transform: none;
+}
+
+.card-title {
+  flex-grow: 1;
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.card-title-form {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -1px 0;
+}
+
+
+.flex-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-wrapper > div {
+  width: 100%;
+  max-width: 25%;
+  padding: 10px;
+ 
+}
+
+@media only screen and (max-width: 600px) {
+  .flex-wrapper > div {
+    max-width: 50%;
+  }
+}
+@media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
