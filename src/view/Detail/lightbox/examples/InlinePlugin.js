@@ -12,7 +12,7 @@ import "yet-another-react-lightbox/plugins/thumbnails.css";
 
 
 import { useQuery } from "react-query";
-//import { loadImages } from '../../../../data/api/api'
+import { loadImages } from '../../../../data/api/api'
 import { loadAuction } from '../../../../data/api/api'
 import { useParams } from 'react-router-dom';
 import useCurrent from '../../../../../src/data/products/useCurrent'
@@ -22,8 +22,8 @@ import { Box, Container, Typography, useMediaQuery } from "@mui/material"
 export default function InlinePlugin() {
   const mobileDevice = useMediaQuery("(max-width:650px)")
   const { id } = useParams();
-  //const { data = { results: [] }} = useQuery("images", loadImages);
-  //const results = data.results;
+  const { data = { results: [] }} = useQuery("images", loadImages);
+  const results = data.results;
   
   const { data: auction } = useQuery(["currentAuction", { id }], () =>
     loadAuction(id)
@@ -34,33 +34,22 @@ export default function InlinePlugin() {
   }
   //console.log(results)
   // Assuming you have the API response stored in a variable called 'images'
-  //const filteredImages = results.filter((image) => image.auction === auction.uuid);
+  const filteredImages = results.filter((image) => image.auction === auction.uuid);
 
   //console.log(filteredImages)
   //console.log(auction.images)
 
-  const slides = auction?.images.map(({ src, key, index, image, images }) => ({
-    src: `http://127.0.0.1:8000${image}`,
-    key: `${image}`,
-    position: `${index + 1}/${auction?.images.length}`,
-   
-    srcSet: images?.map((image) => ({
-      src: `http://127.0.0.1:8000${image}`,
-    
-    }))
-  }));
   
   //
   //
- //  const slides = filteredImages.map(({ src, key, image, images }) => ({
-   // src: `${image}`,
-   // key, `${image}`,
- //   width,
-  //  height,
-  //  srcSet: images?.map((image) => ({
-  //    src: `${image}`,
-   // }))
-  //}));
+  const slides = filteredImages.map(({ src, key, image, images }) => ({
+    src: `${image}`,
+    key: `${image}`,
+   
+    srcSet: images?.map((image) => ({
+      src: `${image}`,
+    }))
+  }));
   
 
   //

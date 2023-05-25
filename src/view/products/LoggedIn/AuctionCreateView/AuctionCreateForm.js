@@ -179,21 +179,54 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
 
         
         try {
-          const token = localStorage.getItem("token");
-          console.log(token)
-          await postAuctionAxios(values);  
-          
-          formikHelpers.setStatus({ success: true })
-          formikHelpers.setSubmitting(false)
-          enqueueSnackbar("Auction Created", {
-            variant: "success"
-          })
-          .push("list-auctions")
+          const token = localStorage.getItem('token');
+          console.log(token);
+      
+          const formData = new FormData();
+          values.uploaded_images.forEach((file, index) => {
+            formData.append(`uploaded_images[${index}]`, file);
+          });
+          // Append other form fields to the formData object
+          const carSpecifications = values.car_specification || []; // Make sure it's an array
+
+          carSpecifications.forEach(specification => {
+            formData.append('car_specification', specification);
+          });
+          formData.append('category', values.category);
+          formData.append('make', values.make);
+          formData.append('model', values.model);
+          formData.append('duration', values.duration);
+          formData.append('overview', values.overview);
+          formData.append('start_time', values.start_time);
+          formData.append('type', values.type);
+          formData.append('name', values.name);
+          formData.append('reserveprice', values.reserveprice);
+         // formData.append('car_specification', values.car_specification);
+          formData.append('year', values.year);
+          formData.append('starting_price', values.starting_price);
+          // ... append other form fields
+      
+          const response = await axios.post('http://127.0.0.1:8000/api/auctions/', formData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+      
+          formikHelpers.setStatus({ success: true });
+          formikHelpers.setSubmitting(false);
+          enqueueSnackbar('Auction Created', {
+            variant: 'success',
+          });
+          // Redirect or perform any other necessary action
+          console.log(response)
+          console.log('Auction created:', response.data);
+          navigate('list-auctions');
         } catch (err) {
-          alert("Something happened. Please try again.")
-          setError(err.message)
-          formikHelpers.setStatus({ success: false })
-          formikHelpers.setSubmitting(false)
+          alert('Something happened. Please try again.');
+          setError(err.message);
+          formikHelpers.setStatus({ success: false });
+          formikHelpers.setSubmitting(false);
         }
         //console.log(err.message)
       }}
@@ -245,14 +278,23 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
                 </CardContent>
               </Card>
               <Box mt={3}>
-                <Card>
-                  <CardHeader title="Upload Images" />
-                  <Divider />
-                  <CardContent>
-                    <FilesDropzone />
-                  </CardContent>
-                </Card>
+      <Card>
+        <CardHeader title="Upload Images" />
+        <Divider />
+        <CardContent>
+          <FilesDropzone onFilesChange={(files) => formikProps.setFieldValue('uploaded_images', files)} />
+
+          {formikProps.touched.uploaded_images &&
+            formikProps.errors.uploaded_images && (
+              <Box mt={2}>
+                <FormHelperText error>
+                  {formikProps.errors.uploaded_images}
+                </FormHelperText>
               </Box>
+            )}
+        </CardContent>
+      </Card>
+    </Box>
               
               <Box mt={3}>
                 <Card>
@@ -499,6 +541,8 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
           onChange={(event) => {
             formikProps.setFieldValue('car_specification', event.target.value);
           }}
+          
+          
           value={formikProps.values.car_specification || []}
         >
           {carSpecifications.map(car_specification => (

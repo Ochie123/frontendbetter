@@ -1,106 +1,64 @@
-import React, { useState, useCallback } from "react"
-import clsx from "clsx"
-import Dropzone, { useDropzone } from "react-dropzone"
-import PerfectScrollbar from "react-perfect-scrollbar"
-import {FileCopy} from "@mui/icons-material"
-import {More} from "@mui/icons-material"
-import {
-  Box,
-  Button,
-  IconButton,
-  Link,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Tooltip,
-  Typography,
+import React, { useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { Box, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemText, IconButton } from "@mui/material";
+import { Delete as DeleteIcon } from "@mui/icons-material";
 
-} from "@mui/material"
+const FilesDropzone = ({ onFilesChange }) => {
+  const handleDrop = useCallback(
+    (acceptedFiles) => {
+      const formattedFiles = acceptedFiles.map((file) => {
+        return new File([file], file.name, { type: file.type });
+      });
+  
+      if (onFilesChange) {
+        onFilesChange(formattedFiles);
+      }
+    },
+    [onFilesChange]
+  );
+  
 
-import './Files-Dropzone.css'
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({
+    onDrop: handleDrop,
+    accept: 'image/*',
+    multiple: true,
+  });
 
-import bytesToSize from '../../src/utils/Bytes-To-Size'
-
-const FilesDropzone = ({ className, ...rest }) => {
-
-  const [files, setFiles] = useState([])
-  const handleDrop = useCallback(acceptedFiles => {
-    setFiles(prevFiles => [...prevFiles].concat(acceptedFiles))
-  }, [])
-
-  const handleRemoveAll = () => {
-    setFiles([])
-  }
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: handleDrop
-  })
+  const handleRemoveFile = (index) => {
+    if (onFilesChange) {
+      const updatedFiles = [...acceptedFiles];
+      updatedFiles.splice(index, 1);
+      onFilesChange(updatedFiles);
+    }
+  };
 
   return (
-    <div className={clsx("", className)} {...rest}>
-      <div
-        className={clsx({
-       
-        })}
-        {...getRootProps()}
-      >
-        <input {...getInputProps()} />
-        <div>
-          <img
-            alt="Select file"
-            className="image"
-            src="/images/products/add_file.svg"
-          />
-        </div>
-        <div>
-          <Typography gutterBottom variant="h5">
-            Select files
-          </Typography>
-          <Box mt={2}>
-            <Typography color="textPrimary" variant="body1">
-              Drop files here or click <Link underline="always">browse</Link>{" "}
-              thorough your machine
-            </Typography>
-          </Box>
-        </div>
-      </div>
-      {files.length > 0 && (
-        <>
-          <PerfectScrollbar options={{ suppressScrollX: true }}>
-            <List className="list">
-              {files.map((file, i) => (
-                <ListItem divider={i < files.length - 1} key={i}>
-                  <ListItemIcon>
-                    <FileCopy />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={file.name}
-                    primaryTypographyProps={{ variant: "h5" }}
-                    secondary={bytesToSize(file.size)}
-                  />
-                  <Tooltip title="More options">
-                    <IconButton edge="end">
-                      <More />
-                    </IconButton>
-                  </Tooltip>
-                </ListItem>
-              ))}
-            </List>
-          </PerfectScrollbar>
-          <div className="">
-            <Button onClick={handleRemoveAll} size="small">
-              Remove all
-            </Button>
-            <Button color="secondary" size="small" variant="contained">
-              Upload files
-            </Button>
-          </div>
-        </>
+    <Box {...getRootProps()} p={2} border={1} borderColor="grey.400" borderRadius={4}>
+      <input {...getInputProps()} />
+      {isDragActive ? (
+        <Typography variant="body1">Drop the files here...</Typography>
+      ) : (
+        <Typography variant="body1">Drag and drop files here or click to browse</Typography>
       )}
-    </div>
-  )
-}
+      {acceptedFiles.length > 0 && (
+        <Box mt={2}>
+          <List>
+            {acceptedFiles.map((file, index) => (
+              <ListItem key={index}>
+                <ListItemAvatar>
+                  <Avatar variant="rounded" src={URL.createObjectURL(file)} />
+                </ListItemAvatar>
+                <ListItemText primary={file.name} secondary={`${(file.size / 1024).toFixed(2)} KB`} />
+                <IconButton onClick={() => handleRemoveFile(index)}>
+                  <DeleteIcon />
+                </IconButton>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      )}
+    </Box>
+  );
+};
 
-
-export default FilesDropzone
+export default FilesDropzone;

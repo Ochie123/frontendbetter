@@ -16,5 +16,8 @@ export const YupAuctionValidation = Yup.object().shape({
     .required(),
   starting_price: Yup.number().min(0),
   reserveprice: Yup.number().min(0),
-  car_specification:  Yup.array().min(1, 'Please select at least one feature')
+  car_specification:  Yup.array().min(1, 'Please select at least one feature'),
+  uploaded_images: Yup.array()
+  .min(1, "Minimum 1 files are required")
+  .required("Files are required")
 })

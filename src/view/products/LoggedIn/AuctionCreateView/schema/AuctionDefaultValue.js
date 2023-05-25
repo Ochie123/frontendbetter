@@ -13,6 +13,7 @@ export const AuctionDefaultValue = {
   start_time: "",
   overview: "",
   car_specification: "",
+  uploaded_images: "",
 
 
 }

@@ -1,5 +1,5 @@
 const URLS = {
-  LOGIN: "http://eleven-falcons-buy.loca.lt//api-auth/login/",
+  LOGIN: "http://127.0.0.1:8000/api-auth/login/",
   SIGNUP: "http://127.0.0.1:8000/api/v1/dj-rest-auth/registration/",
   LOGOUT: "http://127.0.0.1:8000/api-auth/logout/",
   //USER: "http://127.0.0.1:8000/api/v1/dj-rest-auth/user/",
@@ -11,29 +11,29 @@ const URLS = {
   USER: (id) => `http://127.0.0.1:8000/apis/users/${id}`,
 
 
-  AUCTIONS: "http://great-badgers-cover.loca.lt/api/auctions/",
-  AUCTION: (uuid) => `http://great-badgers-cover.loca.lt/api/auctions/${uuid}`,
+  AUCTIONS: "http://127.0.0.1:8000/api/auctions/",
+  AUCTION: (uuid) => `http://127.0.0.1:8000/api/auctions/${uuid}`,
 
-  BIDS: "http://great-badgers-cover.loca.lt/api/bid/",
-  BID: (id) => `http://great-badgers-cover.loca.lt/api/bid/${id}`,
+  BIDS: "http://127.0.0.1:8000/api/bid/",
+  BID: (id) => `http://127.0.0.1:8000/api/bid/${id}`,
 
-  MAKES: "http://great-badgers-cover.loca.lt/api/make/",
-  MAKE: (id) => `http://great-badgers-cover.loca.lt/api/make/${id}`,
+  MAKES: "http://127.0.0.1:8000/api/make/",
+  MAKE: (id) => `http://127.0.0.1:8000/api/make/${id}`,
 
-  MODELS: "http://great-badgers-cover.loca.lt/api/model/",
-  MODEL: (id) => `http://great-badgers-cover.loca.lt/api/model/${id}`,
+  MODELS: "http://127.0.0.1:8000/api/model/",
+  MODEL: (id) => `http://127.0.0.1:8000/api/model/${id}`,
 
-  CATEGORIES: "http://great-badgers-cover.loca.lt/api/categories/",
-  CATEGORY: (id) => `http://great-badgers-cover.loca.lt/api/categories/${id}`,
+  CATEGORIES: "http://127.0.0.1:8000/api/categories/",
+  CATEGORY: (id) => `http://127.0.0.1:8000/api/categories/${id}`,
   
-  COMMENTS: "http://great-badgers-cover.loca.lt/api/comment/",
-  COMMENT: (id) => `http://great-badgers-cover.loca.lt/api/comment/${id}`,
+  COMMENTS: "http://127.0.0.1:8000/api/comment/",
+  COMMENT: (id) => `http://127.0.0.1:8000/api/comment/${id}`,
 
-  CARS_SPECIFICATIONS: "http://great-badgers-cover.loca.lt/api/car-specifications/",
-  CARS_SPECIFICATION: (id) => `http://great-badgers-cover.loca.lt/api/car-specifications/${id}`,
+  CARS_SPECIFICATIONS: "http://127.0.0.1:8000/api/car-specifications/",
+  CARS_SPECIFICATION: (id) => `http://127.0.0.1:8000/api/car-specifications/${id}`,
 
-  IMAGES: "http://great-badgers-cover.loca.lt/api/images/",
-  IMAGE: (id) => `http://great-badgers-cover.loca.lt/api/images/${id}`,
+  IMAGES: "http://127.0.0.1:8000/api/images/",
+  IMAGE: (id) => `http://127.0.0.1:8000/api/images/${id}`,
 
 
 };

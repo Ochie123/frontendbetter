@@ -31,7 +31,7 @@ const Main = styled.main`
 function NewlyListed() {
   const results = useAllAuctions();
 
-  console.log(results)
+  //console.log(results)
     return (
         <>
     <Main>
@@ -68,18 +68,7 @@ function NewlyListed() {
         <a className="text-primary text-sm font-weight-bold" href="/">Browse all </a>
       </div>
 
-      <div className="row mb-5">
-        {data.categories.map(category => 
-          <div className="col-md-6 col-lg-3">
-            <Link to="category/">
-            <CardCategory
-              thumb_src = {category.thumb_src}
-              title = {category.title}
-            />
-            </Link>
-          </div>
-        )}
-      </div>
+  
 
        </>
     );
