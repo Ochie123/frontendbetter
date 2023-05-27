@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, useState } from 'react';
+import React, { useContext, Fragment,useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 //import Typography from '@mui/material/Typography';
@@ -34,6 +34,8 @@ export default function CommentSummaryChart({results, id}) {
   const auction = useContext(AuctionContext);
   const username = auction?.username;
 
+  const [scrollPosition, setScrollPosition] = useState(0);
+
   const { data:auctionsData = { results: [] }} = useQuery("auctions", loadAuctions);
   const auctions = auctionsData.results;
 
@@ -47,7 +49,17 @@ export default function CommentSummaryChart({results, id}) {
 
   const ownerId = auction?.owner_id;
 
-  console.log(ownerId)
+  useEffect(() => {
+    if (scrollPosition !== 0) {
+      window.scrollTo(0, scrollPosition);
+    }
+  }, [scrollPosition]);
+
+  const handleDialogClose = (evt) => {
+    evt.preventDefault();
+    setScrollPosition(window.pageYOffset);
+  };
+ // console.log(ownerId)
 
  
 
@@ -81,7 +93,7 @@ export default function CommentSummaryChart({results, id}) {
          
           <h6>Share your thoughts</h6>
           <p>If you like this item, share your thoughts with others.</p>
-    <AddCommentModal/>
+          <AddCommentModal onDialogClose={handleDialogClose} />
           </div>
         </div>
      

@@ -33,9 +33,7 @@ const URLS = {
   CARS_SPECIFICATION: (id) => `http://127.0.0.1:8000/api/car-specifications/${id}`,
 
   IMAGES: "http://127.0.0.1:8000/api/images/",
-  IMAGE: (id) => `http://127.0.0.1:8000/api/images/${id}`,
-
-
+  IMAGE: (id) => `http://127.0.0.1:8000/api/images/${id}`
 };
 
 const wrappedFetch = (...args) => {

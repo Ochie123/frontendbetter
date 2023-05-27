@@ -56,8 +56,8 @@ function Result({ uuid }) {
       
         </AspectRatio>
         <ListItemContent>
-          <Typography fontWeight="xl">{auction?.release_year} {auction?.make} {auction?.model} {auction?.overview}</Typography>
-          <Typography level="body2">{auction?.overview}</Typography>
+          <Typography fontWeight="xl">{auction?.year} {auction?.name} </Typography>
+          <Typography level="body2">{auction?.name}</Typography>
         </ListItemContent>
       </ListItemButton>
     </ListItem>

@@ -22,7 +22,7 @@ export default function ReviewComment({  result}) {
   //console.log(results)
 
   let AuctionBids = results.filter((bid)=> bid.auction === auction?.uuid);
-  console.log(AuctionBids)
+  //console.log(AuctionBids)
 
 
 

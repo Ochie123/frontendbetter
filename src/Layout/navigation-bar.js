@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 //import { makeStyles } from '@mui/styles';
 
+
 import {
   AppBar,
   Toolbar,
@@ -19,6 +20,9 @@ import { lightBlue } from '@mui/material/colors';
 
 function NavigationBar() {
   //const classes = useStyles();
+  const token = localStorage.getItem('token');
+  console.log(token);
+
   const { claims } = useSelector(state => state.auth)
   const mobileDevice = useMediaQuery('(max-width:650px)');
 

@@ -36,7 +36,7 @@ function DetailPage() {
   const { data: cars_SpecificationsData = { results: [] } } = useQuery('cars_specifications', loadCars_Specifications);
   const carSpecifications = cars_SpecificationsData.results;
 
-  console.log(auction)  
+  //console.log(auction)  
   
   //const filteredFeatures = carSpecifications.filter(car_specification => auction.car_specifications.includes(car_specification.id));
   //console.log(filteredFeatures)  

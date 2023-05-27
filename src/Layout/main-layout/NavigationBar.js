@@ -24,11 +24,14 @@ import { Link } from 'react-router-dom';
 //const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+  const token = localStorage.getItem('token');
+  //console.log(token);
+
   const { claims } = useSelector(state => state.auth)
   const { profile } = useSelector(state => state.profile)
 
 
-  console.log(claims)
+  //console.log(claims)
 
   const mobileDevice = useMediaQuery('(max-width:650px)');
 
@@ -78,7 +81,7 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
      
-            {claims ? (
+            {token ? (
               <>
               </>    
               
@@ -108,7 +111,7 @@ function ResponsiveAppBar() {
               
             LOGO
           </Typography>
-          {claims ? (
+          {token ? (
             <>
              <Box sx={{ flexGrow: 1, display: { flexGrow: 1, display: 'flex', justifyContent: 'flex-end'  } }}>
         

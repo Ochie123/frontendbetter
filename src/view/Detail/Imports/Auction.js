@@ -92,7 +92,7 @@ export default function Auction({ match }) {
         <CardHeader
           title={
             <span>
-           {auction?.release_year} {auction?.name} {auction?.model}
+           {auction?.year} {auction?.name} 
             </span>
         }
           subheader={
@@ -118,7 +118,7 @@ export default function Auction({ match }) {
                     <CardMedia
                         className=""
                        
-                        title= {auction?.release_year}
+                        title= {auction?.year}
                     />
                   </Grid>
                   

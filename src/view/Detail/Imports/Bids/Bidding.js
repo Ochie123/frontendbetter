@@ -1,49 +1,31 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from "react-query";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-//import auth from '../auth/auth-helper';
-import Grid from '@mui/material/Grid';
-//import { makeStyles } from '@mui/styles';
-//import {AuctionContext} from '../../DetailPage';
-
-//import { useThisBid } from '../../../../data'
-import { useAddBid } from '../../../../data'
-
-import { loadAuction } from '../../../../data/api/api'
-
+import axios from "axios";
+import { useSnackbar } from "notistack"
 import { useParams } from 'react-router-dom';
-
-
-import { loadBids } from '../../../../data/api/api';
+import { loadAuction, loadBids } from '../../../../data/api/api';
 
 const io = require('socket.io-client');
 const socket = io();
- 
 
-const BidContext = React.createContext();
-
-export default function Bidding( props) {
- // const classes = useStyles();
- // const { result } = useThisBid(id);
-  
+export default function Bidding(props) {
   const { id } = useParams();
-
   const { data: auction } = useQuery(["currentAuction", { id }], () =>
-   loadAuction(id)
+    loadAuction(id)
   );
 
-  const { data = { results: [] }} = useQuery("bids", loadBids);
- 
-  const results = data.results;
-  //console.log(results)
+  const { enqueueSnackbar } = useSnackbar()
+  const [error, setError] = useState("")
 
+  const { data = { results: [] }} = useQuery("bids", loadBids);
+  const results = data.results;
 
   const [amount, setAmount] = useState('');
-  const [justEnded, setJustEnded] = useState(false)
-
+  const [justEnded, setJustEnded] = useState(false);
   const [end_time, setEndTime] = useState(null);
+  
 
   useEffect(() => {
     if (auction && auction.start_time && auction.duration) {
@@ -55,15 +37,7 @@ export default function Bidding( props) {
     }
   }, [auction]);
 
-  //console.log(end_time)
-
-  const addBid = useAddBid();
-  const [isAdding, setIsAdding] = useState(false);
-
-  //const auction = useContext(AuctionContext);
-
-  //const jwt = auth.isAuthenticated();
-
+  const [isAdding, setIsAdding] = useState(false); // Add isAdding state
   useEffect(() => {
     socket.emit('join auction room', { room: auction?._uuid });
     return () => {
@@ -72,7 +46,6 @@ export default function Bidding( props) {
       });
     };
   }, [auction]);
-  
 
   useEffect(() => {
     socket.on('new bid', (payload) => {
@@ -83,37 +56,55 @@ export default function Bidding( props) {
       socket.off('new bid');
     };
   });
+
+  const handleChange = event => {
+    setAmount(event.target.value)
+}
+const placeAmount = (evt) => {
+  evt.preventDefault();
+
+  const formData = new FormData();
+  formData.append('auction', auction?.uuid);
+  formData.append('amount', amount);
   
+  const token = localStorage.getItem('token');
 
-  const onSubmit = (evt) => {
-    evt.preventDefault();
-    addBid(Object.fromEntries(new FormData(evt.target)));
-    evt.target.reset();
-    setIsAdding(false);
-  };
+  axios
+    .post('http://127.0.0.1:8000/api/bid/', formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then((response) => {
+      // Handle the response or update any necessary state
+      enqueueSnackbar(`You Bid ${amount}`, {
+        variant: 'success',
+      });
+      console.log(response.data);
+  
+      setAmount('');
+      setIsAdding(false);
+    })
+    .catch((error) => {
+      // Handle any errors
+      console.error(error);
+    });
 
-  const handleChange = (event) => {
-    setAmount(event.target.value);
-  };
-
-const placeAmount = () => {
-  let newAmount = {
+  let newBidInfo = {
     amount: amount,
     time: new Date(),
-    //bidder: jwt.user,
   };
   socket.emit('new bid', {
-    bidInfo: newAmount,
+    bidInfo: newBidInfo,
     room: auction?._uuid,
   });
   setAmount('');
 };
 
+  
 
-  let AuctionBids = results.filter((bid)=> bid.auction === auction?.uuid);
-
-  //console.log(AuctionBids)
-
+  let AuctionBids = results.filter((bid) => bid.auction === auction?.uuid);
 
   const minAmount = AuctionBids && AuctionBids.length > 0 ? AuctionBids[0].amount : auction?.starting_price;
 
@@ -144,6 +135,6 @@ const placeAmount = () => {
           <br />
         </div>
       )}
-        </div>
-    )
+    </div>
+  );
 }

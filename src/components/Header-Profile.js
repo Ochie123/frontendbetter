@@ -10,7 +10,7 @@ import HandymanIcon from '@mui/icons-material/Handyman';
 import Toolbar from '@mui/material/Toolbar';
 //import { useRouteMatch } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { profileSelector } from '../features/profile/profileSlice';
 //import { RootState } from 'store/reducers';
 import {
   Avatar,
@@ -39,8 +39,8 @@ import {
 } from 'react-feather';
 
 const HeaderProfile = () => {
-  //const classes = useStyles();
-  const { profile } = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+  const { profile } = useSelector(profileSelector);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const [open, setOpen] = useState(false);
@@ -60,6 +60,8 @@ const HeaderProfile = () => {
   const handleClicks = () => {
     setOpen(!open);
   };
+
+  console.log(profile)
 
   return (
     <div>

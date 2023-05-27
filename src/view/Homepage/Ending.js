@@ -54,7 +54,7 @@ function Ending({ uuid }) {
               )}
               </AspectRatio>
               <Box sx={{ whiteSpace: 'nowrap', paddingLeft:1 }}>
-                <Typography fontWeight="xl">{auction?.year} {auction?.make} {auction?.model} {auction?.overview}</Typography>
+                <Typography fontWeight="xl">{auction?.year} {auction?.name} </Typography>
                 <Typography level="body2">{auction?.overview}</Typography>
               </Box>
             </Card>

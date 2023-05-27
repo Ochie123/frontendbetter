@@ -132,7 +132,7 @@ const AuctionCreateForm = props => {
   useEffect(() => {
     const fetchAuctionChoices = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/trader/api/auction-choices/");
+        const response = await axios.get("http://192.168.43.38:8000/trader/api/auction-choices/");
         setAuctionChoices(response.data);
       } catch (error) {
         console.error(error);
@@ -180,7 +180,7 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
         
         try {
           const token = localStorage.getItem('token');
-          console.log(token);
+          //console.log(token);
       
           const formData = new FormData();
           values.uploaded_images.forEach((file, index) => {

@@ -1,6 +1,23 @@
 import { useState } from "react";
+import styled from "styled-components";
 
 import { useAddBid } from '../../../../data'
+import Button from "./Button";
+import { Form, Label, Input } from "./Form";
+
+const FormWrapper = styled.div`
+  width: clamp(10em, 60vw, 40em);
+  border: 2px solid black;
+  border-radius: 0.5em;
+  padding: 2em;
+  box-shadow: -6px 6px 0 black;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+`;
 
 function AddABid() {
   const addBid = useAddBid();
@@ -16,18 +33,14 @@ function AddABid() {
     evt.target.reset();
     setIsAdding(false);
   };
-
+// Authorization: `Bearer ${token}`,
   return (
     <FormWrapper>
       <h2>Add a thing</h2>
       <Form onSubmit={onSubmit}>
         <Label>
-          Name:
-          <Input name="name" />
-        </Label>
-        <Label>
-          Description:
-          <Input name="description" />
+          Amount:
+          <Input amount="amount" />
         </Label>
         <ButtonWrapper>
           <Button>Add</Button>

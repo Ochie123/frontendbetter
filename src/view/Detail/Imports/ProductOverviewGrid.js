@@ -37,7 +37,7 @@ export default function ProductOverview({
   //console.log(carSpecifications)  
   
   const filteredFeatures = carSpecifications.filter(car_specification => auction?.car_specification?.includes(car_specification.id));
-  console.log(filteredFeatures)
+  //console.log(filteredFeatures)
 
   return (
     <>
