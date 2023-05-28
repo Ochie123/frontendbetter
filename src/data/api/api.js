@@ -4,36 +4,36 @@ const URLS = {
   LOGOUT: "http://127.0.0.1:8000/api-auth/logout/",
   //USER: "http://127.0.0.1:8000/api/v1/dj-rest-auth/user/",
 
-  PRODUCTS: "http://127.0.0.1:8000/api/products/",
-  PRODUCT: (uuid) => `http://127.0.0.1:8000/api/products/${uuid}`,
+  PRODUCTS: "http://192.168.43.38:8000/api/products/",
+  PRODUCT: (uuid) => `http://192.168.43.38:8000/api/products/${uuid}`,
 
-  USERS: "http://127.0.0.1:8000/apis/users/",
-  USER: (id) => `http://127.0.0.1:8000/apis/users/${id}`,
+  USERS: "http://192.168.43.38:8000/apis/users/",
+  USER: (id) => `http://192.168.43.38:8000/apis/users/${id}`,
 
 
-  AUCTIONS: "http://127.0.0.1:8000/api/auctions/",
-  AUCTION: (uuid) => `http://127.0.0.1:8000/api/auctions/${uuid}`,
+  AUCTIONS: "http://192.168.43.38:8000/api/auctions/",
+  AUCTION: (uuid) => `http://192.168.43.38:8000/api/auctions/${uuid}`,
 
-  BIDS: "http://127.0.0.1:8000/api/bid/",
-  BID: (id) => `http://127.0.0.1:8000/api/bid/${id}`,
+  BIDS: "http://192.168.43.38:8000/api/bid/",
+  BID: (id) => `http://192.168.43.38:8000/api/bid/${id}`,
 
-  MAKES: "http://127.0.0.1:8000/api/make/",
-  MAKE: (id) => `http://127.0.0.1:8000/api/make/${id}`,
+  MAKES: "http://192.168.43.38:8000/api/make/",
+  MAKE: (id) => `http://192.168.43.38:8000/api/make/${id}`,
 
-  MODELS: "http://127.0.0.1:8000/api/model/",
-  MODEL: (id) => `http://127.0.0.1:8000/api/model/${id}`,
+  MODELS: "http://192.168.43.38:8000/api/model/",
+  MODEL: (id) => `http://192.168.43.38:8000/api/model/${id}`,
 
-  CATEGORIES: "http://127.0.0.1:8000/api/categories/",
-  CATEGORY: (id) => `http://127.0.0.1:8000/api/categories/${id}`,
+  CATEGORIES: "http://192.168.43.38:8000/api/categories/",
+  CATEGORY: (id) => `http://192.168.43.38:8000/api/categories/${id}`,
   
-  COMMENTS: "http://127.0.0.1:8000/api/comment/",
-  COMMENT: (id) => `http://127.0.0.1:8000/api/comment/${id}`,
+  COMMENTS: "http://192.168.43.38:8000/api/comment/",
+  COMMENT: (id) => `http://192.168.43.38:8000/api/comment/${id}`,
 
-  CARS_SPECIFICATIONS: "http://127.0.0.1:8000/api/car-specifications/",
-  CARS_SPECIFICATION: (id) => `http://127.0.0.1:8000/api/car-specifications/${id}`,
+  CARS_SPECIFICATIONS: "http://192.168.43.38:8000/api/car-specifications/",
+  CARS_SPECIFICATION: (id) => `http://192.168.43.38:8000/api/car-specifications/${id}`,
 
-  IMAGES: "http://127.0.0.1:8000/api/images/",
-  IMAGE: (id) => `http://127.0.0.1:8000/api/images/${id}`
+  IMAGES: "http://192.168.43.38:8000/api/images/",
+  IMAGE: (id) => `http://192.168.43.38:8000/api/images/${id}`
 };
 
 const wrappedFetch = (...args) => {

@@ -206,7 +206,7 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
           formData.append('starting_price', values.starting_price);
           // ... append other form fields
       
-          const response = await axios.post('http://127.0.0.1:8000/api/auctions/', formData, {
+          const response = await axios.post('http://192.168.43.38:8000/api/auctions/', formData, {
             headers: {
               Authorization: `Bearer ${token}`,
               'Content-Type': 'multipart/form-data',
@@ -378,7 +378,7 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
             </Grid>
             <Grid item xs={12} lg={4}>
               <Card>
-                <CardHeader title="Organize" />
+                <CardHeader title="Choose here" />
                 <Divider />
                 <CardContent>
                   <TextField
@@ -401,6 +401,7 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
                     ))}
                   </TextField>
                   <Divider />  
+                  <br/>
                   <TextField
                     fullWidth
                     label="Make"
@@ -425,6 +426,7 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
                   </TextField>
 
                   <Divider />
+                  <br/>
                   <TextField
                     fullWidth
                     label="Model"
@@ -470,6 +472,8 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
                   </MenuItem>
                     ))}
                 </TextField>
+                <Divider />
+                 <br/>
                <TextField
                   fullWidth
                    label="Year"
@@ -489,6 +493,9 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
                   </MenuItem>
                  ))}
                 </TextField>
+
+                <Divider />
+                 <br/>
                  <TextField
                   fullWidth
                   label="Duration"
@@ -562,7 +569,8 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
 
 
                     </CardContent>
-                <Divider/>
+                    <Divider />
+                 <br/>
                 <Divider/>
 
                  <TextField

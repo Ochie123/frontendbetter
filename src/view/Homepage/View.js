@@ -26,8 +26,10 @@ const Main = () => {
     ) : (
         <>
         <PromotionalFull/>
+        <div class="container my-5">
         <NewlyListed/>
         <EndingSoon/>
+        </div>
         </>
 )}
     </Page>

@@ -5,7 +5,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import AdbIcon from '@mui/icons-material/Adb';
+
+import { Link} from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 
@@ -13,7 +14,7 @@ import { RootState } from '../../store/reducers';
 
 import HeaderProfile from '../../components/Header-Profile';
 import { useMediaQuery } from "@mui/material"
-import { Link } from 'react-router-dom';
+
 
 //import { useAllCategories } from '../data';
 //import Category from '../view/categories/Category';
@@ -35,127 +36,34 @@ function ResponsiveAppBar() {
 
   const mobileDevice = useMediaQuery('(max-width:650px)');
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
 
   return (
-    <AppBar position="sticky">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          
-          <Typography
-      variant="h6"
-      noWrap
-      component={Link}
-      to="/"
-      sx={{
-        mr: 2,
-        display: { xs: 'none', md: 'flex' },
-        fontFamily: 'monospace',
-        fontWeight: 700,
-        letterSpacing: '.3rem',
-        color: 'inherit',
-        textDecoration: 'none',
-      }}
-    >
-              
-            LOGO
-          </Typography>
-          
+    <nav className="navbar navbar-expand-lg blur border-radius-sm top-0 z-index-3 shadow position-sticky py-3 start-0 end-0 bg-blue">
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-     
-            {token ? (
-              <>
-              </>    
-              
-            ): (
-        <>
-   
-        </>
-            )}
-          </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-             noWrap
-              component={Link}
-              to="/"
-               sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-            }}
-            >
-              
-            LOGO
-          </Typography>
+      <div className="container px-1">
+
+        <div className="navbar-brand font-weight-bolder ms-lg-0 ">  <Link to={"/"}>Tradeking</Link>  </div>
+  
+
           {token ? (
             <>
-             <Box sx={{ flexGrow: 1, display: { flexGrow: 1, display: 'flex', justifyContent: 'flex-end'  } }}>
-        
-
-         <HeaderProfile/>
-         
-          
-          </Box>
+               <HeaderProfile/>
             </>
-          ) : (
-            <Box sx={{ flexGrow: 1, display: {flexGrow: 1, display: 'flex', justifyContent: 'flex-end'  } }}>
-  
-            <Button
-            
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: 'white', display: 'block' }}
-            >
-
-            <Typography
-      variant="h6"
-      noWrap
-      component={Link}
-      to={'/login'}
-      sx={{
-        mr: 2,
-        display: { xs: 'flex', md: 'flex' },
-        fontFamily: 'monospace',
-        fontWeight: 700,
-        letterSpacing: '.3rem',
-        color: 'inherit',
-        textDecoration: 'none',
-      }}
-    >
-              
-            Login
-          </Typography>
-            </Button>
-          
-     
-        </Box>
+          ):(
+            <div className="" id="">
+            <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+            <div className="nav-link text-dark font-weight-bold d-flex align-items-center me-2 " aria-current="page" href="" rel="nofollow" target="_blank">
+            <Link to={"/login"}>Login</Link>
+            </div>
+          </li>
+          </ul>
+        </div>
           )}
-        </Toolbar>
-      </Container>
-    </AppBar>
+   
+      </div>
+    </nav>
   );
 }
 export default ResponsiveAppBar;

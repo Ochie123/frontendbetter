@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from "react-query";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/joy/Typography';
 import axios from "axios";
 import { useSnackbar } from "notistack"
 import { useParams } from 'react-router-dom';
@@ -70,7 +71,7 @@ const placeAmount = (evt) => {
   const token = localStorage.getItem('token');
 
   axios
-    .post('http://127.0.0.1:8000/api/bid/', formData, {
+    .post('http://192.168.43.38:8000/api/bid/', formData, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
@@ -112,6 +113,10 @@ const placeAmount = (evt) => {
     <div>
       {!justEnded && new Date() < new Date(end_time) && (
         <div className="">
+        <Typography    
+          fontSize="h6"
+          borderRadius="lg"
+          px={2}>
           <TextField
             id="bid"
             label="Your Bid (Ksh)"
@@ -133,6 +138,8 @@ const placeAmount = (evt) => {
             Place Bid
           </Button>
           <br />
+          <br />
+          </Typography>
         </div>
       )}
     </div>

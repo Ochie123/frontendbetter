@@ -6,11 +6,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import AdbIcon from '@mui/icons-material/Adb';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom"
-import authSlice from '../../store/slices/auth'
-import useSWR from "swr"
-import { fetcher } from '../../utils/axios'
+import { useSelector } from 'react-redux';
+
 
 import { RootState } from '../../store/reducers';
 
@@ -27,13 +24,13 @@ import { Link } from 'react-router-dom';
 //const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
-  const account = useSelector(state => state.auth.account)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  // @ts-ignore
-  const userId = account?.id
+  const token = localStorage.getItem('token');
+  //console.log(token);
 
-  const user = useSWR(`/user/${userId}/`, fetcher)
+  const { claims } = useSelector(state => state.auth)
+  const { profile } = useSelector(state => state.profile)
+
+
   //console.log(claims)
 
   const mobileDevice = useMediaQuery('(max-width:650px)');
@@ -55,11 +52,7 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const handleLogout = () => {
-    dispatch(authSlice.actions.logout())
-    navigate("/login")
-  }
-  
+
   return (
     <AppBar position="sticky">
       <Container maxWidth="xl">
@@ -88,7 +81,7 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
      
-          {user.data ? (
+            {token ? (
               <>
               </>    
               
@@ -118,7 +111,7 @@ function ResponsiveAppBar() {
               
             LOGO
           </Typography>
-          {user.data ? (
+          {token ? (
             <>
              <Box sx={{ flexGrow: 1, display: { flexGrow: 1, display: 'flex', justifyContent: 'flex-end'  } }}>
         

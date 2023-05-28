@@ -21,7 +21,7 @@ const AddCommentModal = ({  addComment }) => {
 
   const auction = useContext(AuctionContext);
 
-  console.log(auction?.uuid)
+  //console.log(auction?.uuid)
 
   const { enqueueSnackbar } = useSnackbar()
   const [error, setError] = useState("")
@@ -54,7 +54,7 @@ const AddCommentModal = ({  addComment }) => {
       const token = localStorage.getItem('token');
 
       axios
-      .post('http://127.0.0.1:8000/api/comment/', formData, {
+      .post('http://192.168.43.38:8000/api/comment/', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',

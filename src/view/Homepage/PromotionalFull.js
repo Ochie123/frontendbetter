@@ -5,7 +5,7 @@ import data from '../Detail/data.json'
 export default function PromotionalFull() {
     return (
 <Promotional 
-title={"Buy/Sell Car or Property"}
+title={"Buy/Sell Car"}
 pageHeaderBgImg={""}
 pageHeaderMinVh="50vh"
 />

@@ -14,7 +14,7 @@ import { useAllAuctions } from '../../data';
 import data from '../Detail/data.json'
 
 import Result from './Result';
-import CardCategory from '../Detail/Imports/CardCategory';
+import CardCategory from '../Detail/Imports/CardCategory'
 
 import { Link} from "react-router-dom";
 
@@ -67,7 +67,18 @@ function NewlyListed() {
         <div className="d-flex justify-content-between align-items-center mb-4">
         <a className="text-primary text-sm font-weight-bold" href="/">Browse all </a>
       </div>
-
+      <div className="row mb-5">
+    {data.categories.map(category => 
+      <div className="col-md-6 col-lg-3">
+        <Link to="category/">
+        <CardCategory
+          thumb_src = {category.thumb_src}
+          title = {category.title}
+        />
+        </Link>
+      </div>
+    )}
+  </div>
   
 
        </>

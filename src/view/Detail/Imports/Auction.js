@@ -129,7 +129,12 @@ export default function Auction({ match }) {
                     {end_time && currentDate < new Date(end_time) ? (
                       <Timer endTime={end_time} update={update} />
                        ) : (
-                       <Typography component="p" variant="h6">
+                       <Typography
+                       fontSize="h6"
+                       borderRadius="lg"
+                       px={2}
+                       mr={0.5}
+                  >
                          Auction ended
                        </Typography>
                     )}  
@@ -152,7 +157,12 @@ export default function Auction({ match }) {
                        </Box>
                       </div>
                         { AuctionBids.length > 0 &&  
-                            <Typography component="p" variant="subtitle1" className="">
+                            <Typography
+                            textColor="primary.400"      
+                            fontSize="h6"
+                            borderRadius="lg"
+                            px={2}
+                            mr={0.5}>
                                 {` Last bid: Ksh ${AuctionBids[0].amount}`}
                             </Typography>
                         }

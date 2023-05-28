@@ -111,8 +111,10 @@ export default function CommentSummaryChart({results, id}) {
         </div>
       </div>
 
-     <div className="card shadow-xs mb-4">
+      <br/>
 
+     <div className="card shadow-xs mb-4">
+     <br/>
         <div className="d-flex">
         <Link to={`/users/${ownerId}`} className="avatar avatar-xl rounded-circle min-width-50 min-height-50">
         <Avatar
@@ -123,6 +125,7 @@ export default function CommentSummaryChart({results, id}) {
                />
      </Link>
         <div className="ps-4">
+    
           <h6 className="mb-0">Seller</h6>
       <Typography textColor="primary.400" fontSize="md" fontWeight="xl" my={1}>
       {username}
