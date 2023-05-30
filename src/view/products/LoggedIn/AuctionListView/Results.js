@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import clsx from "clsx"
 import numeral from "numeral"
 import PerfectScrollbar from "react-perfect-scrollbar"
@@ -6,6 +6,13 @@ import PerfectScrollbar from "react-perfect-scrollbar"
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
+import { useQuery } from "react-query";
+//import styled from "styled-components";
+import { loadAuction } from '../../../../data/api/api'
+import { loadBids } from '../../../../data/api/api'
+import { useParams } from 'react-router-dom';
+import Timer from '../../../Detail/Imports/Timer'
+import { Link} from "react-router-dom";
 import {
   Image as ImageIcon,
   Edit as EditIcon,
@@ -56,35 +63,56 @@ const style = {
   p: 4,
 };
 
-const calculateTimeLeft = (date) => {
-  const difference = date - new Date()
-  let timeLeft = {}
-
-  if (difference > 0) {
-    timeLeft = {
-      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / 1000 / 60) % 60),
-      seconds: Math.floor((difference / 1000) % 60),
-      timeEnd: false
-    }
-  } else {
-      timeLeft = {timeEnd: true}
-  }
-  return timeLeft
-}
-
-const Results = ({ className, results, ...rest }) => {
+const Results = ({ className, results,result, ...rest }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
 
 
+  const { data = { results: [] }} = useQuery("bids", loadBids);
+  const bids = data.results;
+
+  console.log(bids)
+
+  const [end_time, setEndTime] = useState(null)
+
+
+  const currentDate = new Date();
+  const Id = '4622ff29-e84f-4b76-b3be-670d8f4692aa'
+
+  let AuctionBids = results.filter((bids) => bids.auction === Id);
+
+  console.log(AuctionBids)
+
+  // Using a for loop
+  for (let i = 0; i < AuctionBids.length; i++) {
+    let auctionBid = AuctionBids[i];
+    // Perform operations on auctionBid
+    console.log(auctionBid);
+  }
+  
+  // Using forEach method
+  AuctionBids.forEach((auctionBid) => {
+    // Perform operations on auctionBid
+    console.log(auctionBid);
+  });
+  
+  // Using map method
+  let processedBids = AuctionBids.map((auctionBid) => {
+    // Perform operations on auctionBid
+    // Return processed bid
+    return auctionBid;
+  });
+  console.log(processedBids);
+  
+
+
+
   const {classes} = useStyles(createStyles)
   const [selectedResults, setSelectedResults] = useState([])
   const [page, setPage] = useState(0)
-  const [limit, setLimit] = useState(10)
+  const [limit, setLimit] = useState(25)
   const [query, setQuery] = useState("")
   const [sort, setSort] = useState(sortOptions[0].value)
   const [filters, setFilters] = useState({
@@ -93,18 +121,6 @@ const Results = ({ className, results, ...rest }) => {
     inStock: null,
     bestdeals: null
   })
-
-  const currentDate = new Date()
-  const showTimeLeft = (date) => {
-    let timeLeft = calculateTimeLeft(date)
-    return !timeLeft.timeEnd && <span>
-      {timeLeft.days != 0 && `${timeLeft.days} d `} 
-      {timeLeft.hours != 0 && `${timeLeft.hours} h `} 
-      {timeLeft.minutes != 0 && `${timeLeft.minutes} m `} 
-      {timeLeft.seconds != 0 && `${timeLeft.seconds} s`} left
-    </span>
-  }
-
 
   const handleQueryChange = event => {
     event.persist()
@@ -209,6 +225,32 @@ const Results = ({ className, results, ...rest }) => {
   const selectedSomeResults =
     selectedResults.length > 0 && selectedResults.length < results.length
   const selectedAllResults = selectedResults.length === results.length
+
+  useEffect(() => {
+    if (result && result.start_time && result.duration) {
+      const durationInMilliseconds = result.duration * 24 * 60 * 60 * 1000; // Convert duration from days to milliseconds
+      const endTimeInMilliseconds = new Date(result.start_time).getTime() + durationInMilliseconds;
+      const endTime = new Date(endTimeInMilliseconds);
+
+      setEndTime(endTime);
+    }
+  }, [result]);
+
+
+  useEffect(() => {
+    // Update the end_time when a new auction is added
+    setEndTime(null); // Reset end_time to null initially
+    if (result && result.start_time && result.duration) {
+      const durationInMilliseconds =
+      result.duration * 24 * 60 * 60 * 1000; // Convert duration from days to milliseconds
+      const endTimeInMilliseconds =
+        new Date(result.start_time).getTime() + durationInMilliseconds;
+      const endTime = new Date(endTimeInMilliseconds);
+  
+      setEndTime(endTime);
+    }
+  }, [result?.uuid]);
+
 
   return (
     <Card className={clsx("", className)} {...rest}>
@@ -331,10 +373,10 @@ const Results = ({ className, results, ...rest }) => {
            
                 <TableCell>Auction Name</TableCell>
                 <TableCell>Start Time</TableCell>
-                <TableCell>End Time</TableCell>
+                <TableCell>Duration</TableCell>
                 <TableCell>Auction </TableCell>
-                <TableCell>current Price</TableCell>
-                <TableCell> bidders</TableCell>
+                <TableCell>No of bids</TableCell>
+                <TableCell> Bid amount</TableCell>
                 <TableCell align="right">Actions</TableCell>
               </TableRow>
             </TableHead>
@@ -349,54 +391,33 @@ const Results = ({ className, results, ...rest }) => {
                     </TableCell>
                     <TableCell>{new Date(result.start_time).toLocaleString()}</TableCell>
 
-                    <TableCell> {new Date(result.end_time).toLocaleString()}</TableCell>
+                    <TableCell> {result.duration} day(s)</TableCell>
 
                     <TableCell>
-                    <span>
-                    <Typography textColor="primary.400" fontWeight="xl" my={1}>
-                    {currentDate < new Date(result.start_time) && `Auction Starts at ${new Date(result.start_time).toLocaleString()}`}
-                  </Typography>
-                  <Typography textColor="success.400"fontWeight="xl" my={1}>
-                 {currentDate > new Date(result.start_time) && currentDate < new Date(result.end_time) && <>{`Auction is live | ${result?.bids?.length} bids |`} {showTimeLeft(new Date(result.end_time))}</>}
-                 </Typography>
-                 <Typography textColor="danger.400"fontWeight="xl" my={1}>
-                {currentDate > new Date(result.end_time) && `Auction Ended | ${result?.bids?.length} bids `} 
-                </Typography>
-                 {currentDate > new Date(result.start_time) && result?.bids?.length> 0 && ` | Last bid: $ ${result?.bids[0].bid}`}
-              </span>
+            <span>
+            <Typography textColor="primary.400" fontWeight="xl" my={1}>
+            {currentDate < new Date(result?.start_time) && 'Auction Not Started 🤗'}
+            </Typography>
+              
+
+              <Typography textColor="success.400"fontWeight="xl" my={1}>
+              {currentDate > new Date(result?.start_time) &&currentDate < new Date(end_time) && 'Auction Live ☀️'}
+             </Typography>
+
+
+             <Typography textColor="danger.400"fontWeight="xl" my={1}>
+             {currentDate > new Date(end_time) && 'Auction Ended 🙈'}
+             </Typography>
+            </span>
                     </TableCell>
                     <TableCell>
                  
-      <Button onClick={handleOpen}>
       
-      {result.current_price}
-
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Product Overview
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Bids: {result.number_of_bids}
-
-              {results.map(result  => (
-          <li key={result.id}>{result.bids}</li>
-        ))}
-          </Typography>
-        </Box>
-      </Modal>
+      {result?.AuctionBids?.length} bids
     
                     </TableCell>
                     <TableCell>
-                      {numeral(result.price).format(
-                        `${result.currency}0,0.00`
-                      )}
+                    {` Last bid: Ksh `}
                     </TableCell>
                     <TableCell align="right">
                       <IconButton>
@@ -405,9 +426,11 @@ const Results = ({ className, results, ...rest }) => {
                         </SvgIcon>
                       </IconButton>
                       <IconButton>
-                        <SvgIcon fontSize="small">
-                          <ArrowRightIcon />
-                        </SvgIcon>
+                     
+                        <Link to={`/auctions/${result.uuid}`}>     
+                         <ArrowRightIcon />
+                         </Link>
+                        
                       </IconButton>
                     </TableCell>
                   </TableRow>

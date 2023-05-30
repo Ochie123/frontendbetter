@@ -10,8 +10,10 @@ import {
 export const getProfileAction = createAsyncThunk(
   ProfileActionTypes.FETCH_AND_SAVE_PROFILE,
   async (id) => {
-    const response = await axios.get(`http://127.0.0.1:8000/apis/users/${id}`);
+    const response = await axios.get(`http://192.168.43.38:8000/apis/users/1`);
     return response.data;
+
+    console.log(response)
   }
 );
 

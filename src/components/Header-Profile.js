@@ -61,7 +61,7 @@ const HeaderProfile = () => {
     setOpen(!open);
   };
 
-  console.log(profile)
+  //console.log(profile)
 
   return (
     <div>

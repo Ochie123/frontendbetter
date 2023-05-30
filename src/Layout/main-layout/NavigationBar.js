@@ -32,7 +32,7 @@ function ResponsiveAppBar() {
   const { profile } = useSelector(state => state.profile)
 
 
-  //console.log(claims)
+  console.log(claims)
 
   const mobileDevice = useMediaQuery('(max-width:650px)');
 

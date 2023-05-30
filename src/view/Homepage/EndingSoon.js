@@ -15,7 +15,7 @@ const Main = styled.main`
 function EndingSoon() {
   const results = useAllAuctions();
 
-  console.log(results)
+ // console.log(results)
 
     return (
        <>

@@ -27,7 +27,10 @@ export const authSlice = createSlice({
     },
     saveClaimsAction: (state, action) => {
       state.claims = action?.payload
-    }
+    },
+    clearClaimsAction: (state) => {
+      state.claims = null;
+    },
   },
 
   /*Asynchronous actions. Actions that require Axios.*/
@@ -35,6 +38,6 @@ export const authSlice = createSlice({
 })
 
 /* export all non-async actions */
-export const { saveClaimsAction, saveTokenAction } = authSlice.actions
+export const { saveClaimsAction, saveTokenAction, clearClaimsAction } = authSlice.actions
 
 export default authSlice.reducer

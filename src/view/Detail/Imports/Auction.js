@@ -34,7 +34,7 @@ export default function Auction({ match }) {
 
   const { data = { results: [] }} = useQuery("bids", loadBids);
   
- 
+  
   const results = data.results;
 
   const [error, setError] = useState('');
@@ -74,7 +74,7 @@ export default function Auction({ match }) {
       setEndTime(endTime);
     }
   }, [auction?.uuid]);
-  //console.log(end_time)
+  console.log(end_time)
 
 
   const currentDate = new Date();
