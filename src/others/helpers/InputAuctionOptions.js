@@ -66,3 +66,9 @@ export const categoryOptions = [
     }
   ]
   
+  export const statusOptions = [
+    { label: 'All', value: 'all' },
+    { label: 'Auction Not Started 🤗', value: 'notStarted' },
+    { label: 'Auction Live ☀️', value: 'live' },
+    { label: 'Auction Ended 🙈', value: 'ended' },
+  ];

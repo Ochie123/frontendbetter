@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react"
 import clsx from "clsx"
 import numeral from "numeral"
 import PerfectScrollbar from "react-perfect-scrollbar"
-
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import Table from '@mui/joy/Table';
 
 import { useQuery } from "react-query";
 //import styled from "styled-components";
-import { loadAuction } from '../../../../data/api/api'
 import { loadBids } from '../../../../data/api/api'
-import { useParams } from 'react-router-dom';
+import { loadComments } from '../../../../data/api/api'
+
 import Timer from '../../../Detail/Imports/Timer'
 import { Link} from "react-router-dom";
 import {
@@ -28,7 +29,7 @@ import {
   FormControlLabel,
   IconButton,
   SvgIcon,
-  Table,
+
   TableBody,
   TableCell,
   TableHead,
@@ -42,8 +43,9 @@ import {
 import {
   availabilityOptions,
   categoryOptions,
-  sortOptions
-} from '../../../../others/helpers/InputProductOptions'
+  sortOptions,
+  statusOptions 
+} from '../../../../others/helpers/InputAuctionOptions'
 import {
   applyFilters,
   applyPagination,
@@ -65,48 +67,17 @@ const style = {
 
 const Results = ({ className, results,result, ...rest }) => {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [statusFilter, setStatusFilter] = useState(statusOptions[0].value);
+
+  const [endTime, setEndTime] = useState(null);
 
 
 
   const { data = { results: [] }} = useQuery("bids", loadBids);
   const bids = data.results;
 
-  console.log(bids)
-
-  const [end_time, setEndTime] = useState(null)
-
-
-  const currentDate = new Date();
-  const Id = '4622ff29-e84f-4b76-b3be-670d8f4692aa'
-
-  let AuctionBids = results.filter((bids) => bids.auction === Id);
-
-  console.log(AuctionBids)
-
-  // Using a for loop
-  for (let i = 0; i < AuctionBids.length; i++) {
-    let auctionBid = AuctionBids[i];
-    // Perform operations on auctionBid
-    console.log(auctionBid);
-  }
-  
-  // Using forEach method
-  AuctionBids.forEach((auctionBid) => {
-    // Perform operations on auctionBid
-    console.log(auctionBid);
-  });
-  
-  // Using map method
-  let processedBids = AuctionBids.map((auctionBid) => {
-    // Perform operations on auctionBid
-    // Return processed bid
-    return auctionBid;
-  });
-  console.log(processedBids);
-  
-
+  const { data:commentsData = { results: [] }} = useQuery("comments", loadComments);
+  const comments = commentsData.results;
 
 
   const {classes} = useStyles(createStyles)
@@ -115,12 +86,27 @@ const Results = ({ className, results,result, ...rest }) => {
   const [limit, setLimit] = useState(25)
   const [query, setQuery] = useState("")
   const [sort, setSort] = useState(sortOptions[0].value)
+  const [bidAmountSortOrder, setBidAmountSortOrder] = useState("desc");
+
+
+  const [sortOrder, setSortOrder] = useState("desc");
   const [filters, setFilters] = useState({
     category: null,
     availability: null,
     inStock: null,
     bestdeals: null
   })
+
+  const handleSortByBidAmount = () => {
+    const newSortOrder = bidAmountSortOrder === "asc" ? "desc" : "asc";
+    setBidAmountSortOrder(newSortOrder);
+  };
+
+  
+  const handleSortByBids = () => {
+    const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newSortOrder);
+  };
 
   const handleQueryChange = event => {
     event.persist()
@@ -141,7 +127,11 @@ const Results = ({ className, results,result, ...rest }) => {
       category: value
     }))
   }
+  const handleStatusChange = (event) => {
+    setStatusFilter(event.target.value);
+  };
 
+  
   const handleAvailabilityChange  = event => {
     event.persist()
 
@@ -218,6 +208,11 @@ const Results = ({ className, results,result, ...rest }) => {
     setLimit(parseInt(event.target.value))
   }
 
+  const applyPagination = (results, page, limit) => {
+    const startIndex = page * limit;
+    const endIndex = startIndex + limit;
+    return results.slice(startIndex, endIndex);
+  };
   // Usually query is done on backend with indexing solutions
   const filteredResults = applyFilters(results, query, filters)
   const paginatedResults = applyPagination(filteredResults, page, limit)
@@ -228,29 +223,46 @@ const Results = ({ className, results,result, ...rest }) => {
 
   useEffect(() => {
     if (result && result.start_time && result.duration) {
-      const durationInMilliseconds = result.duration * 24 * 60 * 60 * 1000; // Convert duration from days to milliseconds
-      const endTimeInMilliseconds = new Date(result.start_time).getTime() + durationInMilliseconds;
-      const endTime = new Date(endTimeInMilliseconds);
-
-      setEndTime(endTime);
-    }
-  }, [result]);
-
-
-  useEffect(() => {
-    // Update the end_time when a new auction is added
-    setEndTime(null); // Reset end_time to null initially
-    if (result && result.start_time && result.duration) {
       const durationInMilliseconds =
-      result.duration * 24 * 60 * 60 * 1000; // Convert duration from days to milliseconds
+        result.duration * 24 * 60 * 60 * 1000; // Convert duration from days to milliseconds
       const endTimeInMilliseconds =
         new Date(result.start_time).getTime() + durationInMilliseconds;
       const endTime = new Date(endTimeInMilliseconds);
   
       setEndTime(endTime);
     }
-  }, [result?.uuid]);
+  }, [result]);
+  
+  
 
+  const currentDate = new Date();
+  const getAuctionStatus = (startTime, endTime, currentTime) => {
+    if (currentTime < startTime) {
+      return 'Auction Not Started 🤗';
+    } else if (currentTime >= startTime && currentTime <= endTime) {
+      return 'Auction Live ☀️';
+    } else if (currentTime > endTime) {
+      return 'Auction Ended 🙈';
+    } else {
+      return '';
+    }
+  };
+
+  const sortedResults = [...paginatedResults].sort((a, b) => {
+    const aBids = bids.filter(bid => bid.auction === a.uuid);
+    const bBids = bids.filter(bid => bid.auction === b.uuid);
+  
+    const aLastBidAmount = aBids.length > 0 ? aBids[aBids.length - 1].amount : 0;
+    const bLastBidAmount = bBids.length > 0 ? bBids[bBids.length - 1].amount : 0;
+  
+    if (bidAmountSortOrder === "asc") {
+      return aLastBidAmount - bLastBidAmount;
+    } else {
+      return bLastBidAmount - aLastBidAmount;
+    }
+    
+  });
+  
 
   return (
     <Card className={clsx("", className)} {...rest}>
@@ -323,7 +335,26 @@ const Results = ({ className, results,result, ...rest }) => {
             ))}
           </TextField>
 
-          
+          <TextField
+            className=""
+            label="Auction Status"
+            name="status"
+            onChange={handleStatusChange}
+            select
+            SelectProps={{ native: true }}
+            value={statusFilter}
+            variant="outlined"
+          >
+            {statusOptions.map((statusOption) => (
+              <option key={statusOption.value} value={statusOption.value}>
+              {statusOption.label}
+              </option>
+            ))}
+          </TextField>
+
+
+
+
           <FormControlLabel
             className=""
             control={
@@ -348,101 +379,113 @@ const Results = ({ className, results,result, ...rest }) => {
           />
         </Box>
       </Box>
-      {enableBulkOperations && (
-        <div className={classes.bulkOperations}>
-          <div className={classes.bulkActions}>
-            <Checkbox
-              checked={selectedAllResults}
-              indeterminate={selectedSomeResults}
-              onChange={handleSelectAllResults}
-            />
-            <Button variant="outlined" className={classes.bulkAction}>
-              Delete
-            </Button>
-            <Button variant="outlined" className={classes.bulkAction}>
-              Edit
-            </Button>
-          </div>
-        </div>
-      )}
+     
       <PerfectScrollbar>
         <Box minWidth={1200}>
-          <Table>
+          <Table color="danger">
             <TableHead>
               <TableRow>
            
                 <TableCell>Auction Name</TableCell>
                 <TableCell>Start Time</TableCell>
                 <TableCell>Duration</TableCell>
-                <TableCell>Auction </TableCell>
-                <TableCell>No of bids</TableCell>
-                <TableCell> Bid amount</TableCell>
+                <TableCell>Auction Status </TableCell>
+                <TableCell onClick={handleSortByBidAmount}>
+                  Bid amount{" "}
+                  {bidAmountSortOrder === "desc" ? (
+                 <ArrowDownwardIcon />
+                  ) : (
+                  <ArrowUpwardIcon />
+                  )}
+                </TableCell>
+                <TableCell>
+                No. of bids
+                </TableCell>
+                <TableCell>
+                No. of Comments
+                </TableCell>
                 <TableCell align="right">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {paginatedResults.map(result => {
-                const isResultSelected = selectedResults.includes(result.uuid)
+            {sortedResults
+  .filter((result) => {
+    if (statusFilter === 'notStarted') {
+      return currentDate < new Date(result?.start_time);
+    } else if (statusFilter === 'live') {
+      return (
+        currentDate >= new Date(result?.start_time) && currentDate <= endTime
+      );
+    } else if (statusFilter === 'ended') {
+      return currentDate > endTime;
+    } else {
+      return true; // Show all results when no specific status is selected
+    }
+  })
+  .map((result) => {
+  const isResultSelected = selectedResults.includes(result.uuid);
+  const resultBids = bids.filter(bid => bid.auction === result.uuid);
+  const resultComments = comments.filter((comment) => comment.auction === result?.uuid);
 
-                return (
-                  <TableRow>
-                    <TableCell className="">
-                      {result.name}
-                    </TableCell>
-                    <TableCell>{new Date(result.start_time).toLocaleString()}</TableCell>
-
-                    <TableCell> {result.duration} day(s)</TableCell>
-
-                    <TableCell>
-            <span>
-            <Typography textColor="primary.400" fontWeight="xl" my={1}>
-            {currentDate < new Date(result?.start_time) && 'Auction Not Started 🤗'}
-            </Typography>
-              
-
-              <Typography textColor="success.400"fontWeight="xl" my={1}>
-              {currentDate > new Date(result?.start_time) &&currentDate < new Date(end_time) && 'Auction Live ☀️'}
-             </Typography>
+  const lastBidAmount = resultBids.length > 0 ? resultBids[resultBids.length - 1].amount : 0;
 
 
-             <Typography textColor="danger.400"fontWeight="xl" my={1}>
-             {currentDate > new Date(end_time) && 'Auction Ended 🙈'}
-             </Typography>
-            </span>
-                    </TableCell>
-                    <TableCell>
-                 
-      
-      {result?.AuctionBids?.length} bids
-    
-                    </TableCell>
-                    <TableCell>
-                    {` Last bid: Ksh `}
-                    </TableCell>
-                    <TableCell align="right">
-                      <IconButton>
-                        <SvgIcon fontSize="small">
-                          <EditIcon />
-                        </SvgIcon>
-                      </IconButton>
-                      <IconButton>
-                     
-                        <Link to={`/auctions/${result.uuid}`}>     
-                         <ArrowRightIcon />
-                         </Link>
-                        
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                )
-              })}
+  const startTime = new Date(result?.start_time);
+  const durationInMilliseconds = result?.duration * 24 * 60 * 60 * 1000; // Convert duration from days to milliseconds
+  const endTime = new Date(startTime.getTime() + durationInMilliseconds);
+  
+  // Get the auction status for the current result
+  const auctionStatus = getAuctionStatus(startTime, endTime, currentDate);
+
+
+  //<Typography textColor="success.400"fontWeight="xl" my={1}>
+  //{currentDate > new Date(auction?.start_time) &&currentDate < new Date(end_time) && 'Auction Live ☀️'}
+  //</Typography>
+
+  return (
+    <TableRow key={result.uuid}>
+      <TableCell className="">
+        {result.name}
+      </TableCell>
+      <TableCell>{new Date(result.start_time).toLocaleString()}</TableCell>
+      <TableCell> {result.duration} day(s)</TableCell>
+      <TableCell>
+      {auctionStatus}
+</TableCell>
+
+      <TableCell>
+      {lastBidAmount}
+        
+      </TableCell>
+      <TableCell>
+      {resultBids.length} bids
+      </TableCell>
+      <TableCell>
+      {resultComments.length} comments
+      </TableCell>
+      <TableCell>
+        <IconButton>
+          <SvgIcon fontSize="small">
+            <EditIcon />
+          </SvgIcon>
+        </IconButton>
+        <IconButton>
+          <Link to={`/auctions/${result.uuid}`}>
+            <ArrowRightIcon />
+          </Link>
+        </IconButton>
+      </TableCell>
+    </TableRow>
+  );
+})}
+
             </TableBody>
           </Table>
           <TablePagination
             component="div"
             count={filteredResults.length}
-            onChangePage={handlePageChange}
-            onChangeRowsPerPage={handleLimitChange}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleLimitChange}
             page={page}
             rowsPerPage={limit}
             rowsPerPageOptions={[5, 10, 25]}

@@ -34,7 +34,7 @@ function ProductListView () {
   console.log(data)
   const dispatch = useDispatch();
   const token = localStorage.getItem('token');
-  console.log(token);
+  //console.log(token);
   const savedClaims = JSON.parse(localStorage.getItem('claims'));
   
   useEffect(() => {
@@ -45,8 +45,8 @@ function ProductListView () {
     }
   }, [token, savedClaims, dispatch]);
   
-  console.log(savedClaims);
-  console.log(savedClaims?.user_id);
+  //console.log(savedClaims);
+  //console.log(savedClaims?.user_id);
  
   //const results = useAllProducts();
 
@@ -64,7 +64,7 @@ function ProductListView () {
   };
 
   return (
-    <Page className={classes.root} title="Product List">
+    <Page className={classes.root} title="Auction List">
       <Container maxWidth={false}>
         <Header />
       
