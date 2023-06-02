@@ -1,11 +1,4 @@
 const URLS = {
-  LOGIN: "http://127.0.0.1:8000/api-auth/login/",
-  SIGNUP: "http://127.0.0.1:8000/api/v1/dj-rest-auth/registration/",
-  LOGOUT: "http://127.0.0.1:8000/api-auth/logout/",
-  //USER: "http://127.0.0.1:8000/api/v1/dj-rest-auth/user/",
-
-  PRODUCTS: "http://192.168.43.38:8000/api/products/",
-  PRODUCT: (uuid) => `http://192.168.43.38:8000/api/products/${uuid}`,
 
   USERS: "http://192.168.43.38:8000/apis/users/",
   USER: (id) => `http://192.168.43.38:8000/apis/users/${id}`,
@@ -33,7 +26,10 @@ const URLS = {
   CARS_SPECIFICATION: (id) => `http://192.168.43.38:8000/api/car-specifications/${id}`,
 
   IMAGES: "http://192.168.43.38:8000/api/images/",
-  IMAGE: (id) => `http://192.168.43.38:8000/api/images/${id}`
+  IMAGE: (id) => `http://192.168.43.38:8000/api/images/${id}`,
+
+  VOTES: "http://192.168.43.38:8000/api/votes/",
+  VOTE: (id) => `http://192.168.43.38:8000/api/votes/${id}`
 };
 
 const wrappedFetch = (...args) => {
@@ -51,37 +47,20 @@ const post = (url, data) =>
 const remove = (url) => wrappedFetch(url, { method: "DELETE" });
 
 // USER API
-//const getUser = () => get(URLS.USER);
-const login = (data) => post(URLS.LOGIN, data);
-const signup = (data) => post(URLS.SIGNUP, data);
-const logout = () => get(URLS.LOGOUT);
 
-// PRODUCT API
-const loadProducts = () => get(URLS.PRODUCTS);
-const loadProduct = (uuid) => get(URLS.PRODUCT(uuid));
-const addProduct = (data) => post(URLS.PRODUCTS, data);
-const removeProduct = (uuid) => remove(URLS.PRODUCT(uuid));
 
 const loadImages = () => get(URLS.IMAGES);
 const loadImage = (id) => get(URLS.IMAGE(id));
-const addImage = (data) => post(URLS.IMAGES, data);
-const removeImage = (id) => remove(URLS.IMAGE(id));
 
 
 const loadAuctions = () => get(URLS.AUCTIONS);
 const loadAuction = (uuid) => get(URLS.AUCTION(uuid));
-const addAuction = (data) => post(URLS.AUCTIONS, data);
-const removeAuction = (uuid) => remove(URLS.AUCTION(uuid));
 
 const loadBids = () => get(URLS.BIDS);
 const loadBid = (id) => get(URLS.AUCTION(id));
-const addBid = (data) => post(URLS.BIDS, data);
-const removeBid = (id) => remove(URLS.BID(id));
 
 const loadComments = () => get(URLS.COMMENTS);
 const loadComment = (id) => get(URLS.COMMENT(id));
-const addComment = (data) => post(URLS.COMMENTS, data);
-const removeComment = (id) => remove(URLS.COMMENT(id));
 
 const loadCategories = () => get(URLS.CATEGORIES);
 const loadCategory = (id) => get(URLS.CATEGORY(id));
@@ -89,6 +68,8 @@ const loadCategory = (id) => get(URLS.CATEGORY(id));
 const loadMakes = () => get(URLS.MAKES);
 const loadMake = (id) => get(URLS.MAKE(id));
 
+const loadVotes = () => get(URLS.VOTES);
+const loadVote = (id) => get(URLS.VOTE(id));
 
 const loadModels = () => get(URLS.MODELS);
 const loadModel = (id) => get(URLS.MODEL(id));
@@ -101,17 +82,10 @@ const loadUser = (id) => get(URLS.USER(id));
 
 export {
  // getUser,
-  login,
-  signup,
-  logout,
 
-  loadProducts,
-  loadProduct,
   loadCategories,
   loadCategory,
-  removeProduct,
-  addProduct,
-
+ 
 
   loadMakes,
   loadMake,
@@ -127,22 +101,17 @@ export {
 
   loadImage,
   loadImages,
-  addImage,
-  removeImage,
 
   loadAuction,
   loadAuctions,
-  addAuction,
-  removeAuction,
 
   loadBid,
   loadBids,
-  addBid,
-  removeBid,
-
+  
   loadComments,
   loadComment,
-  addComment,
-  removeComment
+ 
+  loadVotes,
+  loadVote,
 
 };

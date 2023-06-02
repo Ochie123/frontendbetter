@@ -1,109 +1,105 @@
-import * as React from "react";
+import React from 'react';
+import Lightbox from "yet-another-react-lightbox";
+import Inline from "yet-another-react-lightbox/plugins/inline";
+import Captions from "yet-another-react-lightbox/plugins/captions";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import Video from "yet-another-react-lightbox/plugins/video";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/plugins/captions.css";
+import "yet-another-react-lightbox/plugins/thumbnails.css";
+
 
 import { useQuery } from "react-query";
-import { loadProduct } from '../../../../data/api/api'
+import { loadImages } from '../../../../data/api/api'
+import { loadAuction } from '../../../../data/api/api'
 import { useParams } from 'react-router-dom';
 import useCurrent from '../../../../../src/data/products/useCurrent'
 
-import Lightbox from "yet-another-react-lightbox";
-import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+import { Box, Container, Typography, useMediaQuery } from "@mui/material"
 
-import { LightboxButton, Paragraph, Link } from "../components";
-//import slides from "../data/slides";
-
-export default function FullscreenPlugin() {
-  const [open, setOpen] = React.useState(false);
-  const [auto, setAuto] = React.useState(false);
-
- 
+export default function InlinePlugin() {
+  const mobileDevice = useMediaQuery("(max-width:650px)")
   const { id } = useParams();
-  const seeAllProducts = useCurrent((state) => state.seeAllProducts);
-
-  const { data: product } = useQuery(["currentProduct", { id }], () =>
-    loadProduct(id)
+  const { data = { results: [] }} = useQuery("images", loadImages);
+  const results = data.results;
+  
+  const { data: auction } = useQuery(["currentAuction", { id }], () =>
+    loadAuction(id)
   );
 
-  if (!product) {
+  if (!auction) {
     return null;
   }
-  //console.log(id)
-  //console.log(product.images)
+  //console.log(results)
+  // Assuming you have the API response stored in a variable called 'images'
+  const filteredImages = results.filter((image) => image.auction === auction.uuid);
 
-  const slides = product.images.map(({ src, key, image, images }) => ({
-    src: `http://127.0.0.1:8000${image}`,
+  //console.log(filteredImages)
+  //console.log(auction.images)
+
+  
+  //
+  //
+  const slides = filteredImages.map(({ src, key, image, images }) => ({
+    src: `${image}`,
     key: `${image}`,
    
     srcSet: images?.map((image) => ({
-      src: `http://127.0.0.1:8000${image}`,
-    
+      src: `${image}`,
     }))
   }));
   
 
-  console.log(slides)
+  //
+  
 
-  const isFullscreenEnabled = () =>
-    document.fullscreenEnabled ??
-    document.webkitFullscreenEnabled ??
-    document.mozFullScreenEnabled ??
-    document.msFullscreenEnabled;
+  //
+
+  //console.log(slides)
+
 
   return (
     <>
-      <Lightbox
-        open={open}
-        fullscreen={auto}
-        close={() => setOpen(false)}
-        slides={slides}
-        plugins={[Fullscreen]}
-      />
-
-      {isFullscreenEnabled() ? (
-        <>
-          <Paragraph>
-            Fullscreen plugin adds the "fullscreen" button in browsers that
-            support fullscreen mode.
-          </Paragraph>
-
-          <LightboxButton
-            onClick={() => {
-              setAuto(false);
-              setOpen(true);
+      {mobileDevice ? (
+        <Box>
+          <Lightbox
+            slides={slides}
+            plugins={[Inline, Slideshow, Fullscreen, Video, Zoom]}
+            inline={{
+              style: {
+                width: "100%",
+                maxWidth: "auto",
+                aspectRatio: "3 / 3",
+              },
             }}
+            renderHeader={({ currentIndex }) => (
+              <div style={{ position: "absolute", top: 0, left: 0, padding: "8px" }}>
+                <span>{slides[currentIndex].position}</span>
+              </div>
+            )}
           />
-
-          <Paragraph>
-            The fullscreen mode can be requested automatically. However, this
-            doesn't work in all browsers.
-          </Paragraph>
-
-          <LightboxButton
-            onClick={() => {
-              setAuto(true);
-              setOpen(true);
-            }}
-          />
-        </>
+        </Box>
       ) : (
-        <>
-          <Paragraph>
-            Fullscreen plugin doesn't work in some browsers (i.e. Safari on
-            iPhone) or inside iframes.
-          </Paragraph>
-
-          <Paragraph>
-            Please{" "}
-            <Link
-              href="https://9qvmif.csb.app/"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              open this demo
-            </Link>{" "}
-            in a separate window or try a different browser.
-          </Paragraph>
-        </>
+        <Lightbox
+          slides={slides}
+          plugins={[Inline, Slideshow, Fullscreen, Video, Zoom]}
+          inline={{
+            style: {
+              width: "100%",
+              maxWidth: "auto",
+              aspectRatio: "3 / 2",
+            },
+          }}
+          renderHeader={({ currentIndex }) => (
+            <div style={{ position: "absolute", top: 0, left: 0, padding: "8px" }}>
+              <span>{slides[currentIndex].position}</span>
+            </div>
+          )}
+        />
       )}
     </>
   );
+  
 }

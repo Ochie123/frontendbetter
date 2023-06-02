@@ -1,14 +1,8 @@
 export { default } from "./DataProvider";
-export { default as useAllProducts } from "./products/useAllProducts";
-export { default as useThisProduct } from "./products/useThisProduct";
-export { default as useThatProduct } from "./products/useThatProduct";
-export { default as useHasCurrent } from "./products/useHasCurrent";
-
 export { default as useAllBids } from "./bids/useAllBids";
 export { default as useThisBid } from "./bids/useThisBid";
 export { default as useThatBid } from "./bids/useThatBid";
 export { default as useHasCurrentBid } from "./bids/useHasCurrentBid";
-export { default as useAddBid } from "../data/api/useAddBid";
 
 export { default as useAllImages } from "./images/useAllImages";
 export { default as useThisImage } from "./images/useThisImage";
@@ -33,9 +27,6 @@ export { default as useThatUser } from "./users/useThatUser";
 export { default as useHasCurrentUser } from "./users/useHasCurrentUser";
 
 
-//export { default as useUser } from "./useUser";
-export { default as useLoginSignup } from "./api/useLoginSignup";
-export { default as useLogout } from "./api/useLogout";
 
 export { default as useAllCategories } from "./categories/useAllCategories";
 export { default as useThisCategory } from "./categories/useThisCategory";

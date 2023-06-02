@@ -5,6 +5,10 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/joy/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/joy/Box';
+import InfoRounded from '@mui/icons-material/InfoRounded';
+import jwt_decode from "jwt-decode"
+
+import { useSelector, useDispatch } from 'react-redux';
 //import { makeStyles } from '@mui/styles';
 //import { read } from './api-auction.js';
 import { Link } from 'react-router-dom';
@@ -12,12 +16,15 @@ import { Link } from 'react-router-dom';
 //import {AuctionContext} from '../DetailPage';
 import { useQuery } from "react-query";
 //import styled from "styled-components";
+import { saveClaimsAction, saveTokenAction } from '../../../features/auth/authSlice';
 import { loadAuction } from '../../../data/api/api'
 import { loadBids } from '../../../data/api/api'
+import { loadVotes } from '../../../data/api/api'
 import { useParams } from 'react-router-dom';
 
 import Timer from './Timer';
 import Bidding from '../Imports/Bids/Bidding';
+import Vote from '../Imports/Vote'
 
 
 export default function Auction({ match }) {
@@ -33,9 +40,13 @@ export default function Auction({ match }) {
   );
 
   const { data = { results: [] }} = useQuery("bids", loadBids);
-  
-  
+ 
   const results = data.results;
+
+  const { data:votesData = { results: [] }} = useQuery("votes", loadVotes);
+  const votes = votesData.results;
+
+  //console.log(votes)
 
   const [error, setError] = useState('');
   const [justEnded, setJustEnded] = useState(false);
@@ -74,16 +85,48 @@ export default function Auction({ match }) {
       setEndTime(endTime);
     }
   }, [auction?.uuid]);
-  console.log(end_time)
+  //console.log(end_time)
 
 
   const currentDate = new Date();
 
   let AuctionBids = results.filter((bid)=> bid.auction === auction?.uuid);
 
-  //console.log(AuctionBids)
+  let AuctionVotes = votes.filter((vote)=> vote.auction === auction?.uuid);
 
-  //const recentAmount = AuctionBids.length > 0 ? AuctionBids[0].amount : "-";
+  //console.log(AuctionVotes)
+
+  let totalVotes = AuctionVotes.length;
+  let sumVotes = AuctionVotes.reduce((total, vote) => total + vote.confidence_score, 0);
+  let averageScore = totalVotes > 0 ? sumVotes / totalVotes : 0;
+
+  //console.log(`Confidence score of ${averageScore}%`);
+  let formattedScore = averageScore.toFixed(2);
+  //console.log(`Confidence score of ${formattedScore}%`);
+
+  const dispatch = useDispatch();
+  const token = localStorage.getItem('token');
+  //console.log(token);
+  const savedClaims = JSON.parse(localStorage.getItem('claims'));
+  
+  useEffect(() => {
+    if (token && !savedClaims) {
+      const claims = jwt_decode(token);
+      dispatch(saveClaimsAction(claims));
+      localStorage.setItem('claims', JSON.stringify(claims));
+    }
+  }, [token, savedClaims, dispatch]);
+
+  const ownerId = auction?.owner_id;
+  //console.log(ownerId);
+
+  const renderVoteWarning = () => {
+    if (ownerId === savedClaims?.user_id) {
+      return <p>You cannot vote on your own auction.</p>;
+    }
+    return null;
+  };
+
 
   return (
     <div className="">
@@ -176,7 +219,29 @@ export default function Auction({ match }) {
                    
                   </Grid>
            
-           
+                  <Box
+      sx={{
+        ml: -1,
+        mt: 0.75,
+        px: 1,
+        py: 0.5,
+        borderRadius: 1,
+        display: 'flex',
+        typography: 'caption',
+        bgcolor: (theme) =>
+          theme.palette.mode === 'dark' ? 'primary.900' : 'primary.50',
+        color: (theme) =>
+          theme.palette.mode === 'dark' ? '#fff' : 'primary.700',
+      }}
+    >
+      <InfoRounded sx={{ fontSize: 16, mr: 0.5, mt: '1px' }} />
+      Confidence score of ${formattedScore}%
+      Based on {AuctionVotes.length}  Votes
+
+      {renderVoteWarning()}
+      <Vote disabled={ownerId === savedClaims?.user_id} />
+
+    </Box>
                 
               </Card>
 

@@ -31,7 +31,7 @@ function ProductListView () {
   const [open, setOpen] = React.useState(false);
 
 
-  console.log(data)
+  //console.log(data)
   const dispatch = useDispatch();
   const token = localStorage.getItem('token');
   //console.log(token);
