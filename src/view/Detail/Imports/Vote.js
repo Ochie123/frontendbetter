@@ -17,6 +17,7 @@ const VoteComponent = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const auction = useContext(AuctionContext);
+  const ownerId = auction?.owner_id;
   const { data:votesData = { results: [] }} = useQuery("votes", loadVotes);
   const votes = votesData.results;
 
@@ -45,7 +46,7 @@ const VoteComponent = () => {
 
   useEffect(() => {
     checkUserVote();
-  }, [checkUserVote]);
+  }, [checkUserVote, AuctionVotes, savedClaims?.user_id]);
 
   const handleSliderChange = (value) => {
     setConfidence_score(value);
@@ -90,9 +91,9 @@ const VoteComponent = () => {
     <div>
       <h2>Vote</h2>
       {hasVoted ? (
-        <p>You have already voted for this auction.</p>
+        'Already Voted'
       ) : null}
-      {!hasVoted && (
+      {!hasVoted && ownerId !== savedClaims?.user_id && (
         <>
           <Slider
             min={25}

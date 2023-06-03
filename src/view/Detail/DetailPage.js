@@ -50,7 +50,7 @@ function DetailPage() {
 
   return (
     <AuctionContext.Provider value={auction}>
-    <div className="container mt-5">
+    <div className="container">
     <Typography textColor="primary.400" fontSize="xl3" fontWeight="xl" my={1}>
     {auction?.year} {auction?.name} {auction?.model}
      </Typography>
