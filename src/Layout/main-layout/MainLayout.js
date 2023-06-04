@@ -1,8 +1,9 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 import NavigationBar from './NavigationBar'
 import Footer from './Footer';
-import Footers from './footers';
+import Footer2 from './Footer/Footer2';
+
 
 import './Layout.scss'
 const MainLayout = ({ children } ) => {
@@ -13,10 +14,12 @@ const MainLayout = ({ children } ) => {
 
         <NavigationBar/>
         <div className="true">{children}</div>
+
         {token ? (
         <Footer/>
         ): (
-        <Footer/>
+         
+        <Footer2/>
         )}
         </>
     )

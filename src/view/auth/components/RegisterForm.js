@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import React, { useState} from "react"
 import * as Yup from "yup"
 import { Formik } from "formik"
 import { Alert } from "@mui/material"
@@ -45,14 +45,15 @@ function RegisterForm() {
       initialValues={{
         email: 'johnnydoe@yahoo.com',
         username: 'John',
-        mobile: '+25412345678',
+        mobile: '999-999-9999',
         password: 'Pass123!',
         policy: false,
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string().email().required('Required'),
         username: Yup.string().required('Required'),
-        mobile: Yup.string().min(10).required('Required'),
+        mobile: Yup.string()
+          .min(10).required('Required'),
         password: Yup.string()
           .min(7, 'Must be at least 7 characters')
           .max(255)

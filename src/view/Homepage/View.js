@@ -1,9 +1,14 @@
 import React from "react"
-import { Box, Container, Typography, useMediaQuery } from "@mui/material"
+import { Box, Typography, Divider,useMediaQuery } from "@mui/material"
 import Page from '../../components/Page';
-import NewlyListed from './NewlyListed';
+//import NewlyListed from './NewlyListed';
 import EndingSoon from './EndingSoon';
 import PromotionalFull from './PromotionalFull';
+import SellAdverts from "../../Layout/main-layout/SellAdvert/SellAdverts";
+import Faq from "../../Layout/main-layout/FAQ/Faq";
+
+
+import CarTypes from "./Home/CarTypes";
 
 
 const Main = () => {
@@ -19,7 +24,9 @@ const Main = () => {
            
           </Typography>
          <PromotionalFull/>
-        <NewlyListed/>
+         <CarTypes/>
+         <SellAdverts/>
+         <Faq/>
         <EndingSoon/>   
     </Box>
   
@@ -27,8 +34,11 @@ const Main = () => {
         <>
         <PromotionalFull/>
         <div class="container my-5">
-        <NewlyListed/>
+          <CarTypes/>
+          <SellAdverts/>
+          <Faq/>
         <EndingSoon/>
+        <Divider />
         </div>
         </>
 )}

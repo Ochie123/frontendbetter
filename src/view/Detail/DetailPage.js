@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import { loadAuction } from '../../data/api/api'
 import { loadComments } from '../../data/api/api'
 
-import { loadUsers } from '../../data/api/api';
+
 import { useParams } from 'react-router-dom';
 //import useCurrent from '../../data/useCurrent'
 import './scss/astro-ecommerce.scss'
@@ -14,7 +14,7 @@ import "./style.css";
 
 import ProductOverviewGrid from './Imports/ProductOverviewGrid'
 import CommentSummaryChart from './Imports/CommentSummaryChart';
-import { loadCars_Specifications } from '../../data/api/api';
+
 //import data from './data.json'
 
 const AuctionContext = React.createContext();
@@ -29,14 +29,7 @@ function DetailPage() {
   const { data:commentsData = { results: [] }} = useQuery("comments", loadComments);
   const comments = commentsData.results;
 
-  const { data: usersData = { results: [] } } = useQuery('users', loadUsers);
-  const users = usersData.results;
 
-  //console.log(users)
-  const { data: cars_SpecificationsData = { results: [] } } = useQuery('cars_specifications', loadCars_Specifications);
-  const carSpecifications = cars_SpecificationsData.results;
-
-  //console.log(auction)  
   
   //const filteredFeatures = carSpecifications.filter(car_specification => auction.car_specifications.includes(car_specification.id));
   //console.log(filteredFeatures)  

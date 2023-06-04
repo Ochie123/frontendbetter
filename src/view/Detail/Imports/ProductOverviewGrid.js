@@ -1,4 +1,4 @@
-import React, { useContext, Fragment, useState } from 'react';
+import React, { useContext} from 'react';
 import Tabs from '@mui/joy/Tabs';
 import TabList from '@mui/joy/TabList';
 import Tab, { tabClasses } from '@mui/joy/Tab';
@@ -7,6 +7,9 @@ import Typography from '@mui/joy/Typography';
 import Box from '@mui/joy/Box';
 import Sheet from '@mui/joy/Sheet';
 import Button from '@mui/joy/Button';
+
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 import { useQuery } from "react-query";
@@ -21,15 +24,15 @@ import ProductGallery from './ProductGallery'
 export default function ProductOverview({
   name,
   overview,
-  reserveprice,
-  feature,
-  car_specifications,
   type,
 
 })
 {
   const [variant, setVariant] = React.useState('solid');
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const buttonSize = isMobile ? 'sm' : 'md';
   const auction = useContext(AuctionContext);
   const { data: cars_SpecificationsData = { results: [] } } = useQuery('cars_specifications', loadCars_Specifications);
   const carSpecifications = cars_SpecificationsData.results;
@@ -109,7 +112,7 @@ export default function ProductOverview({
         }}
       >
           {carSpecifications.map(car_specification => ( 
-            <Button size="md" variant={variant} key={car_specification.id} style={{ backgroundColor: filteredFeatures.includes(car_specification) ? 'green' : 'yellow' }}>
+            <Button size={buttonSize} variant={variant} key={car_specification.id} style={{ backgroundColor: filteredFeatures.includes(car_specification) ? 'green' : 'yellow' }}>
               {car_specification.name}
               </Button>
           ))}

@@ -1,4 +1,4 @@
-import React, { useState,useContext, useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -8,15 +8,12 @@ import Box from '@mui/joy/Box';
 import InfoRounded from '@mui/icons-material/InfoRounded';
 import jwt_decode from "jwt-decode"
 
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 //import { makeStyles } from '@mui/styles';
-//import { read } from './api-auction.js';
-import { Link } from 'react-router-dom';
-//import auth from '../auth/auth-helper';
-//import {AuctionContext} from '../DetailPage';
+
 import { useQuery } from "react-query";
 //import styled from "styled-components";
-import { saveClaimsAction, saveTokenAction } from '../../../features/auth/authSlice';
+import { saveClaimsAction } from '../../../features/auth/authSlice';
 import { loadAuction } from '../../../data/api/api'
 import { loadBids } from '../../../data/api/api'
 import { loadVotes } from '../../../data/api/api'
@@ -48,7 +45,7 @@ export default function Auction({ match }) {
 
   //console.log(votes)
 
-  const [error, setError] = useState('');
+
   const [justEnded, setJustEnded] = useState(false);
 
   const updateBids = (updatedAuction) => {
@@ -84,7 +81,7 @@ export default function Auction({ match }) {
   
       setEndTime(endTime);
     }
-  }, [auction?.uuid]);
+  }, [auction, auction?.uuid]);
   //console.log(end_time)
 
 
@@ -122,7 +119,7 @@ export default function Auction({ match }) {
 
   const renderVoteWarning = () => {
     if (ownerId === savedClaims?.user_id) {
-      return <p>You cannot vote on your own auction.</p>;
+      return <p>You cannot vote <br/>on your own auction.</p>;
     }
     return null;
   };
@@ -220,28 +217,54 @@ export default function Auction({ match }) {
                   </Grid>
            
                   <Box
-      sx={{
-        ml: -1,
-        mt: 0.75,
-        px: 1,
-        py: 0.5,
-        borderRadius: 1,
-        display: 'flex',
-        typography: 'caption',
-        bgcolor: (theme) =>
-          theme.palette.mode === 'dark' ? 'primary.900' : 'primary.50',
-        color: (theme) =>
-          theme.palette.mode === 'dark' ? '#fff' : 'primary.700',
-      }}
-    >
-      <InfoRounded sx={{ fontSize: 16, mr: 0.5, mt: '1px' }} />
-      Confidence score of ${formattedScore}%
-      Based on {AuctionVotes.length}  Votes
+  sx={{
+    ml: -1,
+    mt: 0.75,
+    px: 2,
+    py: 0.5,
+    borderRadius: 1,
+    display: 'flex',
+    justifyContent: 'space-between', // Add justify-content property
+    typography: 'caption',
+    bgcolor: (theme) =>
+      theme.palette.mode === 'dark' ? 'primary.900' : 'primary.50',
+    color: (theme) =>
+      theme.palette.mode === 'dark' ? '#fff' : 'primary.700',
+  }}
+>
+  <div>
+    <InfoRounded sx={{ fontSize: 16, mr: 0.5, mt: '1px' }} />
+    <span>
+      <Typography>Confidence score: </Typography>
+      
+      <Typography textColor="success.400" fontWeight="sm" my={1}>
+        ${formattedScore}%
+      </Typography>
+        
+     
+      <Typography textColor="danger.400" fontWeight="sm" my={1}>
+        Based on {AuctionVotes.length} Votes
+      </Typography>
+     
+    </span>
+    </div>
+ 
+   
+  
+    <Typography
+         
+          fontSize="sm"
+          fontWeight="md"
+          my={1}
+        >
+  <Vote disabled={ownerId === savedClaims?.user_id} />
+  
+     
+           {renderVoteWarning()}
+        </Typography>
+      
+</Box>
 
-      {renderVoteWarning()}
-      <Vote disabled={ownerId === savedClaims?.user_id} />
-
-    </Box>
                 
               </Card>
 

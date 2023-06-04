@@ -36,13 +36,18 @@ function Ending({ uuid }) {
             <Card
               orientation="vertical"
               key={auction.name}
-              variant="outlined"
+              variant="elevation"
               sx={{
                 gap: 2,
-                '--Card-padding': (theme) => theme.spacing(0),
+                '--Card-padding': (theme) => theme.spacing(1),
               }}
             >
-              <AspectRatio ratio="1.5" sx={{ minWidth: 300 }}>
+              <AspectRatio ratio="1.5"   variant="soft"
+          sx={{
+            flexGrow: 1,
+            minWidth: 250,
+   
+          }}>
               {filteredImages.length > 0 && (
                 <li key={filteredImages[0].id}>
                   <img

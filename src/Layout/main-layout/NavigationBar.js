@@ -1,14 +1,11 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+
 import Typography from '@mui/material/Typography';
 import HeaderProfile from '../../components/Header-Profile';
-import { useMediaQuery } from '@mui/material';
 
 function ResponsiveAppBar() {
   const token = localStorage.getItem('token');
-
-  const mobileDevice = useMediaQuery('(max-width:650px)');
 
   return (
     <nav className="navbar navbar-expand-lg border-radius-sm top-0 z-index-3 shadow position-sticky py-3 start-0 end-0" style={{ backgroundColor: 'blue' }}>

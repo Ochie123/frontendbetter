@@ -1,4 +1,7 @@
 import React, { useState, useContext, useEffect,useCallback } from 'react';
+import Typography from '@mui/joy/Typography';
+import Button from '@mui/joy/Button';
+import Box from '@mui/joy/Box';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import axios from 'axios';
@@ -88,25 +91,49 @@ const VoteComponent = () => {
   };
 
   return (
-    <div>
-      <h2>Vote</h2>
-      {hasVoted ? (
-        'Already Voted'
-      ) : null}
-      {!hasVoted && ownerId !== savedClaims?.user_id && (
-        <>
-          <Slider
-            min={25}
-            max={100}
-            step={25}
-            value={confidence_score}
-            onChange={handleSliderChange}
-          />
-          <div>Selected Percentage: {confidence_score}%</div>
-          <button onClick={handleVote}>Vote</button>
-        </>
-      )}
-    </div>
+<span>
+  <Typography>
+    <Typography textColor="primary.400" fontSize="xl3" fontWeight="xl" my={1}>
+      Vote
+    </Typography>
+    {!hasVoted && ownerId !== savedClaims?.user_id && (
+      <div>
+        <Slider
+          min={25}
+          max={100}
+          step={25}
+          value={confidence_score}
+          onChange={handleSliderChange}
+        />
+        <div>Selected: {confidence_score}%</div>
+        <Button
+          variant="solid"
+          size="sm"
+          color="primary"
+          aria-label="Explore Bahamas Islands"
+          onClick={handleVote}
+          sx={{ ml: 'auto', fontWeight: 600 }}
+        >
+          Vote
+        </Button>
+      </div>
+    )}
+    {hasVoted && (
+      <div>
+        <Typography
+          textColor="success.400"
+          fontSize="xl"
+          fontWeight="xl"
+          my={1}
+        >
+          Already Voted
+        </Typography>
+      </div>
+    )}
+  </Typography>
+</span>
+
+
   );
 };
 

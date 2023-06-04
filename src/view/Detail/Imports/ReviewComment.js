@@ -1,9 +1,8 @@
 //import ReviewRating from './ReviewRating';
-import React, { useContext, Fragment, useState } from 'react';
-import Typography from '@mui/joy/Typography';
+import React, { useContext } from 'react';
+
 import Badge from '@mui/joy/Badge';
 import { useQuery } from "react-query";
-import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 //import { RootState } from '../../../../src/store/reducers';
 import Avatar from '@mui/material/Avatar';
