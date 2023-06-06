@@ -17,7 +17,7 @@ import { useAllAuctions } from '../../data';
 
 import {useThisAuction}  from '../../data';
 
-
+//<h3>///I have no  for ' (const result of slicedResults) { products.push(createProduct(result)); // Assuming createProduct function handles creating product objects from individual auction data}' function in my code hence I get 'createProduct' is not defined</h3>
 
 import { Link} from "react-router-dom";
 
@@ -58,13 +58,17 @@ function Result({ uuid }) {
         <ListItemContent>
           <Typography fontWeight="xl">{auction?.year} {auction?.name} </Typography>
           <Typography level="body2">{auction?.name}</Typography>
+          
         </ListItemContent>
       </ListItemButton>
     </ListItem>
     {auction !== results.length - 1 && <ListDivider />}
   </React.Fragment>
   </Link>
+
   );
 }
+
+
 
 export default memo(Result);

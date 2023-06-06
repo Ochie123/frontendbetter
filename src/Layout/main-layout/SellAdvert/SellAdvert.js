@@ -5,7 +5,11 @@ import Button from '@mui/joy/Button';
 import MKBox from "../MKBox";
 import MKTypography from "../MKTypography";
 
-function SellAdvert({image, title}) {
+function SellAdvert({ title}) {
+
+  const image = "https://source.unsplash.com/06ilsXv74PI"
+  const image1 = "https://source.unsplash.com/8FbaSoKMkRA"
+  const image2 = "https://source.unsplash.com/XyONj_Aq-rg"
   return (
 <>
         <Box sx={{ display: 'flex', justifyContent: 'center',
@@ -17,6 +21,7 @@ function SellAdvert({image, title}) {
         <MKBox
           component="img"
           src={image}
+          loading="lazy"
           alt={title}
           borderRadius="lg"
           width="100%"
@@ -31,7 +36,6 @@ function SellAdvert({image, title}) {
           position="absolute"
           left={0}
           top={0}
-          image="https://images.unsplash.com/photo-1544717302-de2939b7ef71?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
           sx={{
             backgroundImage:`url(${image})`,
             transform: "scale(0.94)",
@@ -71,7 +75,8 @@ function SellAdvert({image, title}) {
        <MKBox position="relative" borderRadius="lg" mx={2} mt={-3}>
         <MKBox
           component="img"
-          src={image}
+          src={image1}
+          loading="lazy"
           alt={title}
           borderRadius="lg"
           width="100%"
@@ -86,9 +91,8 @@ function SellAdvert({image, title}) {
           position="absolute"
           left={0}
           top={0}
-          image="https://images.unsplash.com/photo-1544717302-de2939b7ef71?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
           sx={{
-            backgroundImage:`url(${image})`,
+            backgroundImage:`url(${image1})`,
             transform: "scale(0.94)",
             filter: "blur(12px)",
             backgroundSize: "cover",
@@ -126,7 +130,8 @@ function SellAdvert({image, title}) {
       <MKBox position="relative" borderRadius="lg" mx={2} mt={-3}>
         <MKBox
           component="img"
-          src={image}
+          src={image2}
+          loading="lazy"
           alt={title}
           borderRadius="lg"
           width="100%"
@@ -141,9 +146,8 @@ function SellAdvert({image, title}) {
           position="absolute"
           left={0}
           top={0}
-          image="https://images.unsplash.com/photo-1544717302-de2939b7ef71?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
           sx={{
-            backgroundImage:`url(${image})`,
+            backgroundImage:`url(${image2})`,
             transform: "scale(0.94)",
             filter: "blur(12px)",
             backgroundSize: "cover",

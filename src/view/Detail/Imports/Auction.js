@@ -233,12 +233,11 @@ export default function Auction({ match }) {
   }}
 >
   <div>
-    <InfoRounded sx={{ fontSize: 16, mr: 0.5, mt: '1px' }} />
     <span>
-      <Typography>Confidence score: </Typography>
+      <Typography><InfoRounded sx={{ fontSize: 16, my: 0.5, mr: 0.1, mt: '1px' }} /> Confidence score: </Typography>
       
       <Typography textColor="success.400" fontWeight="sm" my={1}>
-        ${formattedScore}%
+        {formattedScore}%
       </Typography>
         
      

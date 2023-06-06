@@ -11,7 +11,7 @@ import List from '@mui/joy/List';
 import { useAllAuctions } from '../../data';
 
 //import {useThisProduct}  from '../../data';
-import data from '../Detail/data.json'
+
 
 import Result from './Result';
 import CardCategory from '../Detail/Imports/CardCategory'
@@ -34,13 +34,6 @@ function NewlyListed() {
   //console.log(results)
     return (
         <>
-    <Main>
-     <div className="pt-3">
-      <div className="page-width">
-        <h2>Newly Listed</h2>
-      </div>
-    </div>
-    </Main>
         <Sheet
           variant="outlined"
           sx={{
@@ -64,23 +57,6 @@ function NewlyListed() {
           </Link>
         </Sheet>
         
-        <div className="d-flex justify-content-between align-items-center mb-4">
-        <a className="text-primary text-sm font-weight-bold" href="/">Browse all </a>
-      </div>
-      <div className="row mb-5">
-    {data.categories.map(category => 
-      <div className="col-md-6 col-lg-3">
-        <Link to="category/">
-        <CardCategory
-          thumb_src = {category.thumb_src}
-          title = {category.title}
-        />
-        </Link>
-      </div>
-    )}
-  </div>
-  
-
        </>
     );
 }

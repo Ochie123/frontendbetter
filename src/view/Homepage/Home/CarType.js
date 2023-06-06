@@ -3,16 +3,18 @@ import Typography from '@mui/joy/Typography';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Card from '@mui/joy/Card';
+import { Link} from "react-router-dom";
 
 function CarType() {
       return (
      <>
+     <Link to={`/auctions/`}>
     <Card variant="outlined" sx={{ width: 320 }}>
        <Typography level="h2" fontSize="XL" sx={{ mb:3 }}>
          <img
-          src="https://source.unsplash.com/aNwtUkpb3cU" 
+          src="https://source.unsplash.com/sshRwdjWubE" 
           loading="lazy"
-          alt="Maksym-Tymchyk" width="200" 
+          alt="" width="200" 
          />
         </Typography>
         <Box sx={{ display: 'flex' }}>
@@ -32,14 +34,14 @@ function CarType() {
         </Button>
       </Box>
   </Card>
-
-
+  </Link>
+  <Link to={`/auctions/`}>
   <Card variant="outlined" sx={{ width: 320 }}>
       <Typography level="h2" fontSize="XL" sx={{ mb: 3 }}>
       <img
-        src="https://source.unsplash.com/MOHTDu-68no" 
+        src="https://source.unsplash.com/dhaew2IpTo0" 
         loading="lazy"
-        alt="Hanson-Lu" width="200" 
+        alt="" width="200" 
       />
       </Typography>
       <Box sx={{ display: 'flex' }}>
@@ -59,13 +61,14 @@ function CarType() {
         </Button>
       </Box>
   </Card>
-
+  </Link>
+  <Link to={`/auctions/`}>
   <Card variant="outlined" sx={{ width: 320 }}>
     <Typography level="h2" fontSize="XL" sx={{ mb: 3}}>
       <img
-        src="https://source.unsplash.com/fwYZ3B_QQco" 
+        src="https://source.unsplash.com/5UMzgCe4fBA" 
         loading="lazy"
-        alt="Oli-Woodman" width="200" 
+        alt="" width="200" 
       />
     </Typography>
     <Box sx={{ display: 'flex' }}>
@@ -85,13 +88,14 @@ function CarType() {
         </Button>
       </Box>
   </Card>
-
+  </Link>
+  <Link to={`/auctions/`}>
   <Card variant="outlined" sx={{ width: 320 }}>
       <Typography level="h2" fontSize="XL" sx={{ mb: 3 }}>
         <img
-          src="https://source.unsplash.com/W1goA26UBGo" 
+          src="https://source.unsplash.com/utPwMB3aCWM" 
           loading="lazy"
-          alt="Miguel-Teirlinck" width="200" 
+          alt="" width="200" 
         />
       </Typography>
       <Box sx={{ display: 'flex' }}>
@@ -111,6 +115,7 @@ function CarType() {
         </Button>
       </Box>
       </Card>
+      </Link>
     </> 
 )
 }

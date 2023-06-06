@@ -1,12 +1,10 @@
-
 import Promotional from "./Promotional"
-import data from '../Detail/data.json'
+
 
 export default function PromotionalFull() {
     return (
 <Promotional 
-title={"Buy/Sell Car"}
-pageHeaderBgImg={""}
+pageHeaderBgImg={"https://source.unsplash.com/XyONj_Aq-rg"}
 pageHeaderMinVh="50vh"
 />
     )

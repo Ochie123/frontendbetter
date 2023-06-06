@@ -49,7 +49,7 @@ import Homepage from "./view/Homepage";
 import { useSelector } from 'react-redux';
 
 
-import { RootState } from '../src/store/reducers'
+import AuctionList from './view/AuctionsList/AuctionsList';
 
 
 import { BrowserRouter as Router, Switch, Routes, Route, Navigate } from "react-router-dom";
@@ -108,7 +108,7 @@ function App() {
 
         <Route path="users/:ownerId" element={<ProfileId/>} />
 
-
+        <Route path="auctions/" element={<AuctionList/>} />
         <Route path="auctions/:id" element={<DetailPage/>} />
         <Route path='/not-found' element={<NotFoundPage/>} />
         <Route path="*" element={<NotFoundPage/>} />
