@@ -20,9 +20,10 @@ var Sort = function ({ variant, classes: c = {}, onSelect }) {
 
   // Hardcoded values
   const sortOptions = [
-    { code: 'option1', name: 'Option 1' },
-    { code: 'option2', name: 'Option 2' },
-    { code: 'option3', name: 'Option 3' },
+    { name: 'Price - Lowest', code: 'price_asc' },
+    { name: 'Price - Highest', code: 'price_desc' },
+    { name: 'Most Popular', code: 'pop' },
+    { name: 'Highest Rated', code: 'rating' },
   ];
   const sort = sortOptions[0].code; // Select the first option by default
 

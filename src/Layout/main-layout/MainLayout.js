@@ -1,4 +1,7 @@
 import React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 
 import NavigationBar from './NavigationBar'
 import Footer from './Footer';
@@ -11,8 +14,11 @@ const MainLayout = ({ children } ) => {
 
     return (
         <>
-
         <NavigationBar/>
+        <React.Fragment>
+            
+        <CssBaseline />
+    
         <div className="true">{children}</div>
 
         {token ? (
@@ -21,7 +27,12 @@ const MainLayout = ({ children } ) => {
          
         <Footer2/>
         )}
-        </>
+        
+      
+    
+      </React.Fragment>
+      </>
+      
     )
 }
 

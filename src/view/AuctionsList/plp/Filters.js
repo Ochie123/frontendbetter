@@ -39,7 +39,7 @@ const Root = styled('div')(({ theme }) => ({
  * [`FilterButton`](/apiReference/plp/FilterButton) to automatically display this component in a
  * drawer that slides up from the bottom of the viewport.
  */
-const Filter = function ({
+const Filters = function ({
   expandAll,
   hideClearLink,
   clearLinkText,
@@ -90,7 +90,7 @@ const Filter = function ({
   );
 };
 
-Filter.propTypes = {
+Filters.propTypes = {
   /**
    * Override or extend the styles applied to the component. See [CSS API](#css) below for more details.
    */
@@ -139,9 +139,9 @@ Filter.propTypes = {
   style: PropTypes.object,
 };
 
-Filter.defaultProps = {
+Filters.defaultProps = {
   onViewResultsClick: Function.prototype,
   submitOnChange: false,
 };
 
-export default memo(Filter);
+export default memo(Filters);

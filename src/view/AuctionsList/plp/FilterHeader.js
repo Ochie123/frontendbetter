@@ -35,6 +35,7 @@ const StyledHbox = styled(Hbox)(({ theme }) => ({
     [theme.breakpoints.up('sm')]: {
       flex: 1,
       textTransform: 'uppercase',
+      marginLeft: '-16px',
       fontWeight: 'bold',
     },
   },

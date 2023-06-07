@@ -1,7 +1,6 @@
 // @mui icons
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 
 // Material Kit 2 React components
@@ -14,61 +13,57 @@ const date = new Date().getFullYear();
 
 export default {
   brand: {
-    name: "Material Kit 2",
+    name: "Cars-Bids",
   
     route: "/",
   },
   socials: [
     {
       icon: <FacebookIcon />,
-      link: "https://www.facebook.com/CreativeTim/",
+      link: "https://www.facebook.com/Cars-Bids/",
     },
     {
       icon: <TwitterIcon />,
-      link: "https://twitter.com/creativetim",
-    },
-    {
-      icon: <GitHubIcon />,
-      link: "https://github.com/creativetimofficial",
+      link: "https://twitter.com/cars-bids",
     },
     {
       icon: <YouTubeIcon />,
-      link: "https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w",
+      link: "https://www.youtube.com/",
     },
   ],
   menus: [
     {
       name: "company",
       items: [
-        { name: "about us", href: "https://www.creative-tim.com/presentation" },
-        { name: "freebies", href: "https://www.creative-tim.com/templates/free" },
-        { name: "premium tools", href: "https://www.creative-tim.com/templates/premium" },
-        { name: "blog", href: "https://www.creative-tim.com/blog" },
+        { name: "about us", href: "https://www.cars-bids.com/presentation" },
+        { name: "freebies", href: "https://www.cars-bids.com/templates/free" },
+        { name: "premium tools", href: "https://www.cars-bids.com/templates/premium" },
+        { name: "blog", href: "https://www.cars-bids.com/blog" },
       ],
     },
     {
       name: "resources",
       items: [
-        { name: "illustrations", href: "https://iradesign.io/" },
-        { name: "bits & snippets", href: "https://www.creative-tim.com/bits" },
-        { name: "affiliate program", href: "https://www.creative-tim.com/affiliates/new" },
+        { name: "illustrations", href: "https://cars-bids.io/" },
+        { name: "bits & snippets", href: "https://www.cars-bids.com/bits" },
+        { name: "affiliate program", href: "https://www.cars-bids.com/affiliates/new" },
       ],
     },
     {
       name: "help & support",
       items: [
-        { name: "contact us", href: "https://www.creative-tim.com/contact-us" },
-        { name: "knowledge center", href: "https://www.creative-tim.com/knowledge-center" },
-        { name: "custom development", href: "https://services.creative-tim.com/" },
-        { name: "sponsorships", href: "https://www.creative-tim.com/sponsorships" },
+        { name: "contact us", href: "https://www.cars-bids.com/contact-us" },
+        { name: "knowledge center", href: "https://www.cars-bids.com/knowledge-center" },
+        { name: "custom development", href: "https://cars-bids.com/" },
+        { name: "sponsorships", href: "https://www.cars-bids.com/sponsorships" },
       ],
     },
     {
       name: "legal",
       items: [
-        { name: "terms & conditions", href: "https://www.creative-tim.com/terms" },
-        { name: "privacy policy", href: "https://www.creative-tim.com/privacy" },
-        { name: "licenses (EULA)", href: "https://www.creative-tim.com/license" },
+        { name: "terms & conditions", href: "https://www.cars-bids.com/terms" },
+        { name: "privacy policy", href: "https://www.cars-bids.com/privacy" },
+        { name: "licenses (EULA)", href: "https://www.cars-bids.com/license" },
       ],
     },
   ],
