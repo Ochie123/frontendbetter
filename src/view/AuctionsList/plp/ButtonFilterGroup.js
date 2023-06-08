@@ -1,18 +1,16 @@
-import PropTypes from 'prop-types'
-import { styled } from '@mui/material/styles'
-import React, { useMemo, useContext } from 'react'
-import SearchResultsContext from './SearchResultsContext'
-import SwatchProductOption from '../option/SwatchProductOption'
-import TextProductOption from '../option/TextProductOption'
-import { Hbox } from '../option/Box'
+import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+import React, { useMemo } from 'react';
+import SwatchProductOption from '../option/SwatchProductOption';
+import { Hbox } from '../option/Box';
 
-const PREFIX = 'RSFButtonFilterGroup'
+const PREFIX = 'RSFButtonFilterGroup';
 
 const defaultClasses = {
   root: `${PREFIX}-root`,
   matches: `${PREFIX}-matches`,
   button: `${PREFIX}-button`,
-}
+};
 
 const Root = styled('div')(({ theme }) => ({
   /**
@@ -40,27 +38,25 @@ const Root = styled('div')(({ theme }) => ({
     fontWeight: 'normal',
     margin: theme.spacing(0, 0.5, 0.5, 0),
   },
-}))
+}));
 
 /**
  * A UI for grouping filters using buttons.
  */
 export default function ButtonFilterGroup(props) {
-  const { group, submitOnChange, classes: c = {} } = props
-  const {
-    pageData: { filters },
-    actions: { toggleFilter },
-  } = useContext(SearchResultsContext)
-  const classes = { ...defaultClasses, ...c }
+  const { group, submitOnChange, classes: c = {} } = props;
+  const classes = { ...defaultClasses, ...c };
 
   return useMemo(
     () => (
       <Root className={classes.root}>
         {group.options.map((facet, i) => {
-          const selected = filters.indexOf(facet.code) !== -1
-          const { image, matches, name } = facet
-          const handleClick = () => toggleFilter(facet, submitOnChange)
-          const Variant = image ? SwatchProductOption : TextProductOption
+          const selected = false; // Replace with your logic to determine selection
+          const { matches, name } = facet;
+          const handleClick = () => {
+            // Handle click event
+          };
+          const Variant = SwatchProductOption; // Replace with your component variant logic
 
           return (
             <Variant
@@ -74,14 +70,13 @@ export default function ButtonFilterGroup(props) {
                   {matches ? <span className={classes.matches}>({matches})</span> : null}
                 </Hbox>
               }
-              {...(image ? { imageProps: facet.image } : undefined)}
             />
-          )
+          );
         })}
       </Root>
     ),
-    [filters, ...Object.values(props)],
-  )
+    [Object.values(props)],
+  );
 }
 
 ButtonFilterGroup.propTypes = {
@@ -98,7 +93,6 @@ ButtonFilterGroup.propTypes = {
         code: PropTypes.string,
         name: PropTypes.string,
         matches: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        image: PropTypes.object,
       }),
     ),
   }),
@@ -106,4 +100,4 @@ ButtonFilterGroup.propTypes = {
    * Set to `true` if the filters will be submitted when changed. In this case, the footer will not be shown.
    */
   submitOnChange: PropTypes.bool,
-}
+};

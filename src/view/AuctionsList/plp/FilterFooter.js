@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import React from 'react';
 import { Button, Typography } from '@mui/material';
 import { Hbox } from '../option/Box';
@@ -39,6 +40,7 @@ export {};
 export default function FilterFooter(props) {
   const { classes: c = {}, submitOnChange, onViewResultsClick } = props;
   const classes = { ...defaultClasses, ...c };
+  const mobileDevice = useMediaQuery('(max-width:650px)');
 
   // Hardcoded filters and filtersChanged data for testing purposes
   const filters = ['Filter 1', 'Filter 2'];
@@ -47,7 +49,9 @@ export default function FilterFooter(props) {
   if (!filters || !filtersChanged || submitOnChange) return null;
 
   return (
-    <StyledHbox className={classes.root} justify="space-between">
+    <>
+    {mobileDevice ? (
+      <StyledHbox className={classes.root} justify="space-between">
       <Typography variant="subtitle1" className={classes.itemsFound}>
         {filters.length || 'No'} filter
         {filters.length === 1 ? '' : 's'} selected
@@ -55,7 +59,19 @@ export default function FilterFooter(props) {
       <Button variant="contained" size="large" onClick={onViewResultsClick} color="primary">
         View Results
       </Button>
-    </StyledHbox>
+    </StyledHbox>   
+      ) : (
+        <>
+        <Typography variant="subtitle1" className={classes.itemsFound}>
+          {filters.length || 'No'} filter
+          {filters.length === 1 ? '' : 's'} selected
+        </Typography>
+        <Button variant="contained" size="large" onClick={onViewResultsClick} color="primary">
+          View Results
+        </Button>
+        </>
+      )}
+      </>
   );
 }
 

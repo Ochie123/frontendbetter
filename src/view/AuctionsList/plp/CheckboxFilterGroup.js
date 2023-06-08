@@ -37,7 +37,7 @@ export default function CheckboxFilterGroup(props) {
   const classes = { ...defaultClasses, ...c };
 
   // Hardcoded filters data for testing purposes
-  const filters = ['Filter 1', 'Filter 2'];
+  const filters = ['Filter 1'];
 
   const toggleFilter = (facet, submitOnChange) => {
     // Implement your toggleFilter logic here

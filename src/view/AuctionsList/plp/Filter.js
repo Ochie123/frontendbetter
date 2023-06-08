@@ -56,12 +56,73 @@ const Filter = function ({
     {
       id: 1,
       name: 'Category',
-      options: ['Electronics', 'Clothing', 'Home'],
+      options: [
+        { name: 'Cars', code: 'category:cars' },
+        { name: 'Buses', code: 'category:buses' },
+        { name: 'Tractors', code: 'category:tractors' },
+      ],
     },
     {
       id: 2,
       name: 'Color',
-      options: ['Red', 'Blue', 'Green'],
+      options: [
+        { name: 'Red', code: 'color:red' },
+        { name: 'Green', code: 'color:md' },
+        { name: 'Blue', code: 'color:blue' },
+        { name: 'White', code: 'color:white' },
+        { name: 'Black', code: 'color:black' },
+      ],
+    },
+    {
+      id: 3,
+      name: 'Make',
+      options: [
+        { name: 'Toyota', code: 'make:toyota' },
+        { name: 'BMW', code: 'make:bmw' },
+        { name: 'Volkswagen', code: 'make:volkswagen' },
+        { name: 'Audi', code: 'make:audi' },
+        { name: 'Mercedez', code: 'make:mercedez' },
+      ],
+    },
+    {
+      id: 4,
+      name: 'Model',
+      options: [
+        { name: 'Probox', code: 'model:probox' },
+        { name: 'Fielder', code: 'model:fielder' },
+        { name: 'Noah', code: 'model:noah' },
+        { name: 'Auris', code: 'model:auris' },
+        { name: 'S7', code: 'model:s7' },
+      ],
+    },
+    {
+      id:5,
+      name: 'Year',
+      options: [
+        { name: '2012', code: 'year:2012' },
+        { name: '2013', code: 'year:2013' },
+        { name: '2014', code: 'year:2014' },
+        { name: '2015', code: 'year:2015' },
+        { name: '2016', code: 'year:2016' },
+      ],
+    },
+    {
+      id: 6,
+      name: 'Type',
+      options: [
+        { name: 'SUV', code: 'type:2012' },
+        { name: 'Sedan', code: 'type:2013' },
+        { name: 'Hatchback', code: 'type:2014' },
+        { name: 'Wagon', code: 'type:2015' },
+      ],
+    },
+    {
+      id: 7,
+      name: 'Availability',
+      options: [
+        { name: 'Local', code: 'availability:local' },
+        { name: 'International', code: 'availability:international' },
+      ],
     },
     // Add more facet groups as needed
   ];

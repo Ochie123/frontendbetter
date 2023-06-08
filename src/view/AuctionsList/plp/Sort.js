@@ -22,8 +22,11 @@ var Sort = function ({ variant, classes: c = {}, onSelect }) {
   const sortOptions = [
     { name: 'Price - Lowest', code: 'price_asc' },
     { name: 'Price - Highest', code: 'price_desc' },
-    { name: 'Most Popular', code: 'pop' },
-    { name: 'Highest Rated', code: 'rating' },
+    { name: 'Highest - Voted', code: 'vote_dsc' },
+    { name: 'Bids - Highest', code: 'bids_asc' },
+    { name: 'Bids - Lowest', code: 'bids_dsc' },
+    { name: 'Ending - Soonest', code: 'ending_dsc' },
+    { name: 'Ending - Latest', code: 'ending_asc' },
   ];
   const sort = sortOptions[0].code; // Select the first option by default
 
