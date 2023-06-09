@@ -17,9 +17,11 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
+import { SelectedFiltersContext } from '../AuctionsList/plp/SelectedFiltersContext'
 
 
 export default function AuctionList() {
+  const [selectedFilters, setSelectedFilters] = useState([]);
   const results = useAllAuctions();
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
@@ -41,9 +43,10 @@ export default function AuctionList() {
         <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <Filter />
+          <Filter selectedFilters={selectedFilters} />
           </Grid>
 
+          <SelectedFiltersContext.Provider value={[selectedFilters, setSelectedFilters]}>
           <Grid item xs={8}>
             <Sheet
               variant=""
@@ -62,9 +65,12 @@ export default function AuctionList() {
                   ))}
                 </List>
               </Link>
+             
             </Sheet>
             </Grid>
+            </SelectedFiltersContext.Provider>
         </Grid>
+
         </Box>
       
          
@@ -96,11 +102,13 @@ export default function AuctionList() {
           <Drawer anchor="bottom" open={isDrawerOpen} onClose={toggleDrawer}>
             <Filter />
           </Drawer>
+          <SelectedFiltersContext.Provider value={[selectedFilters, setSelectedFilters]}>
           <List sx={{ py: 'var(--ListDivider-gap)' }}>
             {results.map((uuid) => (
               <Result uuid={uuid} key={uuid} />
             ))}
           </List>
+          </SelectedFiltersContext.Provider>
         </Box>
       
     </Container>

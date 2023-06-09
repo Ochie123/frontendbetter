@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import ListItem from '@mui/material/ListItem';
 import ExpandableSection from '../option/ExpandableSection';
 import CheckboxFilterGroup from './CheckboxFilterGroup';
@@ -36,16 +36,20 @@ export default function FacetGroup(props) {
     listItemProps,
     onClose,
     isSimpleList,
+    selectedFilters,
     classes: c = {},
   } = props;
 
   const classes = { ...defaultClasses, ...c };
 
-  // Hardcoded filters data for testing purposes
-  const filters = ['Filter 1', 'Filter 2'];
+  const [currentSelectedFilters, setCurrentSelectedFilters] = useState(selectedFilters || []);
+
+  const handleSelectedFiltersChange = (filters) => {
+    setCurrentSelectedFilters(filters);
+  };
 
   return useMemo(() => {
-    if (!filters) return null;
+    const filters = currentSelectedFilters || [];
 
     const selection = [];
 
@@ -79,6 +83,8 @@ export default function FacetGroup(props) {
             onClose={onClose}
             group={group}
             submitOnChange={submitOnChange}
+            selectedFilters={currentSelectedFilters}
+            onSelectedFiltersChange={handleSelectedFiltersChange}
             {...controlsProps}
           />
         </ListItem>
@@ -92,10 +98,27 @@ export default function FacetGroup(props) {
         defaultExpanded={defaultExpanded}
         classes={{ title: classes.groupTitle }}
       >
-        <Controls group={group} submitOnChange={submitOnChange} {...controlsProps} />
+        <Controls
+          group={group}
+          submitOnChange={submitOnChange}
+          selectedFilters={currentSelectedFilters}
+          onSelectedFiltersChange={handleSelectedFiltersChange}
+          {...controlsProps}
+        />
       </StyledExpandableSection>
     );
-  }, [...Object.values(props), filters]);
+  }, [
+    group,
+    submitOnChange,
+    defaultExpanded,
+    ControlsComponent,
+    controlsProps,
+    listItemProps,
+    onClose,
+    isSimpleList,
+    currentSelectedFilters,
+    classes,
+  ]);
 }
 
 FacetGroup.propTypes = {
@@ -124,7 +147,11 @@ FacetGroup.propTypes = {
   onClose: PropTypes.func,
   listItemProps: PropTypes.object,
   /**
-   * If `true` list will be displayed instead of expandable items.
+   * If `true`, list will be displayed instead of expandable items.
    */
   isSimpleList: PropTypes.bool,
+  /**
+   * Array of selected filters.
+   */
+  selectedFilters: PropTypes.arrayOf(PropTypes.string),
 };

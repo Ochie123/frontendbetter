@@ -1,7 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useContext } from 'react';
 import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import { Hbox } from '../option/Box';
+
+import { SelectedFiltersContext } from './SelectedFiltersContext';
 
 const PREFIX = 'RSFFilterHeader';
 
@@ -58,18 +60,23 @@ const StyledHbox = styled(Hbox)(({ theme }) => ({
  * A header to be placed at the top of the [`Filter`](/apiReference/plp/Filter).
  */
 export default function FilterHeader(props) {
+  const { selectedFilters, setSelectedFilters } = useContext(SelectedFiltersContext);
   const { title, clearLinkText, hideClearLink, submitOnChange, classes: c = {} } = props;
   const classes = { ...defaultClasses, ...c };
 
   // Hardcoded filters data for testing purposes
   const filters = ['Filter 1', 'Filter 2', 'Filter 3'];
 
+  const clearFilters = () => {
+    setSelectedFilters([]);
+  };
+
   return useMemo(
     () => (
       <StyledHbox justify="center" className={classes.header}>
         <div className={classes.title}>{title}</div>
-        {hideClearLink || !filters || filters.length === 0 ? null : (
-          <button onClick={() => console.log('Clear filters')} className={classes.clear}>
+        {hideClearLink || !selectedFilters || selectedFilters.length === 0 ? null : (
+          <button onClick={clearFilters} className={classes.clear}>
             {clearLinkText}
           </button>
         )}

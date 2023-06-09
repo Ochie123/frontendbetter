@@ -29,9 +29,13 @@ const SortButton = function ({
   const { open, mountDrawer, anchorEl } = state;
   const buttonRef = useRef();
   const sortOptions = [
-    { code: 'option1', name: 'Option 1' },
-    { code: 'option2', name: 'Option 2' },
-    { code: 'option3', name: 'Option 3' },
+    { name: 'Price - Lowest', code: 'price_asc' },
+    { name: 'Price - Highest', code: 'price_desc' },
+    { name: 'Highest - Voted', code: 'vote_dsc' },
+    { name: 'Bids - Highest', code: 'bids_asc' },
+    { name: 'Bids - Lowest', code: 'bids_dsc' },
+    { name: 'Ending - Soonest', code: 'ending_dsc' },
+    { name: 'Ending - Latest', code: 'ending_asc' },
   ];
   const sort = sortOptions[0].code; // Select the first option by default
   const selectedOption = sortOptions.find((o) => sort === o.code);
