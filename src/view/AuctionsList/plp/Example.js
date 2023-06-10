@@ -1,262 +1,389 @@
-const {
-    useCallback,
-    useEffect,
-    useState,
-  } = React
-  
-  const CATEGORIES = [
-    "electronics", 
-    "jewelery", 
-    "men's clothing", 
-    "women's clothing",
-  ]
-  const PRODUCTS = [
-    {
-      "id": 1,
-      "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-      "price": 109.95,
-      "category": "men's clothing",
-      "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-    },
-    {
-      "id": 2,
-      "title": "Mens Casual Premium Slim Fit T-Shirts ",
-      "price": 22.3,
-      "category": "men's clothing",
-      "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"
-    },
-    {
-      "id": 3,
-      "title": "Mens Cotton Jacket",
-      "price": 55.99,
-      "category": "men's clothing",
-      "image": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg"
-    },
-    {
-      "id": 4,
-      "title": "Mens Casual Slim Fit",
-      "price": 15.99,
-      "category": "men's clothing",
-      "image": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg"
-    },
-    {
-      "id": 5,
-      "title": "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
-      "price": 695,
-      "category": "jewelery",
-      "image": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg"
-    },
-    {
-      "id": 6,
-      "title": "Solid Gold Petite Micropave ",
-      "price": 168,
-      "category": "jewelery",
-      "image": "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg"
-    },
-    {
-      "id": 7,
-      "title": "White Gold Plated Princess",
-      "price": 9.99,
-      "category": "jewelery",
-      "image": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg"
-    },
-    {
-      "id": 8,
-      "title": "Pierced Owl Rose Gold Plated Stainless Steel Double",
-      "price": 10.99,
-      "category": "jewelery",
-      "image": "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg"
-    },
-    {
-      "title": "WD 2TB Elements Portable External Hard Drive - USB 3.0 ",
-      "price": 64
-    },
-    {
-      "id": 10,
-      "title": "SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s",
-      "price": 109,
-      "category": "electronics",
-      "image": "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg"
-    },
-    {
-      "id": 11,
-      "title": "Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5",
-      "price": 109,
-      "category": "electronics",
-      "image": "https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg"
-    },
-    {
-      "id": 12,
-      "title": "WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive",
-      "price": 114,
-      "category": "electronics",
-      "image": "https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg"
-    },
-    {
-      "id": 13,
-      "title": "Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin",
-      "price": 599,
-      "category": "electronics",
-      "image": "https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg"
-    },
-    {
-      "id": 14,
-      "title": "Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED ",
-      "price": 999.99,
-      "category": "electronics",
-      "image": "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg"
-    },
-    {
-      "id": 15,
-      "title": "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats",
-      "price": 56.99,
-      "category": "women's clothing",
-      "image": "https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg"
-    },
-    {
-      "id": 16,
-      "title": "Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket",
-      "price": 29.95,
-      "category": "women's clothing",
-      "image": "https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg"
-    },
-    {
-      "id": 17,
-      "title": "Rain Jacket Women Windbreaker Striped Climbing Raincoats",
-      "price": 39.99,
-      "category": "women's clothing",
-      "image": "https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg"
-    },
-    {
-      "id": 18,
-      "title": "MBJ Women's Solid Short Sleeve Boat Neck V ",
-      "price": 9.85,
-      "category": "women's clothing",
-      "image": "https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg"
-    },
-    {
-      "id": 19,
-      "title": "Opna Women's Short Sleeve Moisture",
-      "price": 7.95,
-      "category": "women's clothing",
-      "image": "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg"
-    },
-    {
-      "id": 20,
-      "title": "DANVOUY Womens T Shirt Casual Cotton Short",
-      "price": 12.99,
-      "category": "women's clothing",
-      "image": "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg"
-    },
-  ]
-  
-  function padPrice(input) {
-    const [
-      dollars,
-      cents = '00',
-    ] = String(input).split('.')
-    
-    return `${dollars}.${cents.padEnd(2, '0')}`
-  }
-  
-  function ProductFilters(props) {
-    const { 
-      categories,
-      onFilterChange,
-    } = props
-    
+import React, { memo, useEffect, useState } from 'react';
+import { styled } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import Sheet from '@mui/joy/Sheet';
+import Container from '@mui/material/Container';
+import List from '@mui/joy/List';
+import Grid from '@mui/material/Grid';
+import { Link } from 'react-router-dom';
+import Box from '@mui/material/Box';
+
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import FilterListIcon from '@mui/icons-material/FilterList';
+
+import CheckboxFilterGroup from './CheckboxFilterGroup';
+import FacetGroup from './FacetGroup';
+import FilterHeader from './FilterHeader';
+import FilterFooter from './FilterFooter';
+
+import SortButton from './SortButton';
+
+
+import Result from '../../AuctionsList/Result'
+import { useQuery } from 'react-query';
+import { loadCategories, loadMakes, loadModels, loadAuctions } from '../../../data/api/api';
+import { SelectedFiltersProvider } from './SelectedFiltersContext';
+
+const PREFIX = 'RSFFilter';
+
+const defaultClasses = {
+  root: `${PREFIX}-root`,
+  facetGroups: `${PREFIX}-facetGroups`,
+};
+
+const Root = styled('div')(({ theme }) => ({
+  /**
+   * Styles applied to the root element.
+   */
+  [`&.${defaultClasses.root}`]: {
+    height: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+  },
+
+  /**
+   * Styles applied to the wrapper element around the facet groups.
+   */
+  [`& .${defaultClasses.facetGroups}`]: {
+    overflow: 'auto',
+    overflowX: 'hidden',
+    flex: '1',
+    position: 'relative',
+  },
+}));
+
+const Filter = function ({
+  expandAll,
+  hideClearLink,
+  clearLinkText,
+  submitOnChange,
+  style,
+  classes: c = {},
+  title,
+  onViewResultsClick,
+}) {
+  const classes = { ...defaultClasses, ...c };
+  const [selectedFilters, setSelectedFilters] = useState([]);
+
+  const handleSelectedFiltersChange = (filters) => {
+    setSelectedFilters(filters);
+  };
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!isDrawerOpen);
+  };
+
+  const { data: auctionsData = { results: [] } } = useQuery('results', loadAuctions);
+  const allResults = auctionsData.results;
+
+  const filterResults = () => {
+    if (selectedFilters.length === 0) {
+      return allResults;
+    }
+
+    const filteredResults = allResults.filter((result) => {
+      const { category, make, model, year, type } = result;
+
+      // Check if all selected filters match the properties of the result
+      return selectedFilters.every((filter) => {
+        const [filterType, filterValue] = filter.split(':');
+
+        if (filterType === 'category' && category == filterValue) {
+          return true;
+        }
+
+        if (filterType === 'make' && make == filterValue) {
+          return true;
+        }
+
+        if (filterType === 'model' && model == filterValue) {
+          return true;
+        }
+
+        if (filterType === 'type' && type == filterValue) {
+          return true;
+        }
+
+        if (filterType === 'year') {
+          const selectedYears = filterValue.split(',');
+          return selectedYears.includes(year.toString());
+        }
+
+        return false;
+      });
+    });
+
+    return filteredResults;
+  };
+
+  const renderFilteredResults = () => {
+    const filteredResults = filterResults();
+
     return (
-      <section 
-        className="filters"
-        aria-labelledby="filters-header">
-        <header id="filters-header">
-          {'Filters'}
-        </header>
-        
-        <ul>
-          {categories.map(category => (
-            <li key={category}>
-              <label>
-                <input 
-                  onChange={onFilterChange}
-                  type="checkbox"
-                  value={category} />
-                {category}
-              </label>
-            </li>
-          ))}
-        </ul>
-      </section>
-    )
-  }
-  
-  function Product(props) {
-    const { product } = props
-    
-    return (
-      <li
-        key={product.id}
-        className="product">
-        <img src={product.image} />
-        <div className="product-details">
-          <header>{product.title}</header>
-          <div className="category">{product.category}</div>
-          <div className="price">{`$${padPrice(product.price)}`}</div>
-        </div>
-      </li>
-    )
-  }
-  
-  function ProductsList(props) {
-    const { products } = props
-    
-    return (
-      <ul className="products">
-        {products.map(product => (
-          <Product product={product} />
+      <ul>
+        {filteredResults.map((result) => (
+          <li key={result.name}>{result.name}</li>
         ))}
       </ul>
-    )
-  }
-  
-  function App() {
-    const [state, setState] = useState({
-      products: PRODUCTS,
-      filters: new Set(),
-    })
+    );
+  };
+
+  useEffect(() => {
+    // Fetch auction choices and other data
+    // ...
+
+    // Example of how to use filterResults function
+    const filteredResults = filterResults();
+    //console.log(filteredResults);
+  }, [selectedFilters]);
+
+  const { data: categoriesData = { results: [] } } = useQuery('categories', loadCategories);
+  const categories = categoriesData.results;
+
+  const { data: makesData = { results: [] } } = useQuery('makes', loadMakes);
+  const makes = makesData.results;
+
+  const { data: modelsData = { results: [] } } = useQuery('models', loadModels);
+  const models = modelsData.results;
+
+  const [auctionChoices, setAuctionChoices] = useState(null);
+
+  useEffect(() => {
+    const fetchAuctionChoices = async () => {
+      try {
+        const response = await axios.get('http://192.168.43.38:8000/trader/api/auction-choices/');
+        setAuctionChoices(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchAuctionChoices();
+  }, []);
+
+  const facets = [
+    {
+      id: 1,
+      name: 'Category',
+      options: categories.map((category) => ({
+        name: category.name,
+        code: `category:${category.id}`,
+        matches: 20,
+      })),
+    },
+    {
+      id: 3,
+      name: 'Make',
+      options: makes.map((make) => ({
+        name: make.name,
+        code: `make:${make.id}`,
+        matches: 20,
+      })),
+    },
+    {
+      id: 4,
+      name: 'Model',
+      options: models.map((model) => ({
+        name: model.name,
+        code: `model:${model.id}`,
+        matches: 20,
+      })),
+    },
+    {
+      id: 5,
+      name: 'Year',
+      options:
+        auctionChoices?.supported_years.map(([value, label]) => ({
+          name: label,
+          code: `year:${value}`, // Use "year" instead of "value"
+          matches: 20,
+        })) || [],
+    },
+    {
+      id: 6,
+      name: 'Type',
+      options:
+        auctionChoices?.supported_types.map(([value, label]) => ({
+          name: label,
+          code: `type:${value}`, // Use "type" instead of "value"
+          matches: 20,
+        })) || [],
+    },
+
+    // Add more facet groups as needed
+  ];
+
+  const handleCheckboxChange = (e, option) => {
+    const isChecked = e.target.checked;
+    const filterCode = option.code;
+
+    if (isChecked) {
+      setSelectedFilters((prevFilters) => [...prevFilters, filterCode]);
+    } else {
+      setSelectedFilters((prevFilters) =>
+        prevFilters.filter((filter) => filter !== filterCode)
+      );
+    }
+  };
+
+  return (
+<SelectedFiltersProvider
+  value={{
+    selectedFilters,
+    setSelectedFilters: handleSelectedFiltersChange,
+  }}
+>
+<Container maxWidth="lg">
+    <div className="d-flex border-bottom pb-2 border-top pb-2">
+            <div className="d-flex ms-auto align-items-center">
+      
+          <SortButton />
+       
+        </div>
+        </div>
+        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+          <Root style={style} className={classes.root}>
+   
+   <div className={classes.facetGroups}>
+     {facets &&
+       facets.map((group, i) => (
+         <CheckboxFilterGroup
+           group={group}
+           key={i}
+           defaultExpanded={expandAll}
+           submitOnChange={submitOnChange}
+           onSelectedFiltersChange={handleSelectedFiltersChange}
+         />
+       ))}
+   </div>
+   <FilterHeader
+     hideClearLink={hideClearLink}
+     clearLinkText={clearLinkText}
+     title={title}
+     submitOnChange={submitOnChange}
+   />
+   <FilterFooter
+     onViewResultsClick={onViewResultsClick}
+     submitOnChange={submitOnChange}
+   />
+ </Root>
+          </Grid>
+
+          <Grid item xs={8}>
+            <Sheet
+              variant=""
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 20,
+                width: 'auto',
+                borderRadius: 'sm',
+              }}
+            >
+              <Link to="product/">
+                <List sx={{ py: 'var(--ListDivider-gap)' }}>
+                  {results.map((uuid) => (
+                    <Result uuid={uuid} key={uuid} />
+                  ))}
+                </List>
+              </Link>
+             
+            </Sheet>
+            </Grid>
+
+        </Grid>
+
+        </Box>
+      
+         
     
-    const handleFilterChange = useCallback(event => {
-      setState(previousState => {
-        let filters = new Set(previousState.filters)
-        let products = PRODUCTS
-        
-        if (event.target.checked) {
-          filters.add(event.target.value)
-        } else {
-          filters.delete(event.target.value)
-        }
-        
-        if (filters.size) {
-          products = products.filter(product => {
-            return filters.has(product.category)
-          })
-        }
-        
-        return {
-          filters,
-          products,
-        }
-      })
-    }, [setState])
-    
-    return (
-      <main>
-        <ProductFilters 
-          categories={CATEGORIES}
-          onFilterChange={handleFilterChange}/>
-        <ProductsList products={state.products} />
-      </main>
-    )
-  }
+        {/* Mobile Layout */}
+        <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
+        <IconButton
+          color="inherit"
+          aria-label="filter"
+          onClick={toggleDrawer}
+          sx={{
+            position: 'fixed',
+            bottom: '60px',
+            left: '15px',
+            zIndex: 100,
+            width: '50px',
+            height: '50px',
+            borderRadius: '50%',
+            backgroundColor: '#fff',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.25)',
+          }}
+        >
+  <FilterListIcon sx={{ fontSize: '28px' }} />
+</IconButton>
+
+          <Drawer anchor="bottom" open={isDrawerOpen} onClose={toggleDrawer}>
+          <Root style={style} className={classes.root}>
+   
+   <div className={classes.facetGroups}>
+     {facets &&
+       facets.map((group, i) => (
+         <CheckboxFilterGroup
+           group={group}
+           key={i}
+           defaultExpanded={expandAll}
+           submitOnChange={submitOnChange}
+           onSelectedFiltersChange={handleSelectedFiltersChange}
+         />
+       ))}
+   </div>
+   <FilterHeader
+     hideClearLink={hideClearLink}
+     clearLinkText={clearLinkText}
+     title={title}
+     submitOnChange={submitOnChange}
+   />
+   <FilterFooter
+     onViewResultsClick={onViewResultsClick}
+     submitOnChange={submitOnChange}
+   />
+ </Root>
+          </Drawer>
+
+          <List sx={{ py: 'var(--ListDivider-gap)' }}>
+          {renderFilteredResults()}
+          </List>
+
+        </Box>
+      
+    </Container>
+{renderFilteredResults()}
+
+</SelectedFiltersProvider>
+
+  );
   
-  ReactDOM.render(<App />, document.querySelector('#root'))
+};
+
+Filter.propTypes = {
+  classes: PropTypes.object,
+  onViewResultsClick: PropTypes.func,
+  title: PropTypes.string,
+  expandAll: PropTypes.bool,
+  submitOnChange: PropTypes.bool,
+  hideClearLink: PropTypes.bool,
+  clearLinkText: PropTypes.string,
+  style: PropTypes.object,
+};
+
+Filter.defaultProps = {
+  onViewResultsClick: Function.prototype,
+  submitOnChange: false,
+};
+
+export default memo(Filter);

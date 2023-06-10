@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
-import React, { useEffect, useState,createContext, useContext } from 'react';
+import React, { useEffect, useState, createContext, useMemo, useContext } from 'react';
 import { Checkbox, FormGroup, Typography, FormControlLabel } from '@mui/material';
-
+import ListItem from '@mui/material/ListItem';
+import ExpandableSection from '../option/ExpandableSection';
+import FacetGroup from './FacetGroup';
 
 import { SelectedFiltersContext } from './SelectedFiltersContext';
 
@@ -11,64 +13,60 @@ const PREFIX = 'RSFCheckboxFilterGroup';
 const defaultClasses = {
   matches: `${PREFIX}-matches`,
   groupLabel: `${PREFIX}-groupLabel`,
+  groupTitle: `${PREFIX}-groupTitle`,
 };
 
 const StyledFormGroup = styled(FormGroup)(() => ({
-  /**
-   * Styles applied to the matching text.
-   */
   [`& .${defaultClasses.matches}`]: {
     marginLeft: 'auto',
     display: 'inline',
   },
-
-  /**
-   * Styles applied to the group label element.
-   */
   [`& .${defaultClasses.groupLabel}`]: {
     display: 'flex',
     alignItems: 'center',
   },
 }));
 
-/**
- * A UI for grouping filters using checkboxes.
- */
+const StyledExpandableSection = styled(ExpandableSection)(({ theme }) => ({
+  [`& .${defaultClasses.groupTitle}`]: {
+    [theme.breakpoints.up('sm')]: {
+      fontWeight: 'bold',
+    },
+  },
+}));
+
 export default function CheckboxFilterGroup(props) {
-  const { group, submitOnChange, classes: c = {}, onSelectedFiltersChange } = props;
+  const {
+    group,
+    submitOnChange,
+    defaultExpanded,
+    ControlsComponent,
+    controlsProps,
+    listItemProps,
+    onClose,
+    isSimpleList,
+    onSelectedFiltersChange,
+    classes: c = {},
+  } = props;
 
   const classes = { ...defaultClasses, ...c };
   const { selectedFilters, setSelectedFilters } = useContext(SelectedFiltersContext);
 
+  const handleCheckboxChange = (e, facet) => {
+    const isChecked = e.target.checked;
+    const filterCode = facet.code;
 
-  // Hardcoded filters data for testing purposes
-  //const [selectedFilters, setSelectedFilters] = useState([]);
-
-
-  const toggleFilter = (facet) => {
-    setSelectedFilters((prevFilters) => {
-      const filterIndex = prevFilters.indexOf(facet.code);
-      if (filterIndex === -1) {
-        return [...prevFilters, facet.code];
-      } else {
-        return prevFilters.filter((_, index) => index !== filterIndex);
-      }
-    });
-  
-    if (submitOnChange) {
-      onSelectedFiltersChange(selectedFilters);
+    if (isChecked) {
+      setSelectedFilters((prevFilters) => [...prevFilters, filterCode]);
+    } else {
+      setSelectedFilters((prevFilters) =>
+        prevFilters.filter((filter) => filter !== filterCode)
+      );
     }
-  };
-  
-  
-
-  const onViewResultsClick = (selectedFilters) => {
-    // Implement your onViewResultsClick logic here
-    console.log(selectedFilters);
   };
 
   useEffect(() => {
-    console.log(selectedFilters); // Log the updated selectedFilters state
+    //console.log(selectedFilters); // Log the updated selectedFilters state
   }, [selectedFilters]);
 
   // Notify parent component of the updated selectedFilters state
@@ -76,44 +74,104 @@ export default function CheckboxFilterGroup(props) {
     onSelectedFiltersChange(selectedFilters);
   }, [selectedFilters, onSelectedFiltersChange]);
 
-  return (
-    <SelectedFiltersContext.Provider value={[selectedFilters, setSelectedFilters]}>
-    <StyledFormGroup>
-      {group.options.map((facet, i) => (
-        <FormControlLabel
-          key={i}
-          label={
-            <div className={classes.groupLabel}>
-              <span>{facet.name}</span>
-              <Typography variant="caption" className={classes.matches} component="span">
-                ({facet.matches})
-              </Typography>
-            </div>
-          }
-          control={
-            <Checkbox
-              checked={selectedFilters.includes(facet.code)}
-              color="primary"
-              onChange={() => toggleFilter(facet)}
-              selectedFilters={selectedFilters}
-              setSelectedFilters={setSelectedFilters}
-            />
-          }
-        />
-      ))}
-    </StyledFormGroup>
-    </SelectedFiltersContext.Provider>
-  );
+  return useMemo(() => {
+    const filters = selectedFilters || [];
+
+    const selection = [];
+
+    for (const option of group.options) {
+      if (filters.includes(option.code)) {
+        selection.push(option);
+      }
+    }
+
+    let Controls = ControlsComponent || FacetGroup;
+
+    let caption = null;
+
+    if (selection.length === 1) {
+      caption = selection[0].name;
+    } else if (selection.length > 0) {
+      caption = `${selection.length} selected`;
+    }
+
+    return (
+      <SelectedFiltersContext.Provider value={{ selectedFilters, setSelectedFilters }}>
+        {isSimpleList ? (
+          <ListItem {...listItemProps}>
+            <span className={classes.groupTitle}>{group.name}</span>
+            <StyledFormGroup>
+              {group.options.map((facet, i) => (
+                <FormControlLabel
+                  key={i}
+                  label={
+                    <div className={classes.groupLabel}>
+                      <span>{facet.name}</span>
+                      <Typography variant="caption" className={classes.matches} component="span">
+                        ({facet.matches})
+                      </Typography>
+                    </div>
+                  }
+                  control={
+                    <Checkbox
+                      checked={selectedFilters.includes(facet.code)}
+                      color="primary"
+                      onChange={(e) => handleCheckboxChange(e, facet)}
+                    />
+                  }
+                />
+              ))}
+            </StyledFormGroup>
+          </ListItem>
+        ) : (
+          <StyledExpandableSection
+            title={group.name}
+            caption={caption}
+            defaultExpanded={defaultExpanded}
+            classes={{ title: classes.groupTitle }}
+          >
+            <StyledFormGroup>
+              {group.options.map((facet, i) => (
+                <FormControlLabel
+                  key={i}
+                  label={
+                    <div className={classes.groupLabel}>
+                      <span>{facet.name}</span>
+                      <Typography variant="caption" className={classes.matches} component="span">
+                        ({facet.matches})
+                      </Typography>
+                    </div>
+                  }
+                  control={
+                    <Checkbox
+                      checked={selectedFilters.includes(facet.code)}
+                      color="primary"
+                      onChange={(e) => handleCheckboxChange(e, facet)}
+                    />
+                  }
+                />
+              ))}
+            </StyledFormGroup>
+          </StyledExpandableSection>
+        )}
+      </SelectedFiltersContext.Provider>
+    );
+  }, [
+    group,
+    submitOnChange,
+    defaultExpanded,
+    ControlsComponent,
+    controlsProps,
+    listItemProps,
+    onClose,
+    isSimpleList,
+    selectedFilters,
+    classes,
+  ]);
 }
 
 CheckboxFilterGroup.propTypes = {
-  /**
-   * Override or extend the styles applied to the component. See [CSS API](#css) below for more details.
-   */
   classes: PropTypes.object,
-  /**
-   * Contains data for the group to be rendered.
-   */
   group: PropTypes.shape({
     options: PropTypes.arrayOf(
       PropTypes.shape({
@@ -124,13 +182,6 @@ CheckboxFilterGroup.propTypes = {
       })
     ),
   }),
-  /**
-   * Set to `true` to refresh the results when the user toggles a filter.
-   */
   submitOnChange: PropTypes.bool,
-  /**
-   * Callback function invoked when the selected filters change.
-   * It receives the updated selectedFilters state as an argument.
-   */
   onSelectedFiltersChange: PropTypes.func,
 };

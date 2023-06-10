@@ -44,8 +44,7 @@ export default function FilterFooter(props) {
   const mobileDevice = useMediaQuery('(max-width:650px)');
 
   // Hardcoded filters and filtersChanged data for testing purposes
-  const filters = ['Filter 1', 'Filter 2'];
-  console.log(selectedFilters.length);
+
 
   const filtersChanged = true;
 

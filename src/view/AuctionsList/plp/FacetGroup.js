@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
 import React, { useMemo, useState } from 'react';
+import { styled } from '@mui/material/styles';
+import PropTypes from 'prop-types';
 import ListItem from '@mui/material/ListItem';
 import ExpandableSection from '../option/ExpandableSection';
 import CheckboxFilterGroup from './CheckboxFilterGroup';
-import ButtonFilterGroup from './ButtonFilterGroup';
 
 const PREFIX = 'RSFFacetGroup';
 
@@ -37,11 +36,11 @@ export default function FacetGroup(props) {
     onClose,
     isSimpleList,
     selectedFilters,
+    onSelectedFiltersChange,
     classes: c = {},
   } = props;
 
   const classes = { ...defaultClasses, ...c };
-
   const [currentSelectedFilters, setCurrentSelectedFilters] = useState(selectedFilters || []);
 
   const handleSelectedFiltersChange = (filters) => {
@@ -54,18 +53,12 @@ export default function FacetGroup(props) {
     const selection = [];
 
     for (const option of group.options) {
-      if (filters.indexOf(option.code) !== -1) {
+      if (filters.includes(option.code)) {
         selection.push(option);
       }
     }
 
-    let Controls = ControlsComponent;
-
-    if (!Controls && group.ui === 'buttons') {
-      Controls = ButtonFilterGroup;
-    } else if (!Controls) {
-      Controls = CheckboxFilterGroup;
-    }
+    let Controls = ControlsComponent || CheckboxFilterGroup;
 
     let caption = null;
 
@@ -80,7 +73,6 @@ export default function FacetGroup(props) {
         <ListItem {...listItemProps}>
           <span className={classes.groupTitle}>{group.name}</span>
           <Controls
-            onClose={onClose}
             group={group}
             submitOnChange={submitOnChange}
             selectedFilters={currentSelectedFilters}
@@ -122,36 +114,23 @@ export default function FacetGroup(props) {
 }
 
 FacetGroup.propTypes = {
-  /**
-   * Override or extend the styles applied to the component. See [CSS API](#css) below for more details.
-   */
   classes: PropTypes.object,
-  // TODO - make this a shape
-  /**
-   * Contains data for the facet group to be rendered.
-   */
-  group: PropTypes.object,
-  /**
-   * Set to `true` to refresh the results when the user toggles a filter.
-   */
+  group: PropTypes.shape({
+    options: PropTypes.arrayOf(
+      PropTypes.shape({
+        code: PropTypes.string,
+        name: PropTypes.string,
+        matches: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+     
+      })
+    ),
+  }),
   submitOnChange: PropTypes.bool,
-  /**
-   * If `true`, the group is expanded by default.
-   */
   defaultExpanded: PropTypes.bool,
-  /**
-   * Custom component to use own component.
-   */
-  ControlsComponent: PropTypes.func,
+  ControlsComponent: PropTypes.elementType,
   controlsProps: PropTypes.object,
-  onClose: PropTypes.func,
   listItemProps: PropTypes.object,
-  /**
-   * If `true`, list will be displayed instead of expandable items.
-   */
   isSimpleList: PropTypes.bool,
-  /**
-   * Array of selected filters.
-   */
   selectedFilters: PropTypes.arrayOf(PropTypes.string),
+  onSelectedFiltersChange: PropTypes.func,
 };

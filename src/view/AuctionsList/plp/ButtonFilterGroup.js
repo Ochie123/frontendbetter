@@ -38,7 +38,7 @@ export default function CheckboxFilterGroup(props) {
   const classes = { ...defaultClasses, ...c };
 
   // Hardcoded filters data for testing purposes
-  const [selectedFilters, setSelectedFilters] = useContext(SelectedFiltersContext);
+  const { selectedFilters, setSelectedFilters } = useContext(SelectedFiltersContext);
 
   const toggleFilter = (facet) => {
     setSelectedFilters((prevFilters) => {
