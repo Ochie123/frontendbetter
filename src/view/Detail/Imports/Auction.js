@@ -5,6 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/joy/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/joy/Box';
+import Button from '@mui/joy/Button';
 import InfoRounded from '@mui/icons-material/InfoRounded';
 import jwt_decode from "jwt-decode"
 
@@ -132,7 +133,7 @@ export default function Auction({ match }) {
         <CardHeader
           title={
             <span>
-           {auction?.year} {auction?.name} 
+           {auction?.year} {auction?.make} {auction?.model} 
             </span>
         }
           subheader={

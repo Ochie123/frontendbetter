@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Typography from '@mui/joy/Typography';
 import ListItem from '@mui/joy/ListItem';
+import Button from '@mui/joy/Button';
 //import Sheet from '@mui/joy/Sheet';
 //import List from '@mui/joy/List';
 import ListDivider from '@mui/joy/ListDivider';
@@ -23,7 +24,7 @@ import IconButton from '@mui/material/IconButton';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 import CheckboxFilterGroup from './CheckboxFilterGroup';
-
+import Timer from '../../Homepage/Timer'
 import FilterHeader from './FilterHeader';
 import FilterFooter from './FilterFooter';
 
@@ -31,7 +32,7 @@ import SortButton from './SortButton';
 import {useThisAuction}  from '../../../data';
 
 
-import { loadCategories, loadMakes, loadModels, loadAuctions, loadImages  } from '../../../data/api/api';
+import { loadCategories, loadMakes, loadModels, loadAuctions, loadImages, loadBids  } from '../../../data/api/api';
 import { SelectedFiltersProvider } from './SelectedFiltersContext';
 
 const PREFIX = 'RSFFilter';
@@ -93,14 +94,8 @@ const Filter = function ({
   const { data: imagesData = { results: [] }} = useQuery("images", loadImages);
   const images = imagesData.results;
 
-  console.log(images)
-
-  const uid = 'a9bf6f5d-5569-4805-9b14-0e5309367bba'
-
-  
-  console.log(auction?.uuid)
-  
-
+  const { data:bidsData = { results: [] }} = useQuery("bids", loadBids);
+  const bids = bidsData.results;
 
   const filterResults = () => {
     if (selectedFilters.length === 0) {
@@ -144,14 +139,69 @@ const Filter = function ({
     return filteredResults;
   };
  
+  
+  const [justEnded, setJustEnded] = useState(false);
+  const [endTime, setEndTime] = useState(null);
+
+  const update = () => {
+    setJustEnded(true);
+  };
+
+  //const [end_time, setEndTime] = useState(null);
+
+
+
+  useEffect(() => {
+    if (auction && auction.start_time && auction.duration) {
+      const durationInMilliseconds =
+      auction.duration * 24 * 60 * 60 * 1000; // Convert duration from days to milliseconds
+      const endTimeInMilliseconds =
+        new Date(auction.start_time).getTime() + durationInMilliseconds;
+      const endTime = new Date(endTimeInMilliseconds);
+  
+      setEndTime(endTime);
+    }
+  }, [auction]);
+
+
+
+  const currentDate = new Date();
+
 
   const renderFilteredResults = () => {
     const filteredResults = filterResults();
+
+
+
+
 
     return (
       <>
         {filteredResults.map((auction) => {
           const filteredImages = images.filter((image) => image.auction === auction.uuid);
+          let AuctionBids = bids.filter((bid)=> bid.auction === auction?.uuid);  
+          const startTime = new Date(auction?.start_time);
+          const durationInMilliseconds = auction?.duration * 24 * 60 * 60 * 1000; // Convert duration from days to milliseconds
+          const endTime = new Date(startTime.getTime() + durationInMilliseconds);
+
+         
+  
+          
+          const getAuctionStatus = (startTime, endTime, currentTime) => {
+            if (currentTime < startTime) {
+              return 'Auction Not Started 🤗';
+            } else if (currentTime >= startTime && currentTime <= endTime) {
+              return 'Auction Live ☀️';
+            } else if (currentTime > endTime) {
+              return 'Auction Ended 🙈';
+            } else {
+              return '';
+            }
+          };
+          const auctionStatus = getAuctionStatus(startTime, endTime, currentDate);
+
+          console.log(auctionStatus)
+        
           const firstImage = filteredImages.length > 0 ? filteredImages[0] : null;
     
           return (
@@ -159,7 +209,7 @@ const Filter = function ({
               <React.Fragment>
                 <ListItem>
                   <ListItemButton sx={{ gap: 2 }}>
-                    <AspectRatio sx={{ flexBasis: 250, borderRadius: 'md', overflow: 'auto' }}>
+                    <AspectRatio sx={{ flexBasis: 200, borderRadius: 'md', overflow: 'auto' }}>
                       {firstImage && (
                         <li key={firstImage.id}>
                           <img
@@ -167,12 +217,77 @@ const Filter = function ({
                             className='card-img-top'
                             alt={auction.name}
                           />
+                           <div style={{ position: 'absolute', bottom: '-20px', left: '0', padding: '8px' }}>
+
+{currentDate > new Date(auction?.start_time) 
+  ? (<>
+     
+  {endTime && currentDate < new Date(endTime) ? (
+                      <Typography
+                      fontSize="xl"
+                      borderRadius="sm"
+                      px={0.5}
+                      mr={0.5}
+                      sx={(theme) => ({
+                      ...theme.variants.soft.danger,
+                      color: 'danger.400',
+                      verticalAlign: 'text-top',
+                      
+                  })}
+                  >
+    <Timer endTime={endTime} update={update} />
+    </Typography>
+     ) : (
+     <Typography
+     fontSize="xl"
+     borderRadius="sm"
+     px={0.5}
+     mr={0.5}
+     sx={(theme) => ({
+     ...theme.variants.soft.danger,
+     color: 'danger.400',
+     verticalAlign: 'text-top',
+    })}
+>
+       Auction ended
+     </Typography>
+  )}  
+
+  
+    </>)
+  : 
+  <Box sx={{ whiteSpace: 'nowrap', paddingLeft:1 }}>
+  <Typography component="p" variant="h6">{`Auction Starts at ${new Date(auction?.start_time).toLocaleString()}`}</Typography>
+  </Box>
+  }
+
+
+</div>                 
                         </li>
+                        
                       )}
                     </AspectRatio>
                     <ListItemContent>
-                      <Typography fontWeight="xl">{auction?.year} {auction?.name}</Typography>
-                      <Typography level="body2">{auction?.name}</Typography>
+                      <Typography fontWeight="xl">{auction?.year} {auction?.make} {auction?.model}</Typography>
+                      <Typography level="body2">
+                      { AuctionBids.length > 0 &&  
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  px={2}
+                  color="primary"
+                  aria-label="Explore Bahamas Islands"
+                  sx={{ ml: 'auto', fontWeight: 500, marginLeft: '1rem'  }}
+        >
+                      
+                            <Typography>
+                              {AuctionBids[0].amount}
+                            </Typography>
+                       
+                  
+        </Button>
+         }
+                        </Typography>
                     </ListItemContent>
                   </ListItemButton>
                 </ListItem>
@@ -234,7 +349,7 @@ const Filter = function ({
       name: 'Make',
       options: makes.map((make) => ({
         name: make.name,
-        code: `make:${make.id}`,
+        code: `make:${make.name}`,
         matches: 20,
       })),
     },
@@ -243,7 +358,7 @@ const Filter = function ({
       name: 'Model',
       options: models.map((model) => ({
         name: model.name,
-        code: `model:${model.id}`,
+        code: `model:${model.name}`,
         matches: 20,
       })),
     },
@@ -342,11 +457,11 @@ const Filter = function ({
                 borderRadius: 'sm',
               }}
             >
-              <Link to="product/">
+            
                 <List sx={{ py: 'var(--ListDivider-gap)' }}>
                 {renderFilteredResults()}
                 </List>
-              </Link>
+           
              
             </Sheet>
             </Grid>

@@ -221,7 +221,7 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
           // Redirect or perform any other necessary action
           console.log(response)
           console.log('Auction created:', response.data);
-          navigate('list-auctions');
+          navigate('/list-auctions');
         } catch (err) {
           alert('Something happened. Please try again.');
           setError(err.message);

@@ -42,7 +42,7 @@ export default function HowToSell() {
           }}
         >
           <img
-            src="https://images.unsplash.com/photo-1492305175278-3b3afaa2f31f?auto=format&fit=crop&w=2000"
+            src="ht"
             loading="lazy"
             alt=""
           />

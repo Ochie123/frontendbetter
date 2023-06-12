@@ -45,7 +45,7 @@ function DetailPage() {
     <AuctionContext.Provider value={auction}>
     <div className="container">
     <Typography textColor="primary.400" fontSize="xl3" fontWeight="xl" my={1}>
-    {auction?.year} {auction?.name} {auction?.model}
+    {auction?.year} {auction?.make} {auction?.model}
      </Typography>
       <ProductOverviewGrid  
         title={auction?.model}

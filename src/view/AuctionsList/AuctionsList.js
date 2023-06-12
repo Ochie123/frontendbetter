@@ -10,7 +10,7 @@ export default function AuctionList() {
  
     
    <Filter/>
-
+   <hr className="dark horizontal my-5" />
     </div>
   );
 }
