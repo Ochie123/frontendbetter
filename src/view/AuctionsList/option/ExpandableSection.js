@@ -80,7 +80,7 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
    * Styles applied to the summary element of the expansion panel.
    */
   [`& .${defaultClasses.summary}`]: {
-    '&:first-child': {
+    '&:first-of-type': {
       padding: theme.spacing(1, 0),
     },
   },

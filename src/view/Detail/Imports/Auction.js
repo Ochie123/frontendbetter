@@ -6,6 +6,9 @@ import Typography from "@mui/joy/Typography"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/joy/Box"
 import InfoRounded from "@mui/icons-material/InfoRounded"
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import TagIcon from '@mui/icons-material/Tag';
 import jwt_decode from "jwt-decode"
 
 import { useDispatch } from "react-redux"
@@ -14,9 +17,8 @@ import { useDispatch } from "react-redux"
 import { useQuery } from "react-query"
 //import styled from "styled-components";
 import { saveClaimsAction } from "../../../features/auth/authSlice"
-import { loadAuction } from "../../../data/api/api"
-import { loadBids } from "../../../data/api/api"
-import { loadVotes } from "../../../data/api/api"
+import { loadAuction, loadBids, loadVotes,loadWatchlists } from "../../../data/api/api"
+
 import { useParams } from "react-router-dom"
 
 import Timer from "./Timer"
@@ -40,6 +42,13 @@ export default function Auction({ match }) {
 
   const { data: votesData = { results: [] } } = useQuery("votes", loadVotes)
   const votes = votesData.results
+
+
+  const { data:watchlistsData = { results: [] }} = useQuery("watchlists", loadWatchlists);
+  const watchlists = watchlistsData.results;
+
+  const AuctionWatchlists = watchlists?.filter((watchlist)=> watchlist?.auction === auction?.uuid);
+
 
   //console.log(votes)
 
@@ -183,7 +192,13 @@ export default function Auction({ match }) {
                       verticalAlign: "text-top"
                     })}
                   >
-                    {AuctionBids.length} bids
+                    <TagIcon style={{ fontSize: 25 }}/>{AuctionBids.length} bids 
+                    <span style={{ marginLeft: '30px' }}>
+                      <FavoriteIcon style={{ fontSize: 25 }}/>{AuctionWatchlists.length}
+                    </span>
+                    <span style={{ marginLeft: '30px' }}>
+                    <VisibilityIcon style={{ fontSize: 25 }}/>{AuctionWatchlists.length}
+                  </span>
                   </Typography>
                 </Box>
               </div>

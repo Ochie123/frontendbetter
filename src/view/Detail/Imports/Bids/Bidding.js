@@ -6,7 +6,8 @@ import Typography from '@mui/joy/Typography';
 import axios from "axios";
 import { useSnackbar } from "notistack"
 import { useParams } from 'react-router-dom';
-import { loadAuction, loadBids } from '../../../../data/api/api';
+import { loadAuction, loadBids} from '../../../../data/api/api';
+import Favorite from '../Favorite';
 
 const io = require('socket.io-client');
 const socket = io();
@@ -124,7 +125,7 @@ const placeAmount = (evt) => {
             onChange={handleChange}
             type="number"
             margin="normal"
-            helperText={`Enter Ksh${Number(minAmount) + 1} or more`}
+            helperText={`Enter Ksh${Number(minAmount) + 50} or more`}
             className=""
           />
           <br />
@@ -132,11 +133,14 @@ const placeAmount = (evt) => {
             variant="contained"
             className=""
             color="secondary"
-            disabled={amount < Number(minAmount) + 1}
+            disabled={amount < Number(minAmount) + 50}
             onClick={placeAmount}
           >
             Place Bid
           </Button>
+          <span style={{ marginLeft: '30px' }}>
+        <Favorite style={{ fontSize: 600 }}/>
+      </span>
           <br />
           <br />
           </Typography>

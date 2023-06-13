@@ -29,7 +29,10 @@ const URLS = {
   IMAGE: (id) => `http://192.168.43.38:8000/api/images/${id}`,
 
   VOTES: "http://192.168.43.38:8000/api/votes/",
-  VOTE: (id) => `http://192.168.43.38:8000/api/votes/${id}`
+  VOTE: (id) => `http://192.168.43.38:8000/api/votes/${id}`,
+
+ WATCHLISTS: "http://192.168.43.38:8000/api/watchlist/",
+ WATCHLIST: (id) => `http://192.168.43.38:8000/api/watchlist/${id}`
 };
 
 const wrappedFetch = (...args) => {
@@ -70,6 +73,9 @@ const loadMake = (id) => get(URLS.MAKE(id));
 
 const loadVotes = () => get(URLS.VOTES);
 const loadVote = (id) => get(URLS.VOTE(id));
+
+const loadWatchlists = () => get(URLS.WATCHLISTS);
+const loadWatchlist = (id) => get(URLS.WATCHLIST(id));
 
 const loadModels = () => get(URLS.MODELS);
 const loadModel = (id) => get(URLS.MODEL(id));
@@ -113,5 +119,8 @@ export {
  
   loadVotes,
   loadVote,
+
+  loadWatchlists,
+  loadWatchlist,
 
 };

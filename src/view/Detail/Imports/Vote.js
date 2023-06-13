@@ -38,13 +38,13 @@ const VoteComponent = () => {
 
   const AuctionVotes = votes?.filter((vote)=> vote?.auction === auction?.uuid);
 
-  console.log(AuctionVotes)
+  //console.log(AuctionVotes)
 
   const checkUserVote = useCallback(() => {
     const userVotes = AuctionVotes.filter(vote => vote?.user === savedClaims?.user_id);
     setHasVoted(userVotes?.length > 0);
 
-    console.log(userVotes);
+    //console.log(userVotes);
   }, [AuctionVotes, savedClaims?.user_id]);
 
   useEffect(() => {

@@ -13,7 +13,7 @@ import Typography from "@mui/joy/Typography"
 import ListItem from "@mui/joy/ListItem"
 import CollectionsIcon from "@mui/icons-material/Collections"
 import InfoRounded from "@mui/icons-material/InfoRounded"
-import FavoriteIcon from '@mui/icons-material/Favorite';
+
 //import Sheet from '@mui/joy/Sheet';
 //import List from '@mui/joy/List';
 import ListDivider from "@mui/joy/ListDivider"
@@ -29,6 +29,7 @@ import CheckboxFilterGroup from "./CheckboxFilterGroup"
 import Timer from "../../Homepage/Timer"
 import FilterHeader from "./FilterHeader"
 import FilterFooter from "./FilterFooter"
+import Favorite from "../../Detail/Imports/Favorite"
 
 import SortButton from "./SortButton"
 import { useThisAuction } from "../../../data"
@@ -352,24 +353,6 @@ const Filter = function({
                               <CollectionsIcon /> {filteredImages.length}
                             </Typography>
                           </div>
-                          <div style={{ position: 'absolute', top: '0px', right: '0', padding: '8px' }}>
-                  <Typography
-                    fontSize="md"
-                    borderRadius="sm"
-                    px={0.5}
-                    mr={0.5}
-                    sx={(theme) => ({
-                      ...theme.variants.soft.success,
-                      color: 'success.400',
-                      verticalAlign: 'text-top',
-                    })}
-                  >
-                   <InfoRounded
-                    sx={{ fontSize: 16, my: 0.5, mr: 0.1, mt: "1px" }}
-                    />{" "}
-                      {formattedScore}%
-                  </Typography>
-                </div>
                         </li>
                       )}
                     </AspectRatio>
@@ -378,21 +361,26 @@ const Filter = function({
                         {auction?.year} {auction?.make} {auction?.model}
                       </Typography>
                       <Typography level="body2">
-                      <div style={{ bottom: '-20px', left: '0', padding: '15px' }}>
+                     
                           <Typography
                             fontSize="md"
                             borderRadius="sm"
                             px={0.5}
                             mr={0.5}
                             sx={(theme) => ({
-                           
-                              color: 'danger.400',
+                            
+                              color: 'success.400',
                               verticalAlign: 'text-top',
                             })}
                           >
-                           <FavoriteIcon />
+                       <span style={{ marginLeft: '30px' }}>
+                       <InfoRounded
+                         sx={{ fontSize: 16, my: 0.5, mr: 0.1, mt: "1px" }}
+                        />{" "}
+                            {formattedScore}%
+                        </span>
                           </Typography>
-                        </div>
+                     
                         
                       </Typography>
                     </ListItemContent>

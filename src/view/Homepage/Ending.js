@@ -6,9 +6,10 @@ import Card from '@mui/joy/Card';
 import Button from '@mui/joy/Button';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import InfoRounded from "@mui/icons-material/InfoRounded"
-import FavoriteIcon from '@mui/icons-material/Favorite';
+
 import { useQuery } from "react-query";
 import { loadImages, loadVotes } from '../../data/api/api';
+import Favorite from '../Detail/Imports/Favorite';
 import Timer from './Timer';
 //import { useAllProducts } from '../../data';
 import { useThisAuction } from '../../data';
@@ -63,7 +64,7 @@ function Ending({ uuid }) {
       setEndTime(endTime);
     }
   }, [auction, auction?.uuid]);
-  console.log(end_time)
+  //console.log(end_time)
 
   const currentDate = new Date();
 
@@ -92,7 +93,6 @@ function Ending({ uuid }) {
 
   return (
     <>
-      <Link to={`/auctions/${auction.uuid}`}>
         <Card
           orientation="vertical"
           key={auction.name}
@@ -102,6 +102,7 @@ function Ending({ uuid }) {
             '--Card-padding': (theme) => theme.spacing(1),
           }}
         >
+          <Link to={`/auctions/${auction.uuid}`}>
           <AspectRatio
             ratio="1.5"
             variant="soft"
@@ -187,30 +188,12 @@ function Ending({ uuid }) {
                     <CollectionsIcon /> {filteredImages.length}
                   </Typography>
                 </div>
-                <div style={{ position: 'absolute', top: '0px', right: '0', padding: '8px' }}>
-                  <Typography
-                    fontSize="md"
-                    borderRadius="sm"
-                    px={0.5}
-                    mr={0.5}
-                    sx={(theme) => ({
-                      ...theme.variants.soft.success,
-                      color: 'success.400',
-                      verticalAlign: 'text-top',
-                    })}
-                  >
-                   <InfoRounded
-                    sx={{ fontSize: 16, my: 0.5, mr: 0.1, mt: "1px" }}
-                    />{" "}
-                      {formattedScore}%
-                  </Typography>
-                </div>
               </li>
             )}
           </AspectRatio>
+          </Link>
           <Box sx={{ whiteSpace: 'nowrap', paddingLeft: 1 }}>
             <Typography fontWeight="xl">{auction?.year} {auction?.make} {auction?.model} 
-            
             <div style={{ bottom: '-20px', left: '0', padding: '15px' }}>
                           <Typography
                             fontSize="md"
@@ -218,19 +201,23 @@ function Ending({ uuid }) {
                             px={0.5}
                             mr={0.5}
                             sx={(theme) => ({
-                           
-                              color: 'danger.400',
+                            
+                              color: 'success.400',
                               verticalAlign: 'text-top',
                             })}
                           >
-                           <FavoriteIcon />
+                       <span style={{ marginLeft: '30px' }}>
+                       <InfoRounded
+                         sx={{ fontSize: 16, my: 0.5, mr: 0.1, mt: "1px" }}
+                        />{" "}
+                            {formattedScore}%
+                        </span>
                           </Typography>
                         </div>
-                        
             </Typography>
           </Box>
         </Card>
-      </Link>
+    
     </>
   )
 }

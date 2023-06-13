@@ -4,6 +4,8 @@ export { default as useThisBid } from "./bids/useThisBid";
 export { default as useThatBid } from "./bids/useThatBid";
 export { default as useHasCurrentBid } from "./bids/useHasCurrentBid";
 
+export { default as useThisWatchlist } from "./watchlists/useThisWatchlist";
+
 export { default as useAllImages } from "./images/useAllImages";
 export { default as useThisImage } from "./images/useThisImage";
 export { default as useThatImage } from "./images/useThatImage";
