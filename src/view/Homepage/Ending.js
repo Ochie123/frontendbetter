@@ -180,8 +180,8 @@ function Ending({ uuid }) {
                     px={0.5}
                     mr={0.5}
                     sx={(theme) => ({
-                      ...theme.variants.soft.success,
-                      color: 'success.400',
+                      ...theme.variants.soft.neutral,
+                      color: 'danger.400',
                       verticalAlign: 'text-top',
                     })}
                   >
@@ -194,6 +194,12 @@ function Ending({ uuid }) {
           </Link>
           <Box sx={{ whiteSpace: 'nowrap', paddingLeft: 1 }}>
             <Typography fontWeight="xl">{auction?.year} {auction?.make} {auction?.model} 
+            <span style={{ marginLeft: '30px' }}>
+                       <InfoRounded
+                         sx={{ fontSize: 16, my: 0.5, mr: 0.1, mt: "1px" }}
+                        />{" "}
+                            local
+                        </span>
             <div style={{ bottom: '-20px', left: '0', padding: '15px' }}>
                           <Typography
                             fontSize="md"

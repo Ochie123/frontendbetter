@@ -83,7 +83,7 @@ const placeAmount = (evt) => {
       enqueueSnackbar(`You Bid ${amount}`, {
         variant: 'success',
       });
-      console.log(response.data);
+      //console.log(response.data);
   
       setAmount('');
       setIsAdding(false);

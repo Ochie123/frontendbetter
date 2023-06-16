@@ -15,7 +15,6 @@ import CategoryView from './view/categories/CategoryView';
 import LoginPage from "./view/auth/LoginPage";
 
 import ProtectedRoute from "./components/protected-route";
-
 //LoggedIn
 
 import AuctionListView from '../src/view/products/LoggedIn/AuctionListView'
@@ -24,6 +23,10 @@ import AuctionCreateView from "./view/products/LoggedIn/AuctionCreateView";
 import PricingPage from "./view/products/LoggedIn/pricing/PricingPage";
 import AccountView from "./view/products/LoggedIn/accountView";
 
+import Mybids from './view/products/LoggedIn/footer/Mybids';
+
+import Favorites from './view/products/LoggedIn/footer/Favorites';
+import Ending from './view/products/LoggedIn/footer/Ending';
 import DashboardSidebarNavigation from './Layout/dashboard-layout';
 
 import DashboardDefaultContent from './view/products/LoggedIn/dashboard-default-content';
@@ -102,7 +105,9 @@ function App() {
         <Route path="pricing/" element={<PricingPage/>} />
         <Route path="account/" element={<AccountView/>} />
         
-
+        <Route path="ending-soon/" element={<Ending/>} />
+        <Route path="my-favorites/" element={<Favorites/>} />
+        <Route path="my-bids/" element={<Mybids/>} />
 
         <Route path="product/" element={<DetailPage/>} />
 

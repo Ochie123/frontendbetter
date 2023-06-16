@@ -31,8 +31,8 @@ const URLS = {
   VOTES: "http://192.168.43.38:8000/api/votes/",
   VOTE: (id) => `http://192.168.43.38:8000/api/votes/${id}`,
 
- WATCHLISTS: "http://192.168.43.38:8000/api/watchlist/",
- WATCHLIST: (id) => `http://192.168.43.38:8000/api/watchlist/${id}`
+  WATCHLISTS: "http://192.168.43.38:8000/api/watchlist/",
+  WATCHLIST: (id) => `http://192.168.43.38:8000/api/watchlist/${id}`
 };
 
 const wrappedFetch = (...args) => {

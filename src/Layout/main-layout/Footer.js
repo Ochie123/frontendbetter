@@ -7,6 +7,8 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import Paper from '@mui/material/Paper';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import { Link } from 'react-router-dom';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -25,10 +27,15 @@ export default function FixedBottomNavigation() {
         <BottomNavigation
     
         >
-            
-          <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+        <Link to="ending-soon/">
+          <BottomNavigationAction label="Ending" icon={<RestoreIcon />} />
+        </Link>
+        <Link to="my-favorites/">
           <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-          <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} />
+        </Link>
+        <Link to="my-bids/">
+          <BottomNavigationAction label="Archive" icon={<LocalOfferIcon/>} />
+        </Link>
         </BottomNavigation>
       </Paper>
     </Box>

@@ -13,26 +13,26 @@ import Typography from "@mui/joy/Typography"
 import ListItem from "@mui/joy/ListItem"
 import CollectionsIcon from "@mui/icons-material/Collections"
 import InfoRounded from "@mui/icons-material/InfoRounded"
-
+import jwt_decode from "jwt-decode";
+import { useQuery } from "react-query";
+import { useDispatch } from 'react-redux';
 //import Sheet from '@mui/joy/Sheet';
 //import List from '@mui/joy/List';
 import ListDivider from "@mui/joy/ListDivider"
 import ListItemContent from "@mui/joy/ListItemContent"
 import ListItemButton from "@mui/joy/ListItemButton"
-import { useQuery } from "react-query"
-
+import { useParams } from "react-router-dom"
 import Drawer from "@mui/material/Drawer"
 import IconButton from "@mui/material/IconButton"
 import FilterListIcon from "@mui/icons-material/FilterList"
+import CheckboxFilterGroup from "../../../AuctionsList/plp/CheckboxFilterGroup"
+import Timer from "../../../Homepage/Timer"
+import FilterHeader from "../../../AuctionsList/plp/FilterHeader"
+import FilterFooter from "../../../AuctionsList/plp/FilterFooter"
+import SortButton from "../../../AuctionsList/plp/SortButton"
+import { useThisAuction } from "../../../../data"
 
-import CheckboxFilterGroup from "./CheckboxFilterGroup"
-import Timer from "../../Homepage/Timer"
-import FilterHeader from "./FilterHeader"
-import FilterFooter from "./FilterFooter"
-
-import SortButton from "./SortButton"
-import { useThisAuction } from "../../../data"
-
+import { saveClaimsAction } from '../../../../features/auth/authSlice';
 import {
   loadCategories,
   loadMakes,
@@ -40,9 +40,12 @@ import {
   loadAuctions,
   loadImages,
   loadBids,
-  loadVotes
-} from "../../../data/api/api"
-import { SelectedFiltersProvider } from "./SelectedFiltersContext"
+  loadVotes,
+  loadAuction,
+  loadWatchlists,
+} from "../../../../data/api/api"
+
+import { SelectedFiltersProvider } from "../../../AuctionsList/plp/SelectedFiltersContext"
 
 const PREFIX = "RSFFilter"
 
@@ -73,7 +76,7 @@ const Root = styled("div")(({ theme }) => ({
   }
 }))
 
-const Filter = function({
+const MyBids = function({
   expandAll,
   hideClearLink,
   clearLinkText,
@@ -95,13 +98,30 @@ const Filter = function({
   const toggleDrawer = () => {
     setDrawerOpen(!isDrawerOpen)
   }
-  const { auction } = useThisAuction(uuid)
+  const { id } = useParams()
 
-  const { data: auctionsData = { results: [] } } = useQuery(
-    "results",
-    loadAuctions
+  const { data: auction } = useQuery(["currentAuction", { id }], () =>
+    loadAuction(id)
   )
-  const allResults = auctionsData.results
+  const { data: AuctionsData = { results: [] } } = useQuery("results", loadAuctions);
+  const auctions = AuctionsData.results;
+
+  const dispatch = useDispatch();
+  const token = localStorage.getItem('token');
+  const savedClaims = JSON.parse(localStorage.getItem('claims'));
+
+  useEffect(() => {
+    if (token && !savedClaims) {
+      const claims = jwt_decode(token);
+      dispatch(saveClaimsAction(claims));
+      localStorage.setItem('claims', JSON.stringify(claims));
+    }
+  }, [token, savedClaims, dispatch]);
+
+
+  //console.log(allResults);
+  
+ 
 
   const { data: imagesData = { results: [] } } = useQuery("images", loadImages)
   const images = imagesData.results
@@ -111,6 +131,12 @@ const Filter = function({
 
   const { data: votesData = { results: [] } } = useQuery("votes", loadVotes)
   const votes = votesData.results
+  const { data: watchlistsData = { results: [] } } = useQuery("watchlists", loadWatchlists);
+  const watchlists = watchlistsData.results;
+
+  const userWatchlists = watchlists?.filter(watchlist => watchlist?.user === savedClaims?.user_id);
+
+  const allResults = userWatchlists
 
   const filterResults = () => {
     if (selectedFilters.length === 0) {
@@ -177,15 +203,20 @@ const Filter = function({
   const renderFilteredResults = () => {
     const filteredResults = filterResults()
 
+    //      {Array.from(new Set(filteredResults.map(watchlist => watchlist.auction))).map(auctionUUID => {
+    //  const favoriteAuction = auctions.find(auction => auction.uuid === auctionUUID);
+
     return (
       <>
-        {filteredResults.map(auction => {
-          const filteredImages = images.filter(
-            image => image.auction === auction.uuid
-          )
-          let AuctionBids = bids.filter(bid => bid.auction === auction?.uuid)
-          const startTime = new Date(auction?.start_time)
-          const durationInMilliseconds = auction?.duration * 24 * 60 * 60 * 1000 // Convert duration from days to milliseconds
+        {Array.from(new Set(filteredResults.map(watchlist => watchlist.auction))).map(auctionUUID => {
+            const favoriteAuction = auctions.find(auction => auction.uuid === auctionUUID);
+            if (favoriteAuction) {
+              const filteredImages = images.filter(image => image.auction === favoriteAuction?.uuid);
+              const firstImage = filteredImages.length > 0 ? filteredImages[0] : null;
+              let AuctionBids = bids.filter(bid => bid.auction === favoriteAuction?.uuid)
+
+          const startTime = new Date(favoriteAuction?.start_time)
+          const durationInMilliseconds = favoriteAuction?.duration * 24 * 60 * 60 * 1000 // Convert duration from days to milliseconds
           const endTime = new Date(startTime.getTime() + durationInMilliseconds)
 
           const getAuctionStatus = (startTime, endTime, currentTime) => {
@@ -204,12 +235,17 @@ const Filter = function({
             endTime,
             currentDate
           )
+          const filteredBids = bids?.filter(bid => bid?.bidder === savedClaims?.user_id);
 
+   
+        
           //console.log(auctionStatus)
 
-          let AuctionVotes = votes.filter(vote => vote.auction === auction?.uuid)
+          let AuctionVotes = votes.filter(vote => vote.auction === favoriteAuction?.uuid)
 
           //console.log(AuctionVotes)
+
+    
         
           let totalVotes = AuctionVotes.length
           let sumVotes = AuctionVotes.reduce(
@@ -222,11 +258,9 @@ const Filter = function({
           let formattedScore = averageScore.toFixed(2)
           //console.log(`Confidence score of ${formattedScore}%`);
 
-          const firstImage =
-            filteredImages.length > 0 ? filteredImages[0] : null
-
+ 
           return (
-            <Link to={`/auctions/${auction.uuid}`} key={auction.uuid}>
+            <Link to={`/auctions/${favoriteAuction.uuid}`} key={favoriteAuction.uuid}>
               <React.Fragment>
                 <ListItem>
                   <ListItemButton sx={{ gap: 2 }}>
@@ -242,7 +276,7 @@ const Filter = function({
                           <img
                             src={firstImage.image}
                             className="card-img-top"
-                            alt={auction.name}
+                            alt={favoriteAuction.name}
                           />
                           <div
                             style={{
@@ -252,7 +286,7 @@ const Filter = function({
                               padding: "0px"
                             }}
                           >
-                            {currentDate > new Date(auction?.start_time) ? (
+                            {currentDate > new Date(favoriteAuction?.start_time) ? (
                               <>
                                 {endTime && currentDate < new Date(endTime) ? (
                                   <Typography
@@ -300,7 +334,7 @@ const Filter = function({
                                   component="p"
                                   variant="h6"
                                 >{`Auction Starts at ${new Date(
-                                  auction?.start_time
+                                  favoriteAuction?.start_time
                                 ).toLocaleString()}`}</Typography>
                               </Box>
                             )}
@@ -329,6 +363,7 @@ const Filter = function({
                               </Typography>
                             )}
                           </div>
+            
 
                           <div
                             style={{
@@ -357,7 +392,7 @@ const Filter = function({
                     </AspectRatio>
                     <ListItemContent>
                       <Typography fontWeight="xl">
-                        {auction?.year} {auction?.make} {auction?.model}
+                        {favoriteAuction?.year} {favoriteAuction?.make} {favoriteAuction?.model}
                       </Typography>
                       <Typography level="body2">
                      
@@ -380,7 +415,7 @@ const Filter = function({
                         </span>
                           </Typography>
                      
-                        
+              
                       </Typography>
                     </ListItemContent>
                   </ListItemButton>
@@ -391,6 +426,8 @@ const Filter = function({
               </React.Fragment>
             </Link>
           )
+        }
+        return null;
         })}
       </>
     )
@@ -499,6 +536,8 @@ const Filter = function({
     }
   }
 
+  const filteredResultsLength = Array.from(new Set(userWatchlists.map(watchlist => watchlist.auction))).length;
+
   return (
     <SelectedFiltersProvider
       value={{
@@ -508,7 +547,7 @@ const Filter = function({
     >
       <Container maxWidth="lg">
         <div className="d-flex border-bottom pb-2">
-        <h4 className="mb-2">All Auctions ({allResults.length})</h4>
+        <h4 className="mb-2">My Favorites ({filteredResultsLength})</h4>
           <div className="d-flex ms-auto align-items-center">
             <SortButton />
           </div>
@@ -621,7 +660,7 @@ const Filter = function({
   )
 }
 
-Filter.propTypes = {
+MyBids.propTypes = {
   classes: PropTypes.object,
   onViewResultsClick: PropTypes.func,
   title: PropTypes.string,
@@ -632,9 +671,9 @@ Filter.propTypes = {
   style: PropTypes.object
 }
 
-Filter.defaultProps = {
+MyBids.defaultProps = {
   onViewResultsClick: Function.prototype,
   submitOnChange: false
 }
 
-export default memo(Filter)
+export default memo(MyBids)

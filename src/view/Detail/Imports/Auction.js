@@ -50,7 +50,7 @@ export default function Auction({ match }) {
   const AuctionWatchlists = watchlists?.filter((watchlist)=> watchlist?.auction === auction?.uuid);
 
 
-  //console.log(votes)
+  //console.log(AuctionWatchlists)
 
   const [justEnded, setJustEnded] = useState(false)
 
