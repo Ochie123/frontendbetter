@@ -32,7 +32,13 @@ const URLS = {
   VOTE: (id) => `http://192.168.43.38:8000/api/votes/${id}`,
 
   WATCHLISTS: "http://192.168.43.38:8000/api/watchlist/",
-  WATCHLIST: (id) => `http://192.168.43.38:8000/api/watchlist/${id}`
+  WATCHLIST: (id) => `http://192.168.43.38:8000/api/watchlist/${id}`,
+
+  AUCTIONS: "http://192.168.43.38:8000/api/auctions/",
+  AUCTION: (uuid) => `http://192.168.43.38:8000/api/auctions/${uuid}`,
+
+  RECENTLYVIEWEDS: "http://192.168.43.38:8000/api/auctions/recently_viewed/",
+  RECENTLYVIEWED: (uuid) => `http://192.168.43.38:8000/api/auctions/${uuid}`,
 };
 
 const wrappedFetch = (...args) => {
@@ -58,6 +64,8 @@ const loadImage = (id) => get(URLS.IMAGE(id));
 
 const loadAuctions = () => get(URLS.AUCTIONS);
 const loadAuction = (uuid) => get(URLS.AUCTION(uuid));
+
+const loadRecentlyViewedAuctions = () => get(URLS.RECENTLYVIEWEDS);
 
 const loadBids = () => get(URLS.BIDS);
 const loadBid = (id) => get(URLS.AUCTION(id));
@@ -110,6 +118,8 @@ export {
 
   loadAuction,
   loadAuctions,
+
+  loadRecentlyViewedAuctions,
 
   loadBid,
   loadBids,

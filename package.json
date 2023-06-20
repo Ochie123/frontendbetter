@@ -21,6 +21,7 @@
     "axios-auth-refresh": "^3.3.6",
     "bootstrap": "^5.2.3",
     "formik": "^2.2.9",
+    "js-cookie": "^3.0.5",
     "jwt-decode": "^3.1.2",
     "lorem-ipsum": "^2.0.8",
     "moment": "^2.29.4",
@@ -59,7 +60,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "webpack --mode production",
+    "build": "react-scripts build",
     "serve": "webpack serve --mode development",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

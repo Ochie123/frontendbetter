@@ -394,7 +394,7 @@ const MyBids = function({
                                       verticalAlign: "text-top"
                                     })}
                                   >
-                                    {Math.floor(AuctionBids[0].amount)}
+                                    {highestBid}
                                   </Typography>
                                 )}
                               </div>
