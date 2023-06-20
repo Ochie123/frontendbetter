@@ -4,22 +4,22 @@ import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Card from '@mui/joy/Card';
 import { Link} from "react-router-dom";
-//"https://source.unsplash.com/sshRwdjWubE" 
+//"https://source.unsplash.com/aGLSS4bcaTc" 
 
-//https://source.unsplash.com/dhaew2IpTo0
-//https://source.unsplash.com/5UMzgCe4fBA
-//https://source.unsplash.com/utPwMB3aCWM
+//https://source.unsplash.com/xDW_RJ9O2i4
+//https://source.unsplash.com/Ek41BxE3B3c
+//https://source.unsplash.com/Ek41BxE3B3c
 
 function CarType() {
       return (
      <>
      <Link to={`/auctions/`}>
     <Card variant="outlined" sx={{ width: 320 }}>
-       <Typography level="h2" fontSize="XL" sx={{ mb:3 }}>
+       <Typography level="h2" fontSize="XL" sx={{ mb:0 }}>
          <img
-          src="https://source.unspl" 
+          src="https://source.unsplash.com/aGLSS4bcaTc" 
           loading="lazy"
-          alt="" width="200" 
+          alt="" width="300" 
          />
         </Typography>
         <Box sx={{ display: 'flex' }}>
@@ -42,11 +42,11 @@ function CarType() {
   </Link>
   <Link to={`/auctions/`}>
   <Card variant="outlined" sx={{ width: 320 }}>
-      <Typography level="h2" fontSize="XL" sx={{ mb: 3 }}>
+      <Typography level="h2" fontSize="XL" sx={{ mb: 0 }}>
       <img
-        src="https://source.unsplas" 
+        src="https://source.unsplash.com/xDW_RJ9O2i4" 
         loading="lazy"
-        alt="" width="200" 
+        alt="" width="300" 
       />
       </Typography>
       <Box sx={{ display: 'flex' }}>
@@ -69,11 +69,11 @@ function CarType() {
   </Link>
   <Link to={`/auctions/`}>
   <Card variant="outlined" sx={{ width: 320 }}>
-    <Typography level="h2" fontSize="XL" sx={{ mb: 3}}>
+    <Typography level="h2" fontSize="XL" sx={{ mb: 0}}>
       <img
         src="https://sourc" 
         loading="lazy"
-        alt="" width="200" 
+        alt="" width="300" 
       />
     </Typography>
     <Box sx={{ display: 'flex' }}>
@@ -96,11 +96,11 @@ function CarType() {
   </Link>
   <Link to={`/auctions/`}>
   <Card variant="outlined" sx={{ width: 320 }}>
-      <Typography level="h2" fontSize="XL" sx={{ mb: 3 }}>
+      <Typography level="h2" fontSize="XL" sx={{ mb: 0 }}>
         <img
-          src="https://sou" 
+          src="https://source.unsplash.com/Ek41BxE3B3c" 
           loading="lazy"
-          alt="" width="200" 
+          alt="" width="300" 
         />
       </Typography>
       <Box sx={{ display: 'flex' }}>
