@@ -423,7 +423,7 @@ const Filter = function({
     const fetchAuctionChoices = async () => {
       try {
         const response = await axios.get(
-          "http://192.168.43.38:8000/trader/api/auction-choices/"
+          "http://cars-bids.online/trader/api/auction-choices/"
         )
         setAuctionChoices(response.data)
       } catch (error) {

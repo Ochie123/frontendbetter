@@ -54,7 +54,7 @@ const AddCommentModal = ({  addComment }) => {
       const token = localStorage.getItem('token');
 
       axios
-      .post('http://192.168.43.38:8000/api/comment/', formData, {
+      .post('http://cars-bids.online/api/comment/', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',

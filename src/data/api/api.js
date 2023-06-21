@@ -1,44 +1,44 @@
 const URLS = {
 
-  USERS: "http://192.168.43.38:8000/apis/users/",
-  USER: (id) => `http://192.168.43.38:8000/apis/users/${id}`,
+  USERS: "http://cars-bids.online/apis/users/",
+  USER: (id) => `http://cars-bids.online/apis/users/${id}`,
 
 
-  AUCTIONS: "http://192.168.43.38:8000/api/auctions/",
-  AUCTION: (uuid) => `http://192.168.43.38:8000/api/auctions/${uuid}`,
+  AUCTIONS: "http://cars-bids.online/api/auctions/",
+  AUCTION: (uuid) => `http://cars-bids.online/api/auctions/${uuid}`,
 
-  BIDS: "http://192.168.43.38:8000/api/bid/",
-  BID: (id) => `http://192.168.43.38:8000/api/bid/${id}`,
+  BIDS: "http://cars-bids.online/api/bid/",
+  BID: (id) => `http://cars-bids.online/api/bid/${id}`,
 
-  MAKES: "http://192.168.43.38:8000/api/make/",
-  MAKE: (id) => `http://192.168.43.38:8000/api/make/${id}`,
+  MAKES: "http://cars-bids.online/api/make/",
+  MAKE: (id) => `http://cars-bids.online/api/make/${id}`,
 
-  MODELS: "http://192.168.43.38:8000/api/model/",
-  MODEL: (id) => `http://192.168.43.38:8000/api/model/${id}`,
+  MODELS: "http://cars-bids.online/api/model/",
+  MODEL: (id) => `http://cars-bids.online/api/model/${id}`,
 
-  CATEGORIES: "http://192.168.43.38:8000/api/categories/",
-  CATEGORY: (id) => `http://192.168.43.38:8000/api/categories/${id}`,
+  CATEGORIES: "http://cars-bids.online/categories/",
+  CATEGORY: (id) => `http://cars-bids.online/api/categories/${id}`,
   
-  COMMENTS: "http://192.168.43.38:8000/api/comment/",
-  COMMENT: (id) => `http://192.168.43.38:8000/api/comment/${id}`,
+  COMMENTS: "http://cars-bids.online/api/comment/",
+  COMMENT: (id) => `http://cars-bids.online/api/comment/${id}`,
 
-  CARS_SPECIFICATIONS: "http://192.168.43.38:8000/api/car-specifications/",
-  CARS_SPECIFICATION: (id) => `http://192.168.43.38:8000/api/car-specifications/${id}`,
+  CARS_SPECIFICATIONS: "http://cars-bids.online/api/car-specifications/",
+  CARS_SPECIFICATION: (id) => `http://cars-bids.online/api/car-specifications/${id}`,
 
-  IMAGES: "http://192.168.43.38:8000/api/images/",
-  IMAGE: (id) => `http://192.168.43.38:8000/api/images/${id}`,
+  IMAGES: "http://cars-bids.online/api/images/",
+  IMAGE: (id) => `http://cars-bids.online/api/images/${id}`,
 
-  VOTES: "http://192.168.43.38:8000/api/votes/",
-  VOTE: (id) => `http://192.168.43.38:8000/api/votes/${id}`,
+  VOTES: "http://cars-bids.online/api/votes/",
+  VOTE: (id) => `http://cars-bids.online/api/votes/${id}`,
 
-  WATCHLISTS: "http://192.168.43.38:8000/api/watchlist/",
-  WATCHLIST: (id) => `http://192.168.43.38:8000/api/watchlist/${id}`,
+  WATCHLISTS: "http://cars-bids.online/api/watchlist/",
+  WATCHLIST: (id) => `http://cars-bids.online/api/watchlist/${id}`,
 
-  AUCTIONS: "http://192.168.43.38:8000/api/auctions/",
-  AUCTION: (uuid) => `http://192.168.43.38:8000/api/auctions/${uuid}`,
+  AUCTIONS: "http://cars-bids.online/api/auctions/",
+  AUCTION: (uuid) => `http://cars-bids.online/api/auctions/${uuid}`,
 
-  RECENTLYVIEWEDS: "http://192.168.43.38:8000/api/auctions/recently_viewed/",
-  RECENTLYVIEWED: (uuid) => `http://192.168.43.38:8000/api/auctions/${uuid}`,
+  RECENTLYVIEWEDS: "http://cars-bids.online/api/auctions/recently_viewed/",
+  RECENTLYVIEWED: (uuid) => `http://cars-bids.online/api/auctions/${uuid}`,
 };
 
 const wrappedFetch = (...args) => {
