@@ -79,10 +79,10 @@ function App() {
       <SnackbarProvider dense maxSnack={3}>
       <Router>
       <Helmet
-          titleTemplate="%s - Mackenya"
-          defaultTitle="Mackenya"
+          titleTemplate="%s - Cars-bids"
+          defaultTitle="Cars-bids"
         >
-          <meta name="description" content="Mackenya application" />
+          <meta name="description" content="Cars-bids" />
         </Helmet> 
         <MainLayout>
         <Suspense fallback={<LinearProgress style={{ margin: '10rem' }} />}>
