@@ -16,7 +16,7 @@ const URLS = {
   MODELS: "http://cars-bids.online/api/model/",
   MODEL: (id) => `http://cars-bids.online/api/model/${id}`,
 
-  CATEGORIES: "http://cars-bids.online/categories/",
+  CATEGORIES: "http://cars-bids.online/api/categories/",
   CATEGORY: (id) => `http://cars-bids.online/api/categories/${id}`,
   
   COMMENTS: "http://cars-bids.online/api/comment/",
