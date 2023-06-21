@@ -1,44 +1,44 @@
 const URLS = {
 
-  USERS: "http://cars-bids.online/apis/users/",
-  USER: (id) => `http://cars-bids.online/apis/users/${id}`,
+  USERS: "https://cars-bids.online/apis/users/",
+  USER: (id) => `https://cars-bids.online/apis/users/${id}`,
 
 
-  AUCTIONS: "http://cars-bids.online/api/auctions/",
-  AUCTION: (uuid) => `http://cars-bids.online/api/auctions/${uuid}`,
+  AUCTIONS: "https://cars-bids.online/api/auctions/",
+  AUCTION: (uuid) => `https://cars-bids.online/api/auctions/${uuid}`,
 
-  BIDS: "http://cars-bids.online/api/bid/",
-  BID: (id) => `http://cars-bids.online/api/bid/${id}`,
+  BIDS: "https://cars-bids.online/api/bid/",
+  BID: (id) => `https://cars-bids.online/api/bid/${id}`,
 
-  MAKES: "http://cars-bids.online/api/make/",
-  MAKE: (id) => `http://cars-bids.online/api/make/${id}`,
+  MAKES: "https://cars-bids.online/api/make/",
+  MAKE: (id) => `https://cars-bids.online/api/make/${id}`,
 
-  MODELS: "http://cars-bids.online/api/model/",
-  MODEL: (id) => `http://cars-bids.online/api/model/${id}`,
+  MODELS: "https://cars-bids.online/api/model/",
+  MODEL: (id) => `https://cars-bids.online/api/model/${id}`,
 
-  CATEGORIES: "http://cars-bids.online/api/categories/",
-  CATEGORY: (id) => `http://cars-bids.online/api/categories/${id}`,
+  CATEGORIES: "https://cars-bids.online/api/categories/",
+  CATEGORY: (id) => `https://cars-bids.online/api/categories/${id}`,
   
-  COMMENTS: "http://cars-bids.online/api/comment/",
-  COMMENT: (id) => `http://cars-bids.online/api/comment/${id}`,
+  COMMENTS: "https://cars-bids.online/api/comment/",
+  COMMENT: (id) => `https://cars-bids.online/api/comment/${id}`,
 
-  CARS_SPECIFICATIONS: "http://cars-bids.online/api/car-specifications/",
-  CARS_SPECIFICATION: (id) => `http://cars-bids.online/api/car-specifications/${id}`,
+  CARS_SPECIFICATIONS: "https://cars-bids.online/api/car-specifications/",
+  CARS_SPECIFICATION: (id) => `https://cars-bids.online/api/car-specifications/${id}`,
 
-  IMAGES: "http://cars-bids.online/api/images/",
-  IMAGE: (id) => `http://cars-bids.online/api/images/${id}`,
+  IMAGES: "https://cars-bids.online/api/images/",
+  IMAGE: (id) => `https://cars-bids.online/api/images/${id}`,
 
-  VOTES: "http://cars-bids.online/api/votes/",
-  VOTE: (id) => `http://cars-bids.online/api/votes/${id}`,
+  VOTES: "https://cars-bids.online/api/votes/",
+  VOTE: (id) => `https://cars-bids.online/api/votes/${id}`,
 
-  WATCHLISTS: "http://cars-bids.online/api/watchlist/",
-  WATCHLIST: (id) => `http://cars-bids.online/api/watchlist/${id}`,
+  WATCHLISTS: "https://cars-bids.online/api/watchlist/",
+  WATCHLIST: (id) => `https://cars-bids.online/api/watchlist/${id}`,
 
-  AUCTIONS: "http://cars-bids.online/api/auctions/",
-  AUCTION: (uuid) => `http://cars-bids.online/api/auctions/${uuid}`,
+  AUCTIONS: "https://cars-bids.online/api/auctions/",
+  AUCTION: (uuid) => `https://cars-bids.online/api/auctions/${uuid}`,
 
-  RECENTLYVIEWEDS: "http://cars-bids.online/api/auctions/recently_viewed/",
-  RECENTLYVIEWED: (uuid) => `http://cars-bids.online/api/auctions/${uuid}`,
+  RECENTLYVIEWEDS: "https://cars-bids.online/api/auctions/recently_viewed/",
+  RECENTLYVIEWED: (uuid) => `https://cars-bids.online/api/auctions/${uuid}`,
 };
 
 const wrappedFetch = (...args) => {

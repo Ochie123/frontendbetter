@@ -72,7 +72,7 @@ const placeAmount = (evt) => {
   const token = localStorage.getItem('token');
 
   axios
-    .post('http://cars-bids.online/api/bid/', formData, {
+    .post('https://cars-bids.online/api/bid/', formData, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
