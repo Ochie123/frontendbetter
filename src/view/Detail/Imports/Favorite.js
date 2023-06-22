@@ -66,7 +66,7 @@ const Favorite = () => {
       const token = localStorage.getItem('token');
   
       axios
-        .post('http://192.168.43.38:8000/api/watchlist/', formData, {
+        .post('https://cars-bids.online/api/watchlist/', formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data',
