@@ -219,8 +219,8 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
             variant: 'success',
           });
           // Redirect or perform any other necessary action
-          console.log(response)
-          console.log('Auction created:', response.data);
+          //console.log(response)
+          //console.log('Auction created:', response.data);
           navigate('/list-auctions');
         } catch (err) {
           alert('Something happened. Please try again.');

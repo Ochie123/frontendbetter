@@ -154,9 +154,23 @@ function Ending({ uuid }) {
                       )}
                     </>
                   ) : (
-                    <Box sx={{ whiteSpace: 'nowrap', paddingLeft: 1 }}>
-                      <Typography component="p" variant="h6">{`Auction Starts at ${new Date(auction?.start_time).toLocaleString()}`}</Typography>
-                    </Box>
+                     <div style={{ bottom: '-20px', left: '0', padding: '15px' }}>
+                                              <Typography
+                            fontSize="md"
+                            borderRadius="sm"
+                            px={0.5}
+                            mr={0.5}
+                            sx={(theme) => ({
+                              ...theme.variants.soft.warning,
+                              color: 'success.400',
+                              verticalAlign: 'text-top',
+                            })}
+                          >
+
+                            {`Auction Starts at ${new Date(auction?.start_time).toLocaleString()}`}
+                          </Typography>
+
+                    </div>
                   )}
                 </div>
                 <div style={{ position: 'absolute', bottom: '-10px', right: '0', padding: '8px' }}>
