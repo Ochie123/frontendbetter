@@ -206,7 +206,7 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
           formData.append('starting_price', values.starting_price);
           // ... append other form fields
       
-          const response = await axios.post('http://cars-bids.online/api/auctions/', formData, {
+          const response = await axios.post('https://cars-bids.online/api/auctions/', formData, {
             headers: {
               Authorization: `Bearer ${token}`,
               'Content-Type': 'multipart/form-data',
