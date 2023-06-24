@@ -684,7 +684,7 @@ const MyBids = function({
             onClick={toggleDrawer}
             sx={{
               position: "fixed",
-              bottom: "60px",
+              bottom: "30px",
               left: "15px",
               zIndex: 100,
               width: "50px",
