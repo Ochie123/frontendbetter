@@ -1,8 +1,5 @@
 import React, { useState, useContext, useEffect,useCallback } from 'react';
-import Typography from '@mui/joy/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import Button from '@mui/joy/Button';
-import Box from '@mui/joy/Box';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { useDispatch } from 'react-redux';
