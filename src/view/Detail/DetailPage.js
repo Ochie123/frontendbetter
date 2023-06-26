@@ -12,7 +12,7 @@ import { loadComments, loadRecentlyViewedAuctions } from '../../data/api/api'
 import { useParams } from 'react-router-dom';
 //import useCurrent from '../../data/useCurrent'
 import './scss/astro-ecommerce.scss'
-import "./style.css";
+
 
 import ProductOverviewGrid from './Imports/ProductOverviewGrid'
 import CommentSummaryChart from './Imports/CommentSummaryChart';

@@ -6,10 +6,10 @@ import Card from '@mui/joy/Card';
 import Button from '@mui/joy/Button';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import InfoRounded from "@mui/icons-material/InfoRounded"
-
+import AccessAlarmsIcon from '@mui/icons-material/AccessAlarms';
 import { useQuery } from "react-query";
 import { loadImages, loadVotes } from '../../data/api/api';
-import Favorite from '../Detail/Imports/Favorite';
+
 import Timer from './Timer';
 //import { useAllProducts } from '../../data';
 import { useThisAuction } from '../../data';
@@ -30,10 +30,6 @@ function Ending({ uuid }) {
   const votes = votesData.results
 
   const [justEnded, setJustEnded] = useState(false);
-
-  const updateBids = (updatedAuction) => {
-    // setAuction(updatedAuction);
-  };
 
   const update = () => {
     setJustEnded(true);
@@ -133,7 +129,17 @@ function Ending({ uuid }) {
                             verticalAlign: 'text-top',
                           })}
                         >
-                          <Timer endTime={end_time} update={update} />
+                          
+                          <span style={{ marginRight: '0px' }}>
+                       <InfoRounded
+                         sx={{  }}
+                        />{" "}
+                         
+                        </span>
+                          
+                
+                             <Timer endTime={end_time} update={update} />
+                 
                         </Typography>
                       ) : (
                         <div style={{ bottom: '-20px', left: '0', padding: '15px' }}>
