@@ -4,12 +4,12 @@ import { SnackbarProvider } from 'notistack';
 import 'react-quill/dist/quill.snow.css';
 import Helmet from 'react-helmet';
 import { LinearProgress } from '@mui/material';
-import { useSelector } from 'react-redux';
+//import { useSelector } from 'react-redux';
 //import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "../src/view/Detail/scss/astro-ecommerce.scss"
 import MainLayout from '../src/Layout/main-layout/MainLayout';
-import ProtectedRoute from "./components/protected-route";
+//import ProtectedRoute from "./components/protected-route";
 //import Homepage from "./view/Homepage";
 import DataProvider from './data';
 
@@ -45,7 +45,6 @@ const AuctionList = lazy(() => import('./view/AuctionsList/AuctionsList'));
 
 
 function App() {
-  const { claims } = useSelector((state) => state.auth);
 
   return (
     <DataProvider>

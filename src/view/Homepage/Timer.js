@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-
-const EndTime = styled('span')(({ theme }) => ({
-  fontSize: '0.75em',
-  color: '#323232',
-  fontWeight: 300,
-}));
+import AccessAlarmsIcon from "@mui/icons-material/AccessAlarms"
 
 const Subheading = styled('div')(({ theme }) => ({
   margin: '16px',
@@ -54,15 +49,19 @@ export default function Timer({ endTime, update }) {
     }
   }, [timeLeft.timeEnd, update]);
 
+  const formatTimeValue = (value) => {
+    return value.toString().padStart(2, '0');
+  };
+
   return (
     <Subheading>
       {!timeLeft.timeEnd ? (
         <Typography component="p" variant="h8">
-          {timeLeft.days !== 0 && `${timeLeft.days}:`}
-          {timeLeft.hours !== 0 && `${timeLeft.hours}:`}
-          {timeLeft.minutes !== 0 && `${timeLeft.minutes}:`}
-          {timeLeft.seconds !== 0 && `${timeLeft.seconds}`}
-         
+          <AccessAlarmsIcon style={{ fontSize: 19, marginRight: '4px' }}/>
+          {timeLeft.days !== 0 && `${formatTimeValue(timeLeft.days)}:`}
+          {timeLeft.hours !== 0 && `${formatTimeValue(timeLeft.hours)}:`}
+          {timeLeft.minutes !== 0 && `${formatTimeValue(timeLeft.minutes)}:`}
+          {`${formatTimeValue(timeLeft.seconds)}`}
         </Typography>
       ) : (
         <Typography component="p" variant="h6">

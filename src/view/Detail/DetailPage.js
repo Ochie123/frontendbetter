@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
+import React from 'react';
+
 
 import Typography from '@mui/joy/Typography';
 
 import { useQuery } from "react-query";
 //import styled from "styled-components";
 import { loadAuction } from '../../data/api/api'
-import { loadComments, loadRecentlyViewedAuctions } from '../../data/api/api'
+import { loadComments } from '../../data/api/api'
 
 
 import { useParams } from 'react-router-dom';
@@ -22,7 +22,7 @@ import CommentSummaryChart from './Imports/CommentSummaryChart';
 const AuctionContext = React.createContext();
 
 function DetailPage() {
-  const [recentlyViewed, setRecentlyViewed] = useState([]);
+
   const { id } = useParams();
 
   const { data: auction } = useQuery(["currentAuction", { id }], () =>
@@ -33,24 +33,9 @@ function DetailPage() {
   const comments = commentsData.results;
 
 
-  const { data:RecentlyViewedAuctionsData = { results: [] }} = useQuery("recentlyvieweds", loadRecentlyViewedAuctions);
-  const recentlyvieweds = RecentlyViewedAuctionsData.results;
-
-  const { data = { results: [] }} = useQuery("recentlyvieweds", loadRecentlyViewedAuctions);
-
-
-  //console.log(data) 
   
   //const filteredFeatures = carSpecifications.filter(car_specification => auction.car_specifications.includes(car_specification.id));
   //console.log(filteredFeatures)  
-
-  useEffect(() => {
-    const recentlyViewedData = Cookies.get('recently_viewed');
-    if (recentlyViewedData) {
-      const parsedData = JSON.parse(recentlyViewedData);
-      setRecentlyViewed(parsedData);
-    }
-  }, []);
 
   //let AuctionBids = results.filter((bid)=> bid.auction === auction?.uuid);
 
@@ -75,17 +60,7 @@ function DetailPage() {
         <CommentSummaryChart results = {productComments}/>       
       </div>
       <hr className="dark horizontal my-5" />
-      <div>
-      {/* Display the auction detail */}
-      {/* Access the recently viewed auctions from the 'recentlyViewed' variable */}
-      {recentlyViewed.map(auction => (
-        <div key={auction.uuid}>
-          {/* Display the relevant auction details */}
-          <h3>{auction.name}</h3>
-          {/* Other auction details */}
-        </div>
-      ))}
-    </div>
+     
     </div>
   </AuctionContext.Provider>
 
