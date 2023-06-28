@@ -124,19 +124,19 @@ const Filter = function({
       return selectedFilters.every(filter => {
         const [filterType, filterValue] = filter.split(":")
 
-        if (filterType === "category" && category == filterValue) {
+        if (filterType === "category" && category === filterValue) {
           return true
         }
 
-        if (filterType === "make" && make == filterValue) {
+        if (filterType === "make" && make === filterValue) {
           return true
         }
 
-        if (filterType === "model" && model == filterValue) {
+        if (filterType === "model" && model === filterValue) {
           return true
         }
 
-        if (filterType === "type" && type == filterValue) {
+        if (filterType === "type" && type === filterValue) {
           return true
         }
 

@@ -150,25 +150,24 @@ const MyBids = function({
       return selectedFilters.every(filter => {
         const [filterType, filterValue] = filter.split(":")
 
-        if (filterType === "category" && category == filterValue) {
+        if (filterType === "category" && category === filterValue) {
           return true
         }
 
-        if (filterType === "make" && make == filterValue) {
+        if (filterType === "make" && make === filterValue) {
           return true
         }
 
-        if (filterType === "model" && model == filterValue) {
+        if (filterType === "model" && model === filterValue) {
           return true
         }
 
-        if (filterType === "type" && type == filterValue) {
+        if (filterType === "type" && type === filterValue) {
           return true
         }
 
-        if (filterType === "year") {
-          const selectedYears = filterValue.split(",")
-          return selectedYears.includes(year.toString())
+        if (filterType === "year" && year == filterValue) {
+          return true
         }
 
         return false
@@ -460,7 +459,7 @@ const MyBids = function({
     const fetchAuctionChoices = async () => {
       try {
         const response = await axios.get(
-          "http://192.168.43.38:8000/trader/api/auction-choices/"
+          "https://cars-bids.online/trader/api/auction-choices/"
         )
         setAuctionChoices(response.data)
       } catch (error) {

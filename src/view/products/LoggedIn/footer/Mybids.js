@@ -163,9 +163,8 @@ const MyBids = function({
           return true
         }
 
-        if (filterType === "year") {
-          const selectedYears = filterValue.split(",")
-          return selectedYears.includes(year.toString())
+        if (filterType === "year" && year == filterValue) {
+          return true
         }
 
         return false
@@ -534,7 +533,7 @@ const MyBids = function({
     const fetchAuctionChoices = async () => {
       try {
         const response = await axios.get(
-          "http://192.168.43.38:8000/trader/api/auction-choices/"
+          "https://cars-bids.online/trader/api/auction-choices/"
         )
         setAuctionChoices(response.data)
       } catch (error) {

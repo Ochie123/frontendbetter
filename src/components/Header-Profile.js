@@ -7,7 +7,7 @@ import { ListItem} from '@mui/material';
 import {ListItemIcon }from '@mui/material';
 import {ListItemText} from '@mui/material';
 import HandymanIcon from '@mui/icons-material/Handyman';
-import Toolbar from '@mui/material/Toolbar';
+
 //import { useRouteMatch } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { profileSelector } from '../features/profile/profileSlice';
@@ -22,13 +22,11 @@ import {
   Collapse,
   ListSubheader,
   Typography,
-  useMediaQuery,
+
 } from '@mui/material';
 import { 
   LogOut as LogOutIcon, 
-  Hexagon as HexagonIcon,
   PieChart as PieChartIcon,
-  ShoppingCart as ShoppingCartIcon,
   ChevronUp as ChevronUpIcon,
   ChevronDown as ChevronDownIcon,
   List as ListIcon,
