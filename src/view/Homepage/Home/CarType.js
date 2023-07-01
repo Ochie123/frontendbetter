@@ -32,7 +32,7 @@ function CarType() {
           variant="solid"
           size="sm"
           color="primary"
-          aria-label="Explore Bahamas Islands"
+          aria-label="Explore"
           sx={{ ml: 'auto', fontWeight: 600 }}
         >
           Explore
@@ -59,7 +59,7 @@ function CarType() {
           variant="solid"
           size="sm"
           color="primary"
-          aria-label="Explore Bahamas Islands"
+          aria-label="Explore"
           sx={{ ml: 'auto', fontWeight: 600 }}
         >
           Explore
@@ -86,7 +86,7 @@ function CarType() {
           variant="solid"
           size="sm"
           color="primary"
-          aria-label="Explore Bahamas Islands"
+          aria-label="Explore"
           sx={{ ml: 'auto', fontWeight: 600 }}
         >
           Explore
@@ -113,7 +113,7 @@ function CarType() {
           variant="solid"
           size="sm"
           color="primary"
-          aria-label="Explore Bahamas Islands"
+          aria-label="Explore"
           sx={{ ml: 'auto', fontWeight: 600 }}
         >
           Explore

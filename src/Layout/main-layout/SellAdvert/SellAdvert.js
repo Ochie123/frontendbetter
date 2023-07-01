@@ -12,7 +12,7 @@ function SellAdvert({ title}) {
 
     const image = "https://source.unsplash.com/06ilsXv74PI"
     const image1 = "https://source.unsplash.com/8FbaSoKMkRA"
-    const image2 = "https://source.unsplash.com/XyONj_Aq-rg"
+    const image2 = "https://source.unsplash.com/RGxEXgEym5U"
   return (
 <>
         <Box sx={{ display: 'flex', justifyContent: 'center',

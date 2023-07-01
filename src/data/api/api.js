@@ -34,9 +34,6 @@ const URLS = {
   WATCHLISTS: "https://cars-bids.online/api/watchlist/",
   WATCHLIST: (id) => `https://cars-bids.online/api/watchlist/${id}`,
 
-  AUCTIONS: "https://cars-bids.online/api/auctions/",
-  AUCTION: (uuid) => `https://cars-bids.online/api/auctions/${uuid}`,
-
   RECENTLYVIEWEDS: "https://cars-bids.online/api/auctions/recently_viewed/",
   RECENTLYVIEWED: (uuid) => `https://cars-bids.online/api/auctions/${uuid}`,
 };
