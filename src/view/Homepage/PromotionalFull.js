@@ -39,8 +39,8 @@ export default function PromotionalFull() {
                     px={0.5}
                     mr={0.5}
                     sx={theme => ({
-                      ...theme.variants.soft.danger,
-                      color: "success.400",
+                      ...theme.variants.soft.warning,
+                      color: "primary.400",
                       verticalAlign: "text-top"
                     })}
                   >
