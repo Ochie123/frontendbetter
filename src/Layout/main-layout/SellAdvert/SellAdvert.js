@@ -5,13 +5,14 @@ import Button from '@mui/joy/Button';
 import MKBox from "../MKBox";
 import MKTypography from "../MKTypography";
 
-//https://source.unsplash.com/06ilsXv74PI
-//https://source.unsplash.com/8FbaSoKMkRA
-//https://source.unsplash.com/XyONj_Aq-rg
+//https://unsplash.com/photos/3kb_g-vzVUo
+//https://unsplash.com/photos/-09K4gOgo0o
+//https://unsplash.com/photos/RGxEXgEym5U
+
 function SellAdvert({ title}) {
 
-    const image = "https://source.unsplash.com/06ilsXv74PI"
-    const image1 = "https://source.unsplash.com/8FbaSoKMkRA"
+    const image = "https://source.unsplash.com/3kb_g-vzVUo"
+    const image1 = "https://source.unsplash.com/-09K4gOgo0o"
     const image2 = "https://source.unsplash.com/RGxEXgEym5U"
   return (
 <>
