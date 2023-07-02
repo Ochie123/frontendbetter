@@ -13,9 +13,13 @@ export default function PromotionalFull() {
   const isMobile = useMediaQuery("(max-width:600px)")
   const [checked, setChecked] = React.useState(true)
 
+  const containerStyles = {
+    backgroundColor: "#f2f2f2", // Replace with your desired color
+  };
+
   return (
     <div className="promotional-full-container">
-      <div className="container">
+      <div style={containerStyles} className="container">
         <Grid container spacing={0}>
           <Grid item xs={12} sm={6}>
             <Promotional pageHeaderBgImg="" pageHeaderMinVh="50vh" />
@@ -23,9 +27,9 @@ export default function PromotionalFull() {
           <Grid item xs={12} sm={6}>
             <div className="row justify-content-center">
               <img
-                src="https://source.unsplash.com/RGxEXgEym5U"
+                src="https://i.ibb.co/mNd3Gh0/awideselection.png"
                 alt="Promotional"
-                style={{ width: "100%", height: "100%" }}
+                style={{ width: "100%", border:"0", height: "100%" }}
               />
 
               <Box sx={{ display: "flex" }}>
