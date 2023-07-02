@@ -24,7 +24,7 @@ export default {
     },
     {
       icon: <TwitterIcon />,
-      link: "https://twitter.com/cars-bids",
+      link: "https://twitter.com/carsbidske",
     },
     {
       icon: <YouTubeIcon />,
@@ -72,7 +72,7 @@ export default {
       All rights reserved. Copyright &copy; {date} 
       <MKTypography
         component="a"
-        href="https://www.creative-tim.com"
+        href="https://www.cars-bids.com"
         target="_blank"
         rel="noreferrer"
         variant="button"
