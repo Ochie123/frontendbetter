@@ -2,7 +2,7 @@
 import DefaultFooter from "../DefaultFooter";
 
 // routes
-import footerRoutes from "./footer.routes";
+import footerRoutes from "./routes";
 
 function FooterTwo() {
   return <DefaultFooter content={footerRoutes} />;

@@ -50,8 +50,6 @@ export default function Auction({ match }) {
   const AuctionWatchlists = watchlists?.filter((watchlist)=> watchlist?.auction === auction?.uuid);
 
 
-  //console.log(AuctionWatchlists)
-
   const [justEnded, setJustEnded] = useState(false)
 
   const updateBids = updatedAuction => {
@@ -94,6 +92,15 @@ export default function Auction({ match }) {
   let AuctionBids = results.filter(bid => bid.auction === auction?.uuid)
 
   let AuctionVotes = votes.filter(vote => vote.auction === auction?.uuid)
+
+  const highestBid = Math.max(
+    ...AuctionBids.map(bid => parseFloat(bid.amount)),
+    0
+  )
+
+  console.log(highestBid)
+
+  console.log(auction?.reserveprice)
 
   //console.log(AuctionVotes)
 
@@ -210,7 +217,7 @@ export default function Auction({ match }) {
                   px={2}
                   mr={0.5}
                 >
-                  {` Last bid: Ksh ${AuctionBids[0].amount}`}
+                  {` Last bid: Ksh ${highestBid}`}
                 </Typography>
               )}
               {

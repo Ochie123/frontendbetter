@@ -1,41 +1,41 @@
 const URLS = {
 
-  USERS: "https://cars-bids.online/apis/users/",
-  USER: (id) => `https://cars-bids.online/apis/users/${id}`,
+  USERS: "http://127.0.0.1:8000/apis/users/",
+  USER: (id) => `http://127.0.0.1:8000/apis/users/${id}`,
 
 
-  AUCTIONS: "https://cars-bids.online/api/auctions/",
-  AUCTION: (uuid) => `https://cars-bids.online/api/auctions/${uuid}`,
+  AUCTIONS: "http://127.0.0.1:8000/api/auctions/",
+  AUCTION: (uuid) => `http://127.0.0.1:8000/api/auctions/${uuid}`,
 
-  BIDS: "https://cars-bids.online/api/bid/",
-  BID: (id) => `https://cars-bids.online/api/bid/${id}`,
+  BIDS: "http://127.0.0.1:8000/api/bid/",
+  BID: (id) => `http://127.0.0.1:8000/api/bid/${id}`,
 
-  MAKES: "https://cars-bids.online/api/make/",
-  MAKE: (id) => `https://cars-bids.online/api/make/${id}`,
+  MAKES: "http://127.0.0.1:8000/api/make/",
+  MAKE: (id) => `http://127.0.0.1:8000/api/make/${id}`,
 
-  MODELS: "https://cars-bids.online/api/model/",
-  MODEL: (id) => `https://cars-bids.online/api/model/${id}`,
+  MODELS: "http://127.0.0.1:8000/api/model/",
+  MODEL: (id) => `http://127.0.0.1:8000/api/model/${id}`,
 
-  CATEGORIES: "https://cars-bids.online/api/categories/",
-  CATEGORY: (id) => `https://cars-bids.online/api/categories/${id}`,
+  CATEGORIES: "http://127.0.0.1:8000/api/categories/",
+  CATEGORY: (id) => `http://127.0.0.1:8000/api/categories/${id}`,
   
-  COMMENTS: "https://cars-bids.online/api/comment/",
-  COMMENT: (id) => `https://cars-bids.online/api/comment/${id}`,
+  COMMENTS: "http://127.0.0.1:8000/api/comment/",
+  COMMENT: (id) => `http://127.0.0.1:8000/api/comment/${id}`,
 
-  CARS_SPECIFICATIONS: "https://cars-bids.online/api/car-specifications/",
-  CARS_SPECIFICATION: (id) => `https://cars-bids.online/api/car-specifications/${id}`,
+  CARS_SPECIFICATIONS: "http://127.0.0.1:8000/api/car-specifications/",
+  CARS_SPECIFICATION: (id) => `http://127.0.0.1:8000/api/car-specifications/${id}`,
 
-  IMAGES: "https://cars-bids.online/api/images/",
-  IMAGE: (id) => `https://cars-bids.online/api/images/${id}`,
+  IMAGES: "http://127.0.0.1:8000/api/images/",
+  IMAGE: (id) => `http://127.0.0.1:8000/api/images/${id}`,
 
-  VOTES: "https://cars-bids.online/api/votes/",
-  VOTE: (id) => `https://cars-bids.online/api/votes/${id}`,
+  VOTES: "http://127.0.0.1:8000/api/votes/",
+  VOTE: (id) => `http://127.0.0.1:8000/api/votes/${id}`,
 
-  WATCHLISTS: "https://cars-bids.online/api/watchlist/",
-  WATCHLIST: (id) => `https://cars-bids.online/api/watchlist/${id}`,
+  WATCHLISTS: "http://127.0.0.1:8000/api/watchlist/",
+  WATCHLIST: (id) => `http://127.0.0.1:8000/api/watchlist/${id}`,
 
-  RECENTLYVIEWEDS: "https://cars-bids.online/api/auctions/recently_viewed/",
-  RECENTLYVIEWED: (uuid) => `https://cars-bids.online/api/auctions/${uuid}`,
+  RECENTLYVIEWEDS: "http://127.0.0.1:8000/api/auctions/recently_viewed/",
+  RECENTLYVIEWED: (uuid) => `http://127.0.0.1:8000/api/auctions/${uuid}`,
 };
 
 const wrappedFetch = (...args) => {

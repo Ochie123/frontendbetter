@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import clsx from "clsx"
-import { Formik, Form, Field, ErrorMessage } from "formik"
+import { Formik, Field } from "formik"
 import { useSnackbar } from "notistack"
-import Alert from 'react-bootstrap/Alert';
 import Container from 'react-bootstrap/Container';
 //import Select from 'react-select';
-import { Link } from 'react-router-dom';
 
 import { useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -38,7 +35,6 @@ import { useQuery } from "react-query";
 import { loadCars_Specifications, loadCategories } from '../../../../data/api/api'
 import { loadMakes } from '../../../../data/api/api'
 import { loadModels } from '../../../../data/api/api'
-import { postAuctionAxios } from '../../../../services/AuctionService'
 import { YupAuctionValidation } from "./schema/YupAuctionValidation"
 import { AuctionDefaultValue } from "./schema/AuctionDefaultValue"
 import { useNavigate } from "react-router"
@@ -132,7 +128,7 @@ const AuctionCreateForm = props => {
   useEffect(() => {
     const fetchAuctionChoices = async () => {
       try {
-        const response = await axios.get("https://cars-bids.online/trader/api/auction-choices/");
+        const response = await axios.get("http://127.0.0.1:8000/trader/api/auction-choices/");
         setAuctionChoices(response.data);
       } catch (error) {
         console.error(error);
@@ -168,9 +164,7 @@ const AuctionCreateForm = props => {
 
   return (
     <Container>
-    {props.claims == true || props.claims === "" ? ( <Alert variant='warning'>
-You are not logged in. Please <Link to={"/login"}>login</Link> to add your products. </Alert>
-):(
+
     <Formik
       initialValues={AuctionDefaultValue}
       validationSchema={YupAuctionValidation}
@@ -206,7 +200,7 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
           formData.append('starting_price', values.starting_price);
           // ... append other form fields
       
-          const response = await axios.post('https://cars-bids.online/api/auctions/', formData, {
+          const response = await axios.post('http://127.0.0.1:8000/api/auctions/', formData, {
             headers: {
               Authorization: `Bearer ${token}`,
               'Content-Type': 'multipart/form-data',
@@ -316,7 +310,7 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
                               : "If you have a reserve price this will be shown as starting price"
                           }
                           label="Price"
-                          name="startingPrice"
+                          name="starting_price"
                           type="number"
                           onBlur={formikProps.handleBlur}
                           onChange={formikProps.handleChange}
@@ -336,7 +330,7 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
                             formikProps.errors.reserveprice
                           }
                           label="Reserve price"
-                          name="reservePrice"
+                          name="reserveprice"
                           type="number"
                           onBlur={formikProps.handleBlur}
                           onChange={formikProps.handleChange}
@@ -608,7 +602,6 @@ You are not logged in. Please <Link to={"/login"}>login</Link> to add your produ
         </form>
       )}
     </Formik>
-    )}
     </Container>
   );
 };

@@ -72,7 +72,7 @@ const placeAmount = (evt) => {
   const token = localStorage.getItem('token');
 
   axios
-    .post('https://cars-bids.online/api/bid/', formData, {
+    .post('http://127.0.0.1:8000/api/bid/', formData, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
@@ -108,7 +108,12 @@ const placeAmount = (evt) => {
 
   let AuctionBids = results.filter((bid) => bid.auction === auction?.uuid);
 
-  const minAmount = AuctionBids && AuctionBids.length > 0 ? AuctionBids[0].amount : auction?.starting_price;
+  const highestBid = Math.max(
+    ...AuctionBids.map(bid => parseFloat(bid.amount)),
+    0
+  )
+
+  const minAmount = AuctionBids && AuctionBids.length > 0 ? highestBid : auction?.starting_price;
 
   return (
     <div>

@@ -184,6 +184,11 @@ const Filter = function({
             image => image.auction === auction.uuid
           )
           let AuctionBids = bids.filter(bid => bid.auction === auction?.uuid)
+
+          const highestBid = Math.max(
+            ...AuctionBids.map(bid => parseFloat(bid.amount)),
+            0
+          )
           const startTime = new Date(auction?.start_time)
           const durationInMilliseconds = auction?.duration * 24 * 60 * 60 * 1000 // Convert duration from days to milliseconds
           const endTime = new Date(startTime.getTime() + durationInMilliseconds)
@@ -325,7 +330,7 @@ const Filter = function({
                                   verticalAlign: "text-top"
                                 })}
                               >
-                                {Math.floor(AuctionBids[0].amount)}
+                                {highestBid}
                               </Typography>
                             )}
                           </div>

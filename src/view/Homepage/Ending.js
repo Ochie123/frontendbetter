@@ -64,6 +64,11 @@ function Ending({ uuid }) {
 
   let AuctionBids = bids.filter(bid => bid.auction === auction?.uuid)
 
+  const highestBid = Math.max(
+    ...AuctionBids.map(bid => parseFloat(bid.amount)),
+    0
+  )
+
   //console.log(results)
 
   // Assuming you have the API response stored in a variable called 'images'
@@ -207,7 +212,7 @@ function Ending({ uuid }) {
                       })}
                     >
                       <Box display="flex" alignItems="center">
-                        {Math.floor(AuctionBids[0].amount)}
+                        {highestBid}
                       </Box>
                     </Typography>
                   )}
