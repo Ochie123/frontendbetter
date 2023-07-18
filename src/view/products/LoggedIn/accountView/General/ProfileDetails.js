@@ -1,6 +1,9 @@
-import React from "react"
+import React, { useEffect, useState } from 'react';
+
+import jwt_decode from "jwt-decode"
+import { useQuery } from "react-query"
+import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from "react-router-dom"
-import clsx from "clsx"
 import {
   Avatar,
   Box,
@@ -13,7 +16,41 @@ import {
 
 } from '@mui/material';
 
+
+
+import { profileSelector } from '../../../../../features/profile/profileSlice'
+import { saveClaimsAction } from '../../../../../features/auth/authSlice'
+
+import { loadUsers } from '../../../../../data/api/api'
+
 const ProfileDetails = ({ className, user, ...rest }) => {
+
+  const dispatch = useDispatch();
+  const { profile } = useSelector(profileSelector);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const { data: usersData = { results: [] } } = useQuery("users", loadUsers)
+  const users = usersData.results
+
+ // console.log(users)
+  const token = localStorage.getItem('token');
+  //console.log(token);
+  const savedClaims = JSON.parse(localStorage.getItem('claims'));
+  
+  useEffect(() => {
+    if (token && !savedClaims) {
+      const claims = jwt_decode(token);
+      dispatch(saveClaimsAction(claims));
+      localStorage.setItem('claims', JSON.stringify(claims));
+    }
+  }, [token, savedClaims, dispatch]);
+
+  //console.log(savedClaims)
+
+  const username = users.find(user => user.id === savedClaims?.user_id)?.username;
+  //console.log(username);
+
+
  
   return (
     <Card className="" {...rest}>
@@ -31,12 +68,12 @@ const ProfileDetails = ({ className, user, ...rest }) => {
             gutterBottom
             variant="h4"
           >
-            {user?.username}
+            {username}
           </Typography>
           <Typography color="textPrimary" variant="body1">
-            Your tier:<h3>hello</h3> {user?.username}
+            
             <Link component={RouterLink} to="/pricing">
-              {user?.tier}
+            Your Tier: Standard
             </Link>
           </Typography>
         </Box>

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import jwt_decode from "jwt-decode"
 //import { createStyles, makeStyles } from '@mui/icons-material';
-import {Drawer} from '@mui/material';
+import { useQuery } from "react-query"
 import {List }from '@mui/material';
 import { ListItem} from '@mui/material';
 import {ListItemIcon }from '@mui/material';
@@ -11,6 +13,11 @@ import HandymanIcon from '@mui/icons-material/Handyman';
 //import { useRouteMatch } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { profileSelector } from '../features/profile/profileSlice';
+import { saveClaimsAction } from '../features/auth/authSlice'
+
+import { loadUsers } from '../data/api/api'
+
+
 //import { RootState } from 'store/reducers';
 import {
   Avatar,
@@ -40,6 +47,28 @@ const HeaderProfile = () => {
   const dispatch = useDispatch();
   const { profile } = useSelector(profileSelector);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const { data: usersData = { results: [] } } = useQuery("users", loadUsers)
+  const users = usersData.results
+
+ // console.log(users)
+  const token = localStorage.getItem('token');
+  //console.log(token);
+  const savedClaims = JSON.parse(localStorage.getItem('claims'));
+  
+  useEffect(() => {
+    if (token && !savedClaims) {
+      const claims = jwt_decode(token);
+      dispatch(saveClaimsAction(claims));
+      localStorage.setItem('claims', JSON.stringify(claims));
+    }
+  }, [token, savedClaims, dispatch]);
+
+  //console.log(savedClaims)
+
+  const username = users.find(user => user.id === savedClaims?.user_id)?.username;
+  //console.log(username);
+
 
   const [open, setOpen] = useState(false);
 
@@ -102,9 +131,9 @@ const HeaderProfile = () => {
                />
               </Box>
               <Box mt={2} textAlign="center">
-                <Typography>{profile?.username}</Typography>
+                <Typography>Hello:</Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Your tier:<h2>hello</h2> {profile?.username} {profile?.username}
+                {username}
                 </Typography>
               </Box>
             </Box>
@@ -170,7 +199,7 @@ const HeaderProfile = () => {
                     <ListItemText primary={'Account'} />
                   </ListItem>
                 </Link>
-                <Link className="pricing/">
+                <Link className="" to="pricing/">
                   <ListItem>
                     <ListItemIcon>
                       <DollarSignIcon />

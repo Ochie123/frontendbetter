@@ -45,7 +45,7 @@ export default function ReviewComment({  result}) {
   return (
     <>
       <div className="d-flex">
-      <Link to={`/users/${ownerId}`} className="avatar avatar-xl rounded-circle min-width-50 min-height-50">
+      <Link to={``} className="avatar avatar-xl rounded-circle min-width-50 min-height-50">
         <Avatar
                  variant={"circle"}
                  alt="User"

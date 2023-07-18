@@ -53,7 +53,7 @@ const PricingPage = () => {
                     variant="h4"
                     color="textPrimary"
                   >
-                    $5
+                    Ksh 1000
                   </Typography>
                   <Typography
                     component="span"
@@ -71,9 +71,7 @@ const PricingPage = () => {
                   <Divider />
                 </Box>
                 <Typography variant="body2" color="textPrimary">
-                  20 proposals/month
-                  <br />
-                  10 templates
+                  20 ads/month
                   <br />
                   Analytics dashboard
                   <br />
@@ -116,7 +114,7 @@ const PricingPage = () => {
                     variant="h4"
                     color="inherit"
                   >
-                    $29
+                    Ksh 5000
                   </Typography>
                   <Typography
                     component="span"
@@ -134,9 +132,7 @@ const PricingPage = () => {
                   <Divider />
                 </Box>
                 <Typography variant="body2" color="inherit">
-                  20 proposals/month
-                  <br />
-                  10 templates
+                  60 ads/month
                   <br />
                   Analytics dashboard
                   <br />
@@ -176,7 +172,7 @@ const PricingPage = () => {
                     variant="h4"
                     color="textPrimary"
                   >
-                    $259
+                    Ksh 10000
                   </Typography>
                   <Typography
                     component="span"

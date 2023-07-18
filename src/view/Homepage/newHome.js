@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Container, Typography, useMediaQuery } from "@mui/material"
+import { Box, useMediaQuery } from "@mui/material"
 import Page from '../../components/Page';
 import NewlyListed from './NewlyListed';
 import EndingSoon from './EndingSoon';

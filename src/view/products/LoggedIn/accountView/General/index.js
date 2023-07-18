@@ -1,12 +1,11 @@
 import React from "react"
-import clsx from "clsx"
+
 import { useSelector } from "react-redux"
 import { Grid } from '@mui/material';
 
 import ProfileDetails from "./ProfileDetails"
 import GeneralSettings from "./GeneralSettings"
 
-import { createReducer } from '../../../../../store/reducers'
 
 
 const General = ({ className, ...rest }) => {

@@ -2,6 +2,8 @@
 import Card from '@mui/joy/Card';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
+import { Link} from "react-router-dom";
+
 import MKBox from "../MKBox";
 import MKTypography from "../MKTypography";
 
@@ -54,9 +56,10 @@ function SellAdvert({ title}) {
         </MKTypography>
         <MKBox mt={1} mb={3}>
           <MKTypography variant="body2" component="p" color="text">
-          See our tools available to assist you in the listing process and benefits of reaching a large audience of potential buyers..
+          See our tools available to assist you in the listing process and benefits of reaching a large audience of potential buyers.
           </MKTypography>
         </MKBox>
+        <Link to={`how-to-sell`}>
         <Button
           variant="solid"
           size="sm"
@@ -66,6 +69,7 @@ function SellAdvert({ title}) {
         >
           Find out more
         </Button>
+        </Link>
       </MKBox>
          </Card>
        
@@ -112,6 +116,7 @@ function SellAdvert({ title}) {
           Learn our safeguards in place to ensure a smooth experience, bid tracking, and payment security measures.
           </MKTypography>
         </MKBox>
+        <Link to={`our-safeguards`}>
         <Button
           variant="solid"
           size="sm"
@@ -121,6 +126,7 @@ function SellAdvert({ title}) {
         >
           Find out more
         </Button>
+        </Link>
       </MKBox>
 
    </Card>
@@ -167,6 +173,7 @@ function SellAdvert({ title}) {
           Learn the variety of vehicles available for auction on our website and the diverse options and choices for potential buyers.
           </MKTypography>
         </MKBox>
+        <Link to={`discover-our-collection`}>
         <Button
           variant="solid"
           size="sm"
@@ -176,6 +183,7 @@ function SellAdvert({ title}) {
         >
           Find out more
         </Button>
+        </Link>
       </MKBox>
        </Card>
         </Box>

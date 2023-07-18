@@ -1,6 +1,5 @@
 import React from "react"
 import { Link as RouterLink } from "react-router-dom"
-import clsx from "clsx"
 //import { useSelector } from "react-redux"
 import {
   Box,
@@ -30,7 +29,7 @@ const Subscription = ({ className, ...rest }) => {
           <Box className="">
             <div>
               <Typography display="inline" variant="h4" color="textPrimary">
-            ""
+            1000 Ksh
               </Typography>
               <Typography display="inline" variant="subtitle1">
                 /mo
@@ -40,7 +39,7 @@ const Subscription = ({ className, ...rest }) => {
               <img
                 alt="Product"
                 className=""
-                src="/images/products/product_premium.svg"
+                src="images/products/product_standard.svg"
               />
               <Typography variant="overline" color="textSecondary">
                 ""
@@ -50,19 +49,10 @@ const Subscription = ({ className, ...rest }) => {
           <Divider />
           <Box className="">
             <div>
-              <Typography variant="body2" color="textPrimary">
-                {`$ proposals left`}
-              </Typography>
-              <Typography variant="body2" color="textPrimary">
-                {`$ templates`}
-              </Typography>
             </div>
             <div>
               <Typography variant="body2" color="textPrimary">
-                {`$ invites left`}
-              </Typography>
-              <Typography variant="body2" color="textPrimary">
-                {`$ ads left`}
+                {`20 ads left`}
               </Typography>
             </div>
             <div>

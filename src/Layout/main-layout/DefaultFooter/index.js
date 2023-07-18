@@ -37,7 +37,7 @@ function DefaultFooter({ content }) {
           <Grid item xs={12} md={3} sx={{ ml: "auto", mb: 3 }}>
             <MKBox>
               
-              <MKTypography variant="h6">{brand.name}</MKTypography>
+              <MKTypography variant="h6">{brand}</MKTypography>
             </MKBox>
             <MKBox display="flex" alignItems="center" mt={3}>
               {socials.map(({ icon, link }, key) => (

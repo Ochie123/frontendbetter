@@ -3,7 +3,7 @@ import axios from 'axios';
 /*create an instance of axios with a default base URI when sending HTTP requests*/
 /*JSON Server has CORS Policy by default*/
 const api = axios.create({
-  baseURL: 'https://cars-bids.online/api/',
+  baseURL: 'https://cars-bids.online/',
 });
 
 export default api;

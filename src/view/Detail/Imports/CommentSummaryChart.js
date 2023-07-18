@@ -47,7 +47,7 @@ export default function CommentSummaryChart({results, id}) {
   loadUser(id)
 );
 
-  const ownerId = auction?.owner_id;
+  //const ownerId = auction?.owner_id;
 
   useEffect(() => {
     if (scrollPosition !== 0) {
@@ -116,7 +116,7 @@ export default function CommentSummaryChart({results, id}) {
      <div className="card shadow-xs mb-4">
      <br/>
         <div className="d-flex">
-        <Link to={`/users/${ownerId}`} className="avatar avatar-xl rounded-circle min-width-50 min-height-50">
+        <Link to={``} className="avatar avatar-xl rounded-circle min-width-50 min-height-50">
         <Avatar
                  variant={"circle"}
                  alt="User"

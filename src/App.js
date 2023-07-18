@@ -34,16 +34,19 @@ const AboutPage = lazy(() => import('./view/pages/AboutPage'));
 const DashboardDefaultContent = lazy(() => import('./view/products/LoggedIn/dashboard-default-content'));
 const AuctionListView = lazy(() => import('../src/view/products/LoggedIn/AuctionListView'));
 const AuctionCreateView = lazy(() => import('./view/products/LoggedIn/AuctionCreateView'));
-const CategoryView = lazy(() => import('./view/categories/CategoryView'));
 const PricingPage = lazy(() => import('./view/products/LoggedIn/pricing/PricingPage'));
 const AccountView = lazy(() => import('./view/products/LoggedIn/accountView'));
 const Mybids = lazy(() => import('./view/products/LoggedIn/footer/Mybids'));
 const Favorites = lazy(() => import('./view/products/LoggedIn/footer/Favorites'));
 const Ending = lazy(() => import('./view/products/LoggedIn/footer/Ending'));
 const ProfileId = lazy(() => import('./view/Detail/ProfileId'));
-const  DetailPage  = lazy(() => import('./view/Detail/DetailPage').then((module) => ({ default: module.DetailPage })));
+const DetailPage  = lazy(() => import('./view/Detail/DetailPage').then((module) => ({ default: module.DetailPage })));
 const NotFoundPage = lazy(() => import('./view/pages/NotFoundPage'));
 const AuctionList = lazy(() => import('./view/AuctionsList/AuctionsList'));
+const OurCollection = lazy(() => import('../src/Layout/main-layout/SellAdvert/OurCollection'));
+const Howtosell = lazy(() => import('../src/Layout/main-layout/SellAdvert/Howtosell'));
+const OurSafeguards = lazy(() => import('../src/Layout/main-layout/SellAdvert/OurSafeguards'));
+const ContactUsPage = lazy(() => import('../src/view/pages/ContactUsPage'));
 
 
 function App() {
@@ -63,10 +66,13 @@ function App() {
                 <Route path="/" element={<Homepage />} />
                 <Route path="login/" element={<LoginPage />} />
                 <Route path="/about" element={<AboutPage />} />
+                <Route path="/how-to-sell" element={<Howtosell />} />
+                <Route path="/our-safeguards" element={<OurSafeguards />} />
+                <Route path="/discover-our-collection" element={<OurCollection />} />
+                <Route path="contact-us/" element={<ContactUsPage />} />
                 <Route path="reports/" element={<DashboardDefaultContent />} />
                 <Route path="list-auctions/" element={<AuctionListView />} />
                 <Route path="create-auction/" element={<AuctionCreateView />} />
-                <Route path="category/" element={<CategoryView />} />
                 <Route path="pricing/" element={<PricingPage />} />
                 <Route path="account/" element={<AccountView />} />
                 <Route path="ending-soon/" element={<Ending />} />

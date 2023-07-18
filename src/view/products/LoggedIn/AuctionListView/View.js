@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../../../store/reducers';
+import { useDispatch } from 'react-redux';
 
 import jwt_decode from "jwt-decode"
 
@@ -19,8 +18,8 @@ import { loadAuctions } from '../../../../data/api/api'
 import Header from './Header';
 import Results from './Results';
 import Page from '../../../../components/Page';
-import { saveClaimsAction, saveTokenAction } from '../../../../features/auth/authSlice';
-import { loginAxios } from '../../../../services/authService'
+import { saveClaimsAction } from '../../../../features/auth/authSlice';
+
 //import datas from '../../../../datas.json'
 //import { ProductType } from 'models/product-type';
 //import { getProductsAxios } from '../../../../services/ProductService'

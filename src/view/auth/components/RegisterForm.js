@@ -45,7 +45,7 @@ function RegisterForm() {
       initialValues={{
         email: 'johnnydoe@yahoo.com',
         username: 'John',
-        mobile: '999-999-9999',
+        mobile: '0712345678',
         password: 'Pass123!',
         policy: false,
       }}
