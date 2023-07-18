@@ -163,6 +163,7 @@ const Results = ({ className, results, result, ...rest }) => {
     }))
   }
 
+
   const handleBestdealsChange = event => {
     event.persist()
 
@@ -468,133 +469,43 @@ const Results = ({ className, results, result, ...rest }) => {
                   //{currentDate > new Date(auction?.start_time) &&currentDate < new Date(end_time) && 'Auction Live ☀️'}
                   //</Typography>
 
-                  return (
-                    <TableRow key={result.uuid}>
-                      <TableCell className="">{result.name}</TableCell>
-                      <TableCell>
-                        {new Date(result.start_time).toLocaleString()}
-                      </TableCell>
-                      <TableCell> {result.duration} day(s)</TableCell>
-                      <TableCell>{auctionStatus}</TableCell>
+  return (
+    <TableRow key={result.uuid}>
+      <TableCell className="">
+        {result.name}
+      </TableCell>
+      <TableCell>{new Date(result.start_time).toLocaleString()}</TableCell>
+      <TableCell> {result.duration} day(s)</TableCell>
+      <TableCell>
+      {auctionStatus}
+</TableCell>
 
-                      <TableCell>{highestBid}</TableCell>
-                      <TableCell>
-                        <VisibilityIcon
-                          onClick={() => handleBidsDialogOpen(result.uuid)}
-                        />
-                        {resultBids.length} bids
-                      </TableCell>
+      <TableCell>
+      {lastBidAmount}
+        
+      </TableCell>
+      <TableCell>
+      {resultBids.length} bids
+      </TableCell>
+      <TableCell>
+      {resultComments.length} comments
+      </TableCell>
+      <TableCell>
+        <IconButton>
+          <SvgIcon fontSize="small">
+            <EditIcon />
+          </SvgIcon>
+        </IconButton>
+        <IconButton>
+          <Link to={`/auctions/${result.uuid}`}>
+            <ArrowRightIcon />
+          </Link>
+        </IconButton>
+      </TableCell>
+    </TableRow>
+  );
+})}
 
-                      <Dialog
-                        open={isBidsDialogOpen}
-                        onClose={handleBidsDialogClose}
-                      >
-                        <DialogTitle>Bids Details</DialogTitle>
-                        <DialogContent>
-                          <DialogContentText>
-                            <Box minWidth={400}>
-                              <Table>
-                                <TableHead>
-                                  <TableRow>
-                                    <TableCell>Bidder</TableCell>
-                                    <TableCell>Timestamp</TableCell>
-                                    <TableCell>Bid Amount</TableCell>
-                                  </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                  {filteredBids.map((bid, index) => (
-                                    <TableRow key={index}>
-                                      <TableCell>{bid.bidder}</TableCell>
-                                      <TableCell>
-                                          {new Date(bid.timestamp).toLocaleString()}
-                                        </TableCell>
-                                      <TableCell>{bid.amount}</TableCell>
-                                    </TableRow>
-                                  ))}
-                                </TableBody>
-                              </Table>
-                            </Box>
-                          </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                          <Button
-                            variant="contained"
-                            className=""
-                            color="secondary"
-                            onClick={handleBidsDialogClose}
-                          >
-                            Close
-                          </Button>
-                        </DialogActions>
-                      </Dialog>
-
-                      <TableCell>
-                        <VisibilityIcon
-                          onClick={() => handleCommentsDialogOpen(result.uuid)}
-                        />
-                        {resultComments.length} comments
-                      </TableCell>
-                      <Dialog
-                        open={isCommentsDialogOpen}
-                        onClose={handleCommentsDialogClose}
-                      >
-                        <DialogTitle>Comments Details</DialogTitle>
-                        <DialogContent>
-                          <DialogContentText>
-                            <Box minWidth={400}>
-                              <Table>
-                                <TableHead>
-                                  <TableRow>
-                                    <TableCell>Author</TableCell>
-                                    <TableCell>Timestamp</TableCell>
-                                    <TableCell>Comment</TableCell>
-                                  </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                  {filteredComments.map((comment, index) => {
-                                    return (
-                                      <TableRow key={index}>
-                                        <TableCell>
-                                          {comment.username}
-                                        </TableCell>
-                                        <TableCell>
-                                          {new Date(comment.timestamp).toLocaleString()}
-                                        </TableCell>
-                                        <TableCell>{comment.message}</TableCell>
-                                      </TableRow>
-                                    )
-                                  })}
-                                </TableBody>
-                              </Table>
-                            </Box>
-                          </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                          <Button
-                            variant="contained"
-                            className=""
-                            color="secondary"
-                            onClick={handleCommentsDialogClose}
-                          >
-                            Close
-                          </Button>
-                        </DialogActions>
-                      </Dialog>
-                      <TableCell>
-                        <IconButton>
-                          <SvgIcon fontSize="small">
-                            <EditIcon />
-                          </SvgIcon>
-                        </IconButton>
-                        <IconButton>
-                          <Link to={`/auctions/${result.uuid}`}>
-                            <ArrowRightIcon />
-                          </Link>
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  )
-                })}
             </TableBody>
           </Table>
           <TablePagination
