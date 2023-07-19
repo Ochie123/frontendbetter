@@ -24,29 +24,29 @@ const router = {
     {
       name: "company",
       items: [
-        { name: "about us", href: "https://cars-bids.online/about-us" },
-        { name: "freebies", href: "https://cars-bids.online/freebies" },
-        { name: "blog", href: "https://cars-bids.online/blog" },
+        { name: "about us", href: "https://cars-bids.com/about-us" },
+        { name: "freebies", href: "https://cars-bids.com/freebies" },
+        { name: "blog", href: "https://cars-bids.com/blog" },
       ],
     },
     {
       name: "resources",
       items: [
-        { name: "affiliate program", href: "https://cars-bids.online/affiliate-program"},
+        { name: "affiliate program", href: "https://cars-bids.com/affiliate-program"},
       ],
     },
     {
       name: "help & support",
       items: [
-        { name: "contact us", href: "https://cars-bids.online/contact-us"},
-        { name: "knowledge center",href: "https://cars-bids.online/knowledge-center" },
+        { name: "contact us", href: "https://cars-bids.com/contact-us"},
+        { name: "knowledge center",href: "https://cars-bids.com/knowledge-center" },
       ],
     },
     {
       name: "legal",
       items: [
-        { name: "terms & conditions", href: "https://cars-bids.online/terms-conditions"},
-        { name: "privacy policy", href: "https://cars-bids.online/privacy-policy" },
+        { name: "terms & conditions", href: "https://cars-bids.com/terms-conditions"},
+        { name: "privacy policy", href: "https://cars-bids.com/privacy-policy" },
       ],
     },
   ],
