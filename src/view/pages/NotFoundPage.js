@@ -16,7 +16,7 @@ const NotFoundPage = () => {
           justifyContent={'center'}
           alignItems={'center'}
         >
-          <Typography variant={mobileDevice ? 'h4' : 'h1'}>
+          <Typography variant={mobileDevice ? 'h4' : 'h2'}>
             404 Page Not Found. 
             <br/> 
             Please check your link.

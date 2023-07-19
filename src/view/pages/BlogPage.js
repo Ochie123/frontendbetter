@@ -15,7 +15,7 @@ const BlogPage = () => {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Typography variant={mobileDevice ? "h1" : "h1"} color='blue'>
+          <Typography variant={mobileDevice ? "h4" : "h2"} color='blue'>
             Welcome to Our Blog
           </Typography>
           <Typography variant="body1" align="center" mt={2}>
