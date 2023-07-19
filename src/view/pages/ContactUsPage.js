@@ -16,7 +16,7 @@ const ContactUsPage = () => {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Typography variant={mobileDevice ? "h4" : "h2"} color='blue'>
+          <Typography variant={mobileDevice ? "h2" : "h2"} color='blue'>
             Contact Us
           </Typography>
           <Typography variant="body1" align="center" mt={2}>

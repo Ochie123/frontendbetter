@@ -17,8 +17,8 @@ const FreebiesPage = () => {
           justifyContent={'center'}
           alignItems={'center'}
         >
-          <Typography variant={mobileDevice ? 'h4' : 'h2'} color='blue'>
-            Welcome to the Car Auction Freebies! 🚗💰
+          <Typography variant={mobileDevice ? 'h2' : 'h2'} color='blue'>
+            Cars Bids Freebies! 🚗💰
           </Typography>
           <Typography variant="body1" align="center" mt={2}>
             Are you new to car auctions and bidding? Get ready to explore a world of exciting opportunities!

@@ -23,7 +23,7 @@ const AboutPage = () => {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Typography variant={mobileDevice ? "h4" : "h2"} color='blue'>
+          <Typography variant={mobileDevice ? "h2" : "h2"} color='blue'>
             Discover the Thrill of Auto Auctions!
           </Typography>
           <Typography variant="body1" align="center" mt={2}>

@@ -14,7 +14,7 @@ const TermsConditionsPage = () => {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Typography variant={mobileDevice ? "h4" : "h2"} color='blue'>
+          <Typography variant={mobileDevice ? "h2" : "h2"} color='blue'>
             Terms and Conditions
           </Typography>
           <Typography variant="body1" align="justify" mt={2}>

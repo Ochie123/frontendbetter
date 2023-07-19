@@ -15,7 +15,7 @@ const AffiliateProgramPage = () => {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Typography variant={mobileDevice ? "h4" : "h2"} color='blue'>
+          <Typography variant={mobileDevice ? "h2" : "h2"} color='blue'>
             Our Affiliate Program
           </Typography>
           <Typography variant="body1" align="center" mt={2}>

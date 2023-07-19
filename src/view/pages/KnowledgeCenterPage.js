@@ -23,8 +23,8 @@ const KnowledgeCenterPage = () => {
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Typography variant={mobileDevice ? "h4" : "h2"} color='blue'>
-            Our Knowledge Center
+          <Typography variant={mobileDevice ? "h2" : "h2"} color='blue'>
+            Knowledge Center
           </Typography>
           <Typography variant="body1" align="center" mt={2}>
             Welcome to our Knowledge Center, a valuable resource for expanding
