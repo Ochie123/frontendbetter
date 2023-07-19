@@ -21,8 +21,11 @@ const MainLayout = ({ children } ) => {
         {token ? (
         <Footer/>
         ): (
-         
+          <>
+         <br/>
+         <br/>
         <Footer2/>
+        </>
         )}
         
       

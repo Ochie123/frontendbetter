@@ -11,13 +11,13 @@ const FreebiesPage = () => {
     <Page title="Freebies">
       <Container>
         <Box
-          height={mobileDevice ? '50vh' : '100vh'}
+   
           display={'flex'}
           flexDirection={'column'}
           justifyContent={'center'}
           alignItems={'center'}
         >
-          <Typography variant={mobileDevice ? 'h4' : 'h1'}>
+          <Typography variant={mobileDevice ? 'h1' : 'h1'} color='blue'>
             Welcome to the Car Auction Freebies! 🚗💰
           </Typography>
           <Typography variant="body1" align="center" mt={2}>
@@ -60,9 +60,13 @@ const FreebiesPage = () => {
             {/* Add more FAQs as needed */}
           </Box>
         </Box>
+      
       </Container>
     </Page>
+    
   );
+
+ 
 };
 
 export default FreebiesPage;

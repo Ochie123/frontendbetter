@@ -47,6 +47,16 @@ const OurCollection = lazy(() => import('../src/Layout/main-layout/SellAdvert/Ou
 const Howtosell = lazy(() => import('../src/Layout/main-layout/SellAdvert/Howtosell'));
 const OurSafeguards = lazy(() => import('../src/Layout/main-layout/SellAdvert/OurSafeguards'));
 const ContactUsPage = lazy(() => import('../src/view/pages/ContactUsPage'));
+const FreebiesPage = lazy(() => import('../src/view/pages/FreebiesPage'));
+const BlogPage = lazy(() => import('../src/view/pages/BlogPage'));
+const KnowledgeCenterPage = lazy(() => import('../src/view/pages/KnowledgeCenterPage'));
+const AffiliateProgramPage = lazy(() => import('../src/view/pages/AffiliateProgramPage'));
+const PrivacyPolicyPage = lazy(() => import('../src/view/pages/PrivacyPolicyPage'));
+const TermsConditionsPage = lazy(() => import('../src/view/pages/TermsConditionsPage'));
+
+
+
+
 
 
 function App() {
@@ -65,11 +75,17 @@ function App() {
               <Routes>
                 <Route path="/" element={<Homepage />} />
                 <Route path="login/" element={<LoginPage />} />
-                <Route path="/about" element={<AboutPage />} />
+                <Route path="/about-us" element={<AboutPage />} />
                 <Route path="/how-to-sell" element={<Howtosell />} />
                 <Route path="/our-safeguards" element={<OurSafeguards />} />
                 <Route path="/discover-our-collection" element={<OurCollection />} />
                 <Route path="contact-us/" element={<ContactUsPage />} />
+                <Route path="freebies/" element={<FreebiesPage />} />
+                <Route path="knowledge-center/" element={<KnowledgeCenterPage />} />
+                <Route path="terms-conditions/" element={<TermsConditionsPage />} />
+                <Route path="privacy-policy/" element={<PrivacyPolicyPage />} />
+                <Route path="blog/" element={<BlogPage />} />
+                <Route path="affiliate-program/" element={<AffiliateProgramPage />} />
                 <Route path="reports/" element={<DashboardDefaultContent />} />
                 <Route path="list-auctions/" element={<AuctionListView />} />
                 <Route path="create-auction/" element={<AuctionCreateView />} />
@@ -78,7 +94,6 @@ function App() {
                 <Route path="ending-soon/" element={<Ending />} />
                 <Route path="my-favorites/" element={<Favorites />} />
                 <Route path="my-bids/" element={<Mybids />} />
-                <Route path="product/" element={<DetailPage />} />
                 <Route path="users/:ownerId" element={<ProfileId />} />
                 <Route path="auctions/" element={<AuctionList />} />
                 <Route path="auctions/:id" element={<DetailPage/>} />
