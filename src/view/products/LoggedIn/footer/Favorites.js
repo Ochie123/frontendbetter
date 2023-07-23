@@ -464,7 +464,7 @@ const MyBids = function({
     const fetchAuctionChoices = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/trader/api/auction-choices/"
+          "https://cars-bids.online/trader/api/auction-choices/"
         )
         setAuctionChoices(response.data)
       } catch (error) {
