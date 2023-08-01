@@ -10,10 +10,10 @@ export default api;
 
 export const EndPoints = {
   sales: 'sales',
-  results: 'http://127.0.0.1:8000/api/auctions/',
-  login: 'http://127.0.0.1:8000/apis/auth/login/',
-  register: 'http://127.0.0.1:8000/apis/auth/register/',
-  users: 'http://127.0.0.1:8000/apis/users/',
+  results: 'https://cars-bids.online/api/auctions/',
+  login: 'https://cars-bids.online/apis/auth/login/',
+  register: 'https://cars-bids.online/apis/auth/register/',
+  users: 'https://cars-bids.online/apis/users/',
   usersDb: 'users-db',
   //usersDb: `http://127.0.0.1:8000/apis/user/${id}`,
 };

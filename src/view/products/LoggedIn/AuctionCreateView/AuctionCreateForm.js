@@ -128,7 +128,7 @@ const AuctionCreateForm = props => {
   useEffect(() => {
     const fetchAuctionChoices = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/trader/api/auction-choices/");
+        const response = await axios.get("https://cars-bids.online/trader/api/auction-choices/");
         setAuctionChoices(response.data);
       } catch (error) {
         console.error(error);
@@ -200,7 +200,7 @@ const AuctionCreateForm = props => {
           formData.append('starting_price', values.starting_price);
           // ... append other form fields
       
-          const response = await axios.post('http://127.0.0.1:8000/api/auctions/', formData, {
+          const response = await axios.post('https://cars-bids.online/api/auctions/', formData, {
             headers: {
               Authorization: `Bearer ${token}`,
               'Content-Type': 'multipart/form-data',

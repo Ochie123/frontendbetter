@@ -1,47 +1,47 @@
 const URLS = {
 
-  USERS: "http://127.0.0.1:8000/apis/users/",
-  USER: (id) => `http://127.0.0.1:8000/apis/users/${id}`,
+  USERS: "https://cars-bids.online/apis/users/",
+  USER: (id) => `https://cars-bids.online/apis/users/${id}`,
 
 
-  AUCTIONS: "http://127.0.0.1:8000/api/auctions/",
-  AUCTION: (uuid) => `http://127.0.0.1:8000/api/auctions/${uuid}`,
+  AUCTIONS: "https://cars-bids.online/api/auctions/",
+  AUCTION: (uuid) => `https://cars-bids.online/api/auctions/${uuid}`,
 
-  ENDEDS: "http://127.0.0.1:8000/api/auctions/ended_auctions/",
-  ENDED: (uuid) => `http://127.0.0.1:8000/api/auctions/ended_auctions/${uuid}`,
+  ENDEDS: "https://cars-bids.online/api/auctions/ended_auctions/",
+  ENDED: (uuid) => `https://cars-bids.online/api/auctions/ended_auctions/${uuid}`,
 
-  ALLS: "http://127.0.0.1:8000/api/auctions/all_auctions_ordered_by_ending_soon/",
-  ALL: (uuid) => `http://127.0.0.1:8000/api/auctions/all_auctions_ordered_by_ending_soon/${uuid}`,
+  ALLS: "https://cars-bids.online/api/auctions/all_auctions_ordered_by_ending_soon/",
+  ALL: (uuid) => `https://cars-bids.online/api/auctions/all_auctions_ordered_by_ending_soon/${uuid}`,
   
-  BIDS: "http://127.0.0.1:8000/api/bid/",
-  BID: (id) => `http://127.0.0.1:8000/api/bid/${id}`,
+  BIDS: "https://cars-bids.online/api/bid/",
+  BID: (id) => `https://cars-bids.online/api/bid/${id}`,
 
-  MAKES: "http://127.0.0.1:8000/api/make/",
-  MAKE: (id) => `http://127.0.0.1:8000/api/make/${id}`,
+  MAKES: "https://cars-bids.online/api/make/",
+  MAKE: (id) => `https://cars-bids.online/api/make/${id}`,
 
-  MODELS: "http://127.0.0.1:8000/api/model/",
-  MODEL: (id) => `http://127.0.0.1:8000/api/model/${id}`,
+  MODELS: "https://cars-bids.online/api/model/",
+  MODEL: (id) => `https://cars-bids.online/api/model/${id}`,
 
-  CATEGORIES: "http://127.0.0.1:8000/api/categories/",
-  CATEGORY: (id) => `http://127.0.0.1:8000/api/categories/${id}`,
+  CATEGORIES: "https://cars-bids.online/api/categories/",
+  CATEGORY: (id) => `https://cars-bids.online/api/categories/${id}`,
   
-  COMMENTS: "http://127.0.0.1:8000/api/comment/",
-  COMMENT: (id) => `http://127.0.0.1:8000/api/comment/${id}`,
+  COMMENTS: "https://cars-bids.online/api/comment/",
+  COMMENT: (id) => `https://cars-bids.online/api/comment/${id}`,
 
-  CARS_SPECIFICATIONS: "http://127.0.0.1:8000/api/car-specifications/",
-  CARS_SPECIFICATION: (id) => `http://127.0.0.1:8000/api/car-specifications/${id}`,
+  CARS_SPECIFICATIONS: "https://cars-bids.online/api/car-specifications/",
+  CARS_SPECIFICATION: (id) => `https://cars-bids.online/api/car-specifications/${id}`,
 
-  IMAGES: "http://127.0.0.1:8000/api/images/",
-  IMAGE: (id) => `http://127.0.0.1:8000/api/images/${id}`,
+  IMAGES: "https://cars-bids.online/api/images/",
+  IMAGE: (id) => `https://cars-bids.online/api/images/${id}`,
 
-  VOTES: "http://127.0.0.1:8000/api/votes/",
-  VOTE: (id) => `http://127.0.0.1:8000/api/votes/${id}`,
+  VOTES: "https://cars-bids.online/api/votes/",
+  VOTE: (id) => `https://cars-bids.online/api/votes/${id}`,
 
-  WATCHLISTS: "http://127.0.0.1:8000/api/watchlist/",
-  WATCHLIST: (id) => `http://127.0.0.1:8000/api/watchlist/${id}`,
+  WATCHLISTS: "https://cars-bids.online/api/watchlist/",
+  WATCHLIST: (id) => `https://cars-bids.online/api/watchlist/${id}`,
 
-  RECENTLYVIEWEDS: "http://127.0.0.1:8000/api/auctions/recently_viewed/",
-  RECENTLYVIEWED: (uuid) => `http://127.0.0.1:8000/api/auctions/${uuid}`,
+  RECENTLYVIEWEDS: "https://cars-bids.online/api/auctions/recently_viewed/",
+  RECENTLYVIEWED: (uuid) => `https://cars-bids.online/api/auctions/${uuid}`,
 };
 
 const wrappedFetch = (...args) => {
