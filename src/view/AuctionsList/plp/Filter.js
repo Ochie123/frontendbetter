@@ -97,11 +97,10 @@ const Filter = function({
   }
   const { auction } = useThisAuction(uuid)
 
-  const { data: auctionsData = { results: [] } } = useQuery(
-    "results",
-    loadAuctions
-  )
-  const allResults = auctionsData.results
+  const { data } = useQuery("", loadAuctions);
+  //console.log(data)
+  
+  const allResults = data
 
   const { data: imagesData = { results: [] } } = useQuery("images", loadImages)
   const images = imagesData.results
@@ -163,7 +162,7 @@ const Filter = function({
 
   useEffect(() => {
     if (auction && auction.start_time && auction.duration) {
-      const durationInMilliseconds = auction.duration * 24 * 60 * 60 * 1000 // Convert duration from days to milliseconds
+      const durationInMilliseconds = auction.duration * 1000 // Convert duration from days to milliseconds
       const endTimeInMilliseconds =
         new Date(auction.start_time).getTime() + durationInMilliseconds
       const endTime = new Date(endTimeInMilliseconds)
@@ -179,7 +178,7 @@ const Filter = function({
 
     return (
       <>
-        {filteredResults.map(auction => {
+        {filteredResults?.map(auction => {
           const filteredImages = images.filter(
             image => image.auction === auction.uuid
           )
@@ -190,7 +189,7 @@ const Filter = function({
             0
           )
           const startTime = new Date(auction?.start_time)
-          const durationInMilliseconds = auction?.duration * 24 * 60 * 60 * 1000 // Convert duration from days to milliseconds
+          const durationInMilliseconds = auction?.duration * 1000 // Convert duration from days to milliseconds
           const endTime = new Date(startTime.getTime() + durationInMilliseconds)
 
           const getAuctionStatus = (startTime, endTime, currentTime) => {
@@ -513,7 +512,7 @@ const Filter = function({
     >
       <Container maxWidth="lg">
         <div className="d-flex border-bottom pb-2">
-        <h4 className="mb-2">All Auctions ({allResults.length})</h4>
+        <h4 className="mb-2">All Auctions ({allResults?.length})</h4>
           <div className="d-flex ms-auto align-items-center">
             <SortButton />
           </div>

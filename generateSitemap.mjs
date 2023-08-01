@@ -37,5 +37,5 @@ sitemapStream.end();
 streamToPromise(sitemapStream).then((sm) =>
   fs.writeFileSync(sitemapPath, sm.toString())
 );
-//
+//npm install sitemap --save
 //run.. node --experimental-modules generateSitemap.mjs

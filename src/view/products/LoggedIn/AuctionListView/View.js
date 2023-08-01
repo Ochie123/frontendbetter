@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 
 import { useQuery } from "react-query";
-import { loadAuctions } from '../../../../data/api/api'
+import { loadAlls } from '../../../../data/api/api'
 //import { useAllProducts } from '../../../../data';
 import Header from './Header';
 import Results from './Results';
@@ -26,7 +26,7 @@ import { saveClaimsAction } from '../../../../features/auth/authSlice';
 
 function ProductListView () {
   const classes = useStyles();
-  const { data = { results: [] }} = useQuery("results", loadAuctions);
+  const { data } = useQuery("", loadAlls);
   const [open, setOpen] = React.useState(false);
 
 
@@ -52,7 +52,7 @@ function ProductListView () {
   //const results = data.results;
 
   //let filteredResults = results.filter((results)=> results?.owner_id === savedClaims.user_id);
-  let results = data.results.filter((result) => result?.owner_id === savedClaims?.user_id);
+  let results = data?.filter((result) => result?.owner_id === savedClaims?.user_id);
   //console.log(results)
 
   const handleClose = () => {
@@ -68,7 +68,7 @@ function ProductListView () {
         <Header />
       
  
-    {data.results && (
+    {data && (
           <Box mt={3}>
             <Results results={results} />
           </Box>

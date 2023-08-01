@@ -5,6 +5,7 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import PendingIcon from '@mui/icons-material/Pending';
 
 import Paper from '@mui/material/Paper';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
@@ -29,6 +30,9 @@ export default function FixedBottomNavigation() {
         </Link>
         <Link to="my-bids/">
           <BottomNavigationAction label="Archive" icon={<LocalOfferIcon/>} />
+        </Link>
+        <Link to="ended-auctions/">
+          <BottomNavigationAction label="Archive" icon={<PendingIcon/>} />
         </Link>
         </BottomNavigation>
       </Paper>

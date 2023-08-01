@@ -37,7 +37,7 @@ function Ending({ uuid }) {
 
   useEffect(() => {
     if (auction && auction.start_time && auction.duration) {
-      const durationInMilliseconds = auction.duration * 24 * 60 * 60 * 1000 // Convert duration from days to milliseconds
+      const durationInMilliseconds = auction.duration * 1000 // Convert duration from days to milliseconds
       const endTimeInMilliseconds =
         new Date(auction.start_time).getTime() + durationInMilliseconds
       const endTime = new Date(endTimeInMilliseconds)
@@ -50,7 +50,7 @@ function Ending({ uuid }) {
     // Update the end_time when a new auction is added
     setEndTime(null) // Reset end_time to null initially
     if (auction && auction.start_time && auction.duration) {
-      const durationInMilliseconds = auction.duration * 24 * 60 * 60 * 1000 // Convert duration from days to milliseconds
+      const durationInMilliseconds = auction.duration * 1000 // Convert duration from days to milliseconds
       const endTimeInMilliseconds =
         new Date(auction.start_time).getTime() + durationInMilliseconds
       const endTime = new Date(endTimeInMilliseconds)

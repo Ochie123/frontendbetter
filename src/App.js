@@ -53,6 +53,7 @@ const KnowledgeCenterPage = lazy(() => import('../src/view/pages/KnowledgeCenter
 const AffiliateProgramPage = lazy(() => import('../src/view/pages/AffiliateProgramPage'));
 const PrivacyPolicyPage = lazy(() => import('../src/view/pages/PrivacyPolicyPage'));
 const TermsConditionsPage = lazy(() => import('../src/view/pages/TermsConditionsPage'));
+const EndedAuctions = lazy(() => import('../src/view/pages/EndedAuctions'));
 
 
 
@@ -94,6 +95,7 @@ function App() {
                 <Route path="ending-soon/" element={<Ending />} />
                 <Route path="my-favorites/" element={<Favorites />} />
                 <Route path="my-bids/" element={<Mybids />} />
+                <Route path="ended-auctions/" element={<EndedAuctions />} />
                 <Route path="users/:ownerId" element={<ProfileId />} />
                 <Route path="auctions/" element={<AuctionList />} />
                 <Route path="auctions/:id" element={<DetailPage/>} />

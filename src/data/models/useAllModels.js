@@ -3,7 +3,7 @@ import { loadModels } from '../../../src/data/api/api'
 
 function useAllModels() {
   const { data = { results: [] }} = useQuery("models", loadModels);
-  console.log(data)
+  //console.log(data)
  
   return (data.results ?? []).map(({ id }) => id);
 }

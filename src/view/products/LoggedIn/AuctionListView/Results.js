@@ -222,7 +222,7 @@ const Results = ({ className, results, result, ...rest }) => {
 
   useEffect(() => {
     if (result && result.start_time && result.duration) {
-      const durationInMilliseconds = result.duration * 24 * 60 * 60 * 1000 // Convert duration from days to milliseconds
+      const durationInMilliseconds = result.duration * 1000 // Convert duration from days to milliseconds
       const endTimeInMilliseconds =
         new Date(result.start_time).getTime() + durationInMilliseconds
       const endTime = new Date(endTimeInMilliseconds)
@@ -452,7 +452,7 @@ const Results = ({ className, results, result, ...rest }) => {
 
                   const startTime = new Date(result?.start_time)
                   const durationInMilliseconds =
-                    result?.duration * 24 * 60 * 60 * 1000 // Convert duration from days to milliseconds
+                    result?.duration * 1000 // Convert duration from days to milliseconds
                   const endTime = new Date(
                     startTime.getTime() + durationInMilliseconds
                   )
@@ -474,7 +474,7 @@ const Results = ({ className, results, result, ...rest }) => {
                       <TableCell>
                         {new Date(result.start_time).toLocaleString()}
                       </TableCell>
-                      <TableCell> {result.duration} day(s)</TableCell>
+                      <TableCell> {result.duration/(24 * 60 * 60)} day(s)</TableCell>
                       <TableCell>{auctionStatus}</TableCell>
 
                       <TableCell>{highestBid}</TableCell>

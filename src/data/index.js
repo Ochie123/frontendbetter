@@ -17,6 +17,10 @@ export { default as useThisAuction } from "./auctions/useThisAuction";
 export { default as useThatAuction } from "./auctions/useThatAuction";
 export { default as useHasCurrentAuction } from "./auctions/useHasCurrentAuction";
 
+export { default as useThisEnded} from "./endeds/useThisEnded";
+
+export { default as useThisAll} from "./alls/useThisAll";
+
 
 export { default as useAllComments } from "./comments/useAllComments";
 export { default as useThisComment } from "./comments/useThisComment";

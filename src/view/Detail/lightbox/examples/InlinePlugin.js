@@ -15,7 +15,6 @@ import { useQuery } from "react-query";
 import { loadImages } from '../../../../data/api/api'
 import { loadAuction } from '../../../../data/api/api'
 import { useParams } from 'react-router-dom';
-import useCurrent from '../../../../../src/data/products/useCurrent'
 
 import { Box, Container, Typography, useMediaQuery } from "@mui/material"
 

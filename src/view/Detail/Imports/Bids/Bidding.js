@@ -31,7 +31,7 @@ export default function Bidding(props) {
 
   useEffect(() => {
     if (auction && auction.start_time && auction.duration) {
-      const durationInMilliseconds = auction.duration * 24 * 60 * 60 * 1000; // Convert duration from days to milliseconds
+      const durationInMilliseconds = auction.duration * 1000; // Convert duration from days to milliseconds
       const endTimeInMilliseconds = new Date(auction.start_time).getTime() + durationInMilliseconds;
       const endTime = new Date(endTimeInMilliseconds);
 
@@ -72,7 +72,7 @@ const placeAmount = (evt) => {
   const token = localStorage.getItem('token');
 
   axios
-    .post('https://cars-bids.online/api/bid/', formData, {
+    .post('http://127.0.0.1:8000/api/bid/', formData, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',

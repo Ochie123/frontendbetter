@@ -33,6 +33,7 @@ const router = {
       name: "resources",
       items: [
         { name: "affiliate program", href: "https://cars-bids.com/affiliate-program"},
+        { name: "ended auctions", href: "http://localhost:3000/ended-auctions"},
       ],
     },
     {

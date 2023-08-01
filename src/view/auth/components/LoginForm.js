@@ -29,7 +29,7 @@ function LoginForm({}) {
   const saveUserAuthDetails = (data) => {
     localStorage.setItem(key,data.access);
     const claims = jwt_decode( data.access);
-    console.log('Claims::', claims);
+    //console.log('Claims::', claims);
     dispatch(saveTokenAction( data.access));
     dispatch(saveClaimsAction(claims));
     

@@ -35,7 +35,7 @@ function RegisterForm() {
   const saveUserAuthDetails = data => {
     localStorage.setItem(key, data.token)
     const claims = jwt_decode(data.token)
-    console.log("Claims::", claims)
+    //console.log("Claims::", claims)
     dispatch(saveTokenAction(data.token))
     dispatch(saveClaimsAction(claims))
   }

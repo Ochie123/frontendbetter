@@ -46,14 +46,14 @@ function ProfileId({ownerId}){
     loadAuction(id)
   );
 
-    console.log(id);
+   // console.log(id);
 
-    console.log(auctions)
+   // console.log(auctions)
   
    
 
     const filteredAuctions = auctions.filter(auction => auction.owner_id === ownerId);
-    console.log(filteredAuctions)
+   // console.log(filteredAuctions)
     //let auctionss = auctions.filter((auction) => owner.auction === owner.id);
     //let productComments = comments.filter((comment) => comment.auction === auction?.uuid);
   

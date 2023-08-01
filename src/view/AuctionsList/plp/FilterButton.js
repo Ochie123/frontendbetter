@@ -65,7 +65,7 @@ const FilterButton = function({ classes: c = {}, title, drawerProps, onClick, hr
   const handleViewResultsClick = useCallback(() => {
     toggleOpen(false);
     // Actions applyFilters logic here
-    console.log('Applying filters...');
+   // console.log('Applying filters...');
   }, []);
 
   const getFilterList = () => {

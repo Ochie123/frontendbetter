@@ -7,9 +7,9 @@ import useCurrentAuction from "./useCurrentAuction";
 
 function useThisAuction(uuid) {
   const queryClient = useQueryClient();
-  const { data } = useQuery("results", loadAuctions);
+  const { data } = useQuery("", loadAuctions);
   const onSuccess = ({ username}) =>
-    queryClient.setQueryData("results", (oldAuctions) =>
+    queryClient.setQueryData("", (oldAuctions) =>
       oldAuctions.map((oldAuction) =>
         oldAuction.uuid !== uuid ? oldAuction : { uuid, username}
       )
@@ -17,7 +17,7 @@ function useThisAuction(uuid) {
 
   const seeAuction = useCurrentAuction((state) => state.seeAuction);
   return {
-    auction: data?.results.find((p) => p.uuid === uuid),
+    auction: data?.find((p) => p.uuid === uuid),
     seeAuction: () => seeAuction(uuid),
   };
 }

@@ -13,39 +13,38 @@ import Typography from "@mui/joy/Typography"
 import ListItem from "@mui/joy/ListItem"
 import CollectionsIcon from "@mui/icons-material/Collections"
 import InfoRounded from "@mui/icons-material/InfoRounded"
-import jwt_decode from "jwt-decode";
-import { useQuery } from "react-query";
-import { useDispatch } from 'react-redux';
+
 //import Sheet from '@mui/joy/Sheet';
 //import List from '@mui/joy/List';
 import ListDivider from "@mui/joy/ListDivider"
 import ListItemContent from "@mui/joy/ListItemContent"
 import ListItemButton from "@mui/joy/ListItemButton"
-import { useParams } from "react-router-dom"
+import { useQuery } from "react-query"
+
 import Drawer from "@mui/material/Drawer"
 import IconButton from "@mui/material/IconButton"
 import FilterListIcon from "@mui/icons-material/FilterList"
-import CheckboxFilterGroup from "../../../AuctionsList/plp/CheckboxFilterGroup"
-import Timer from "../../../Homepage/Timer"
-import FilterHeader from "../../../AuctionsList/plp/FilterHeader"
-import FilterFooter from "../../../AuctionsList/plp/FilterFooter"
-import SortButton from "../../../AuctionsList/plp/SortButton"
-import { useThisAuction } from "../../../../data"
 
-import { saveClaimsAction } from '../../../../features/auth/authSlice';
+import CheckboxFilterGroup from "../AuctionsList/plp/CheckboxFilterGroup"
+import Timer from "../Homepage/Timer"
+import FilterHeader from "../AuctionsList/plp/FilterHeader"
+import FilterFooter from "../AuctionsList/plp/FilterFooter"
+
+import SortButton from "../AuctionsList/plp/SortButton"
+
+import { useThisEnded } from "../../data"
+
 import {
   loadCategories,
   loadMakes,
   loadModels,
-  loadAlls,
+  loadEndeds,
   loadImages,
   loadBids,
-  loadVotes,
-  loadAuction,
-  loadWatchlists,
-} from "../../../../data/api/api"
+  loadVotes
+} from "../../data/api/api"
 
-import { SelectedFiltersProvider } from "../../../AuctionsList/plp/SelectedFiltersContext"
+import { SelectedFiltersProvider } from "../AuctionsList/plp/SelectedFiltersContext"
 
 const PREFIX = "RSFFilter"
 
@@ -76,7 +75,7 @@ const Root = styled("div")(({ theme }) => ({
   }
 }))
 
-const MyBids = function({
+const Filter = function({
   expandAll,
   hideClearLink,
   clearLinkText,
@@ -98,30 +97,12 @@ const MyBids = function({
   const toggleDrawer = () => {
     setDrawerOpen(!isDrawerOpen)
   }
-  const { id } = useParams()
+  const { auction } = useThisEnded(uuid)
 
-  const { data: auction } = useQuery(["currentAuction", { id }], () =>
-    loadAuction(id)
-  )
-  const { data } = useQuery("", loadAlls);
-  const auctions = data;
-
-  const dispatch = useDispatch();
-  const token = localStorage.getItem('token');
-  const savedClaims = JSON.parse(localStorage.getItem('claims'));
-
-  useEffect(() => {
-    if (token && !savedClaims) {
-      const claims = jwt_decode(token);
-      dispatch(saveClaimsAction(claims));
-      localStorage.setItem('claims', JSON.stringify(claims));
-    }
-  }, [token, savedClaims, dispatch]);
-
-
-  //console.log(allResults);
+  const { data } = useQuery("", loadEndeds);
+  //console.log(data)
   
- 
+  const allResults = data
 
   const { data: imagesData = { results: [] } } = useQuery("images", loadImages)
   const images = imagesData.results
@@ -131,12 +112,6 @@ const MyBids = function({
 
   const { data: votesData = { results: [] } } = useQuery("votes", loadVotes)
   const votes = votesData.results
-  const { data: watchlistsData = { results: [] } } = useQuery("watchlists", loadWatchlists);
-  const watchlists = watchlistsData.results;
-
-  const userWatchlists = watchlists?.filter(watchlist => watchlist?.user === savedClaims?.user_id);
-
-  const allResults = userWatchlists
 
   const filterResults = () => {
     if (selectedFilters.length === 0) {
@@ -166,8 +141,9 @@ const MyBids = function({
           return true
         }
 
-        if (filterType === "year" && year == filterValue) {
-          return true
+        if (filterType === "year") {
+          const selectedYears = filterValue.split(",")
+          return selectedYears.includes(year.toString())
         }
 
         return false
@@ -202,25 +178,20 @@ const MyBids = function({
   const renderFilteredResults = () => {
     const filteredResults = filterResults()
 
-    //      {Array.from(new Set(filteredResults.map(watchlist => watchlist.auction))).map(auctionUUID => {
-    //  const favoriteAuction = auctions.find(auction => auction.uuid === auctionUUID);
-
     return (
       <>
-        {Array.from(new Set(filteredResults.map(watchlist => watchlist.auction))).map(auctionUUID => {
-            const favoriteAuction = auctions?.find(auction => auction.uuid === auctionUUID);
-            if (favoriteAuction) {
-              const filteredImages = images.filter(image => image.auction === favoriteAuction?.uuid);
-              const firstImage = filteredImages.length > 0 ? filteredImages[0] : null;
-              let AuctionBids = bids.filter(bid => bid.auction === favoriteAuction?.uuid)
+        {filteredResults?.map(auction => {
+          const filteredImages = images.filter(
+            image => image.auction === auction.uuid
+          )
+          let AuctionBids = bids.filter(bid => bid.auction === auction?.uuid)
 
-              const highestBid = Math.max(
-                ...AuctionBids.map(bid => parseFloat(bid.amount)),
-                0
-              )
-
-          const startTime = new Date(favoriteAuction?.start_time)
-          const durationInMilliseconds = favoriteAuction?.duration * 1000 // Convert duration from days to milliseconds
+          const highestBid = Math.max(
+            ...AuctionBids.map(bid => parseFloat(bid.amount)),
+            0
+          )
+          const startTime = new Date(auction?.start_time)
+          const durationInMilliseconds = auction?.duration * 1000 // Convert duration from days to milliseconds
           const endTime = new Date(startTime.getTime() + durationInMilliseconds)
 
           const getAuctionStatus = (startTime, endTime, currentTime) => {
@@ -239,17 +210,12 @@ const MyBids = function({
             endTime,
             currentDate
           )
-          const filteredBids = bids?.filter(bid => bid?.bidder === savedClaims?.user_id);
 
-   
-        
           //console.log(auctionStatus)
 
-          let AuctionVotes = votes.filter(vote => vote.auction === favoriteAuction?.uuid)
+          let AuctionVotes = votes.filter(vote => vote.auction === auction?.uuid)
 
           //console.log(AuctionVotes)
-
-    
         
           let totalVotes = AuctionVotes.length
           let sumVotes = AuctionVotes.reduce(
@@ -262,9 +228,11 @@ const MyBids = function({
           let formattedScore = averageScore.toFixed(2)
           //console.log(`Confidence score of ${formattedScore}%`);
 
- 
+          const firstImage =
+            filteredImages.length > 0 ? filteredImages[0] : null
+
           return (
-            <Link to={`/auctions/${favoriteAuction.uuid}`} key={favoriteAuction.uuid}>
+            <Link to={`/auctions/${auction.uuid}`} key={auction.uuid}>
               <React.Fragment>
                 <ListItem>
                   <ListItemButton sx={{ gap: 2 }}>
@@ -280,7 +248,7 @@ const MyBids = function({
                           <img
                             src={firstImage.image}
                             className="card-img-top"
-                            alt={favoriteAuction.name}
+                            alt={auction.name}
                           />
                           <div
                             style={{
@@ -290,7 +258,7 @@ const MyBids = function({
                               padding: "0px"
                             }}
                           >
-                            {currentDate > new Date(favoriteAuction?.start_time) ? (
+                            {currentDate > new Date(auction?.start_time) ? (
                               <>
                                 {endTime && currentDate < new Date(endTime) ? (
                                   <Typography
@@ -338,7 +306,7 @@ const MyBids = function({
                                   component="p"
                                   variant="h6"
                                 >{`Auction Starts at ${new Date(
-                                  favoriteAuction?.start_time
+                                  auction?.start_time
                                 ).toLocaleString()}`}</Typography>
                               </Box>
                             )}
@@ -363,11 +331,10 @@ const MyBids = function({
                                   verticalAlign: "text-top"
                                 })}
                               >
-                               {highestBid}
+                                {highestBid}
                               </Typography>
                             )}
                           </div>
-            
 
                           <div
                             style={{
@@ -396,7 +363,7 @@ const MyBids = function({
                     </AspectRatio>
                     <ListItemContent>
                       <Typography fontWeight="xl">
-                        {favoriteAuction?.year} {favoriteAuction?.make} {favoriteAuction?.model}
+                        {auction?.year} {auction?.make} {auction?.model}
                       </Typography>
                       <Typography level="body2">
                      
@@ -419,7 +386,7 @@ const MyBids = function({
                         </span>
                           </Typography>
                      
-              
+                        
                       </Typography>
                     </ListItemContent>
                   </ListItemButton>
@@ -430,8 +397,6 @@ const MyBids = function({
               </React.Fragment>
             </Link>
           )
-        }
-        return null;
         })}
       </>
     )
@@ -481,7 +446,7 @@ const MyBids = function({
       name: "Category",
       options: categories.map(category => ({
         name: category.name,
-        code: `category:${category.id}`,
+        code: `category:${category.name}`,
         matches: 20
       }))
     },
@@ -540,8 +505,6 @@ const MyBids = function({
     }
   }
 
-  const filteredResultsLength = Array.from(new Set(userWatchlists.map(watchlist => watchlist.auction))).length;
-
   return (
     <SelectedFiltersProvider
       value={{
@@ -551,7 +514,7 @@ const MyBids = function({
     >
       <Container maxWidth="lg">
         <div className="d-flex border-bottom pb-2">
-        <h4 className="mb-2">My Favorites ({filteredResultsLength})</h4>
+        <h4 className="mb-2">Ended Auctions ({allResults?.length})</h4>
           <div className="d-flex ms-auto align-items-center">
             <SortButton />
           </div>
@@ -664,7 +627,7 @@ const MyBids = function({
   )
 }
 
-MyBids.propTypes = {
+Filter.propTypes = {
   classes: PropTypes.object,
   onViewResultsClick: PropTypes.func,
   title: PropTypes.string,
@@ -675,9 +638,9 @@ MyBids.propTypes = {
   style: PropTypes.object
 }
 
-MyBids.defaultProps = {
+Filter.defaultProps = {
   onViewResultsClick: Function.prototype,
   submitOnChange: false
 }
 
-export default memo(MyBids)
+export default memo(Filter)

@@ -13,9 +13,9 @@ const Main = styled.main`
 
 
 function EndingSoon() {
-  const results = useAllAuctions();
+  const data = useAllAuctions();
 
- // console.log(results)
+  console.log(data)
 
     return (
        <>
@@ -49,7 +49,7 @@ function EndingSoon() {
             '::-webkit-scrollbar': { display: 'none' },
           }}
         >
-        {results.slice(0, 10).map((uuid) => (
+        {data?.slice(0, 10).map((uuid) => (
         <Ending uuid={uuid} key={uuid} />
       ))}
         </Box>

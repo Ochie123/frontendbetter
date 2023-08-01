@@ -36,7 +36,7 @@ import {
   loadCategories,
   loadMakes,
   loadModels,
-  loadAuctions,
+  loadAlls,
   loadImages,
   loadBids,
   loadVotes,
@@ -100,11 +100,10 @@ const MyBids = function({
     loadAuction(uuid)
   )
 
-  const { data: AuctionsData = { results: [] } } = useQuery(
-    "results",
-    loadAuctions
-  )
-  const auctions = AuctionsData.results
+  const { data} = useQuery( "", loadAlls)
+  const auctions = data;
+
+  //console.log(auctions)
 
   const dispatch = useDispatch()
   const token = localStorage.getItem("token")
@@ -185,7 +184,7 @@ const MyBids = function({
 
   useEffect(() => {
     if (auction && auction.start_time && auction.duration) {
-      const durationInMilliseconds = auction.duration * 24 * 60 * 60 * 1000 // Convert duration from days to milliseconds
+      const durationInMilliseconds = auction.duration * 1000 // Convert duration from days to milliseconds
       const endTimeInMilliseconds =
         new Date(auction.start_time).getTime() + durationInMilliseconds
       const endTime = new Date(endTimeInMilliseconds)
@@ -199,11 +198,15 @@ const MyBids = function({
   const renderFilteredResults = () => {
     const filteredResults = filterResults()
 
+    //console.log(filteredResults)
+
+   // console.log(auctions)
+
     return (
       <>
         {Array.from(new Set(filteredResults.map(bid => bid.auction))).map(
           auctionUUID => {
-            const userBid = auctions.find(
+            const userBid = auctions?.find(
               auction => auction.uuid === auctionUUID
             )
             if (userBid) {
@@ -216,7 +219,7 @@ const MyBids = function({
 
               const startTime = new Date(userBid?.start_time)
               const durationInMilliseconds =
-                userBid?.duration * 24 * 60 * 60 * 1000 // Convert duration from days to milliseconds
+                userBid?.duration * 1000 // Convert duration from days to milliseconds
               const endTime = new Date(
                 startTime.getTime() + durationInMilliseconds
               )

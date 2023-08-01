@@ -35,7 +35,7 @@ var Sort = function ({ variant, classes: c = {}, onSelect }) {
 
     if (!e.defaultPrevented) {
       // Perform sorting logic
-      console.log('Sorting by:', option.code);
+      //console.log('Sorting by:', option.code);
     }
   };
 
