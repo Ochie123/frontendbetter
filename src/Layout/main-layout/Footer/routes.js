@@ -24,30 +24,30 @@ const router = {
     {
       name: "company",
       items: [
-        { name: "about us", href: "https://cars-bids.com/about-us" },
-        { name: "freebies", href: "https://cars-bids.com/freebies" },
-        { name: "blog", href: "https://cars-bids.com/blog" },
+        { name: "about us", href: "/about-us" },
+        { name: "freebies", href: "/freebies" },
+        { name: "blog", href: "/blog" },
       ],
     },
     {
       name: "resources",
       items: [
-        { name: "affiliate program", href: "https://cars-bids.com/affiliate-program"},
-        { name: "ended auctions", href: "https://cars-bids.com/ended-auctions"},
+        { name: "affiliate program", href: "/affiliate-program"},
+        { name: "ended auctions", href: "/ended-auctions"},
       ],
     },
     {
       name: "help & support",
       items: [
-        { name: "contact us", href: "https://cars-bids.com/contact-us"},
-        { name: "knowledge center",href: "https://cars-bids.com/knowledge-center" },
+        { name: "contact us", href: "/contact-us"},
+        { name: "knowledge center",href: "/knowledge-center" },
       ],
     },
     {
       name: "legal",
       items: [
-        { name: "terms & conditions", href: "https://cars-bids.com/terms-conditions"},
-        { name: "privacy policy", href: "https://cars-bids.com/privacy-policy" },
+        { name: "terms & conditions", href: "/terms-conditions"},
+        { name: "privacy policy", href: "/privacy-policy" },
       ],
     },
   ],
