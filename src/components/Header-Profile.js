@@ -66,7 +66,7 @@ const HeaderProfile = () => {
 
   //console.log(savedClaims)
 
-  const username = users.find(user => user.id === savedClaims?.user_id)?.username;
+  const username = users?.find(user => user.id === savedClaims?.user_id)?.username;
   //console.log(username);
 
 

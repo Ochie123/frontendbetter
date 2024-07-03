@@ -9,7 +9,7 @@ function useThatWatchlist() {
   // Find what we already know about this thing
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData("watchlists");
-  const partialWatchlist = data.watchlists.find((w) => w.id === id);
+  const partialWatchlist = data?.watchlists?.find((w) => w.id === id);
   const placeholderData = {
     ...partialWatchlist,
    

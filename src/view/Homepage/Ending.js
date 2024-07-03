@@ -1,106 +1,84 @@
-import React, { useState, useEffect } from "react"
-import AspectRatio from "@mui/joy/AspectRatio"
-import Box from "@mui/joy/Box"
-import Typography from "@mui/joy/Typography"
-import Card from "@mui/joy/Card"
-import CollectionsIcon from "@mui/icons-material/Collections"
-import InfoRounded from "@mui/icons-material/InfoRounded"
-import { useQuery } from "react-query"
-import { loadImages, loadVotes } from "../../data/api/api"
+import React, { useState, useEffect } from "react";
+import AspectRatio from "@mui/joy/AspectRatio";
+import Box from "@mui/joy/Box";
+import Typography from "@mui/joy/Typography";
+import Card from "@mui/joy/Card";
+import CollectionsIcon from "@mui/icons-material/Collections";
+import InfoRounded from "@mui/icons-material/InfoRounded";
+import { useQuery } from "react-query";
+import { loadImages, loadVotes, loadBids } from "../../data/api/api";
 
-import Timer from "./Timer"
-//import { useAllProducts } from '../../data';
-import { useThisAuction } from "../../data"
-import { Link } from "react-router-dom"
-import { loadBids } from "../../data/api/api"
+import Timer from "./Timer";
+import { useThisAuction } from "../../data";
+import { Link } from "react-router-dom";
 
 function Ending({ uuid }) {
-  //const results = useAllProducts();
-  const { data = { results: [] } } = useQuery("images", loadImages)
-  const { auction } = useThisAuction(uuid)
+  const { data: imagesData = { results: [] } } = useQuery("images", loadImages);
+  const { auction } = useThisAuction(uuid);
 
-  const results = data.results
+  const results = imagesData.results;
+  console.log(results);
 
-  const { data: bidsData = { results: [] } } = useQuery("bids", loadBids)
-  const bids = bidsData.results
+  const { data: bidsData = { results: [] } } = useQuery("bids", loadBids);
+  const bids = bidsData.results;
 
-  const { data: votesData = { results: [] } } = useQuery("votes", loadVotes)
-  const votes = votesData.results
+  const { data: votesData = { results: [] } } = useQuery("votes", loadVotes);
+  const votes = votesData.results;
 
-  const [justEnded, setJustEnded] = useState(false)
+  const [justEnded, setJustEnded] = useState(false);
 
   const update = () => {
-    setJustEnded(true)
-  }
+    setJustEnded(true);
+  };
 
-  const [end_time, setEndTime] = useState(null)
+  const [endTime, setEndTime] = useState(null);
 
   useEffect(() => {
     if (auction && auction.start_time && auction.duration) {
-      const durationInMilliseconds = auction.duration * 1000 // Convert duration from days to milliseconds
-      const endTimeInMilliseconds =
-        new Date(auction.start_time).getTime() + durationInMilliseconds
-      const endTime = new Date(endTimeInMilliseconds)
+      const durationInMilliseconds = auction.duration * 24 * 60 * 60 * 1000; // Convert duration from days to milliseconds
+      const endTimeInMilliseconds = new Date(auction.start_time).getTime() + durationInMilliseconds;
+      const endTime = new Date(endTimeInMilliseconds);
 
-      setEndTime(endTime)
+      setEndTime(endTime);
     }
-  }, [auction])
+  }, [auction]);
 
   useEffect(() => {
     // Update the end_time when a new auction is added
-    setEndTime(null) // Reset end_time to null initially
+    setEndTime(null); // Reset end_time to null initially
     if (auction && auction.start_time && auction.duration) {
-      const durationInMilliseconds = auction.duration * 1000 // Convert duration from days to milliseconds
-      const endTimeInMilliseconds =
-        new Date(auction.start_time).getTime() + durationInMilliseconds
-      const endTime = new Date(endTimeInMilliseconds)
+      const durationInMilliseconds = auction.duration * 24 * 60 * 60 * 1000; // Convert duration from days to milliseconds
+      const endTimeInMilliseconds = new Date(auction.start_time).getTime() + durationInMilliseconds;
+      const endTime = new Date(endTimeInMilliseconds);
 
-      setEndTime(endTime)
+      setEndTime(endTime);
     }
-  }, [auction, auction?.uuid])
-  //console.log(end_time)
+  }, [auction, auction?.uuid]);
 
-  const currentDate = new Date()
+  const currentDate = new Date();
 
-  let AuctionBids = bids.filter(bid => bid.auction === auction?.uuid)
+  let AuctionBids = auction ? bids.filter(bid => bid.auction === auction.uuid) : [];
+  const highestBid = AuctionBids.length > 0 ? Math.max(...AuctionBids.map(bid => parseFloat(bid.amount)), 0) : 0;
 
-  const highestBid = Math.max(
-    ...AuctionBids.map(bid => parseFloat(bid.amount)),
-    0
-  )
+  const filteredImages = auction ? results.filter(image => image.auction === auction.uuid) : [];
 
-  //console.log(results)
-
-  // Assuming you have the API response stored in a variable called 'images'
-  const filteredImages = results.filter(image => image.auction === auction.uuid)
-
-  //console.log(filteredImages)
-  let AuctionVotes = votes.filter(vote => vote.auction === auction?.uuid)
-
-  //console.log(AuctionVotes)
-
-  let totalVotes = AuctionVotes.length
-  let sumVotes = AuctionVotes.reduce(
-    (total, vote) => total + vote.confidence_score,
-    0
-  )
-  let averageScore = totalVotes > 0 ? sumVotes / totalVotes : 0
-
-  //console.log(`Confidence score of ${averageScore}%`);
-  let formattedScore = averageScore.toFixed(2)
-  //console.log(`Confidence score of ${formattedScore}%`);
+  let AuctionVotes = auction ? votes.filter(vote => vote.auction === auction.uuid) : [];
+  let totalVotes = AuctionVotes.length;
+  let sumVotes = AuctionVotes.reduce((total, vote) => total + vote.confidence_score, 0);
+  let averageScore = totalVotes > 0 ? sumVotes / totalVotes : 0;
+  let formattedScore = averageScore.toFixed(2);
 
   return (
-    <>
-      <Card
-        orientation="vertical"
-        key={auction.name}
-        variant="elevation"
-        sx={{
-          gap: 2,
-          "--Card-padding": theme => theme.spacing(1)
-        }}
-      >
+    <Card
+      orientation="vertical"
+      key={auction?.name}
+      variant="elevation"
+      sx={{
+        gap: 2,
+        "--Card-padding": theme => theme.spacing(1)
+      }}
+    >
+      {auction && (
         <Link to={`/auctions/${auction.uuid}`}>
           <AspectRatio
             ratio="1.5"
@@ -125,9 +103,9 @@ function Ending({ uuid }) {
                     padding: "8px"
                   }}
                 >
-                  {currentDate > new Date(auction?.start_time) ? (
+                  {currentDate > new Date(auction.start_time) ? (
                     <>
-                      {end_time && currentDate < new Date(end_time) ? (
+                      {endTime && currentDate < new Date(endTime) ? (
                         <Typography
                           fontSize=""
                           borderRadius=""
@@ -141,7 +119,7 @@ function Ending({ uuid }) {
                             verticalAlign: "text-top"
                           })}
                         >
-                          <Timer endTime={end_time} update={update} />
+                          <Timer endTime={endTime} update={update} />
                         </Typography>
                       ) : (
                         <div
@@ -183,7 +161,7 @@ function Ending({ uuid }) {
                         })}
                       >
                         {`Auction Starts at ${new Date(
-                          auction?.start_time
+                          auction.start_time
                         ).toLocaleString()}`}
                       </Typography>
                     </div>
@@ -243,9 +221,11 @@ function Ending({ uuid }) {
             )}
           </AspectRatio>
         </Link>
+      )}
+      {auction && (
         <Box sx={{ whiteSpace: "nowrap", paddingLeft: 1 }}>
           <Typography fontWeight="xl">
-            {auction?.year} {auction?.make} {auction?.model}
+            {auction.year} {auction.make} {auction.model}
             <span style={{ marginLeft: "30px" }}>
               <InfoRounded sx={{ fontSize: 16, my: 0.5, mr: 0.1, mt: "1px" }} />{" "}
               local
@@ -271,9 +251,9 @@ function Ending({ uuid }) {
             </div>
           </Typography>
         </Box>
-      </Card>
-    </>
-  )
+      )}
+    </Card>
+  );
 }
 
-export default Ending
+export default Ending;

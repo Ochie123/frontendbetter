@@ -9,7 +9,7 @@ function useThatCategory() {
   // Find what we already know about this thing
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData("categories");
-  const partialCategory = data.categories.find((c) => c.id === id);
+  const partialCategory = data?.categories?.find((c) => c.id === id);
   const placeholderData = {
     ...partialCategory,
    

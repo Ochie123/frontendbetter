@@ -9,7 +9,7 @@ function useThatBid() {
   // Find what we already know about this thing
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData("bids");
-  const partialBid = data.bids.find((b) => b.id === id);
+  const partialBid = data?.bids?.find((b) => b.id === id);
   const placeholderData = {
     ...partialBid,
    

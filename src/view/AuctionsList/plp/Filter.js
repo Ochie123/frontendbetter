@@ -97,7 +97,7 @@ const Filter = function({
   }
   const { auction } = useThisAuction(uuid)
 
-  const { data } = useQuery("", loadAuctions);
+  const { data } = useQuery("auctions", loadAuctions);
   //console.log(data)
   
   const allResults = data
@@ -427,7 +427,7 @@ const Filter = function({
     const fetchAuctionChoices = async () => {
       try {
         const response = await axios.get(
-          "https://cars-bids.online/trader/api/auction-choices/"
+          "http://127.0.0.1:8000/trader/api/auction-choices/"
         )
         setAuctionChoices(response.data)
       } catch (error) {

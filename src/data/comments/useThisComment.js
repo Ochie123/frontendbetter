@@ -16,7 +16,7 @@ function useThisComment(id) {
 
   const seeComment = useCurrentComment((state) => state.seeComment);
   return {
-    result: data?.results.find((c) => c.id === id),
+    result: data?.results?.find((c) => c.id === id),
     seeComment: () => seeComment(id),
   };
 }

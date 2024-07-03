@@ -17,7 +17,7 @@ function useThisBid(id) {
 
   const seeBid = useCurrentBid((state) => state.seeBid);
   return {
-    result: data?.results.find((b) => b.id === id),
+    result: data?.results?.find((b) => b.id === id),
     seeBid: () => seeBid(id),
   };
 }

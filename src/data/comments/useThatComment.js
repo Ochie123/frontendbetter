@@ -9,7 +9,7 @@ function useThatComment() {
   // Find what we already know about this thing
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData("comments");
-  const partialComment = data.comments.find((c) => c.id === id);
+  const partialComment = data?.comments?.find((c) => c.id === id);
   const placeholderData = {
     ...partialComment,
     overview: "...",

@@ -9,7 +9,7 @@ function useThatAuction() {
   // Find what we already know about this thing
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData("auctions");
-  const partialAuction = data.results.find((a) => a.id === id);
+  const partialAuction = data?.results?.find((a) => a.id === id);
   const placeholderData = {
     ...partialAuction,
     overview: "...",

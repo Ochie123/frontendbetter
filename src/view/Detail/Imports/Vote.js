@@ -72,7 +72,7 @@ const VoteComponent = () => {
     const token = localStorage.getItem('token');
 
     axios
-      .post('https://cars-bids.online/api/votes/', formData, {
+      .post('http://127.0.0.1:8000/api/votes/', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',

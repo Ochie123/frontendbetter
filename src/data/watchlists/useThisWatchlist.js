@@ -17,7 +17,7 @@ function useThisWatchlist(id) {
 
   const seeWatchlist = useCurrentWatchlist((state) => state.seeWatchlist);
   return {
-    result: data?.results.find((w) => w.id === id),
+    result: data?.results?.find((w) => w.id === id),
     seeWatchlist: () => seeWatchlist(id),
   };
 }
